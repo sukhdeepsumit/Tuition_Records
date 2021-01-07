@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
+        <activity android:name=".TeacherActivity.SignUpActivity"></activity>
+        <activity android:name=".TeacherActivity.LogInTeacherActivity" />
+        <activity android:name=".StudentActivity.LogInStudentActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
