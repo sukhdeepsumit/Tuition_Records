@@ -76,18 +76,21 @@
             android:layout_marginStart="58dp"/>
 
         <RadioGroup
+            android:id="@+id/gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center">
 
             <RadioButton
+                android:id="@+id/male"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:text="Male"/>
 
             <RadioButton
+                android:id="@+id/female"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Female" />
@@ -189,9 +192,17 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/description_text"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="120dp"
                 android:hint="Say about yourself in 1-2 lines"
-                android:inputType="textEmailAddress"
+                android:inputType="textMultiLine"
+                android:gravity="top|start"
+                android:overScrollMode="always"
+                android:scrollHorizontally="false"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideInset"
+                android:imeOptions="flagNoExtractUi"
+                android:ems="10"
+                android:maxLines="5"
                 android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -216,7 +227,6 @@
             android:id="@+id/progressBar"
             android:layout_gravity="center"
             android:visibility="invisible"
-
             android:layout_marginBottom="4dp"
             />
 

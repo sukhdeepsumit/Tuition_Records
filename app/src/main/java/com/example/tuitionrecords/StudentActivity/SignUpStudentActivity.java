@@ -17,6 +17,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Scroller;
 import android.widget.Toast;
 
 import com.example.tuitionrecords.R;
@@ -47,17 +50,13 @@ public class SignUpStudentActivity extends AppCompatActivity {
     ProgressBar progressBar;
     CircleImageView dp;
     Uri uri;
+    RadioGroup mGender;
 
     StorageReference mStorage;
-
     DatabaseReference db=FirebaseDatabase.getInstance().getReference("Students_Profile");
-
 
     private static final int GALLERY=5;
     Bitmap bitmap;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,104 +67,96 @@ public class SignUpStudentActivity extends AppCompatActivity {
         mContact=findViewById(R.id.phone_text);
         mPwd=findViewById(R.id.signUpPassword);
         mCnfPwd=findViewById(R.id.confirmPassword);
-        mStandard=findViewById(R.id.standard);
+        mStandard=findViewById(R.id.classes_text);
         mCity=findViewById(R.id.city_text);
-        mState=findViewById(R.id.classes_text);
+        mState=findViewById(R.id.state_text);
         mDescription=findViewById(R.id.description_text);
         progressBar=findViewById(R.id.progressBar);
         mAuth=FirebaseAuth.getInstance();
         signUpStudentBtn=findViewById(R.id.signUpButton);
         dp=findViewById(R.id.dpUpload);
+
         mStorage=FirebaseStorage.getInstance().getReference();
 
+        mGender = findViewById(R.id.gender);
+
+        mDescription.setScroller(new Scroller(getApplicationContext()));
+        mDescription.setVerticalScrollBarEnabled(true);
 
 
-
-
-        dp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-
-                startActivityForResult(intent,GALLERY);
-
-
-            }
+        dp.setOnClickListener(v -> {
+            Intent intent=new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            startActivityForResult(intent,GALLERY);
         });
 
 
-        signUpStudentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        signUpStudentBtn.setOnClickListener(v -> {
 
-                hideKeybaord(v);
+            progressBar.requestFocus();
+            hideKeybaord(v);
 
-                final  String myEmail=mEmail.getText().toString().trim();
-                final String mobNum=mContact.getText().toString().trim();
+            final  String myEmail=mEmail.getText().toString().trim();
+            final String mobNum=mContact.getText().toString().trim();
 
-                final String password= mPwd.getText().toString().trim();
-                final String cnfPassword=mCnfPwd.getText().toString().trim();
+            final String password= mPwd.getText().toString().trim();
+            final String cnfPassword=mCnfPwd.getText().toString().trim();
 
-                if(TextUtils.isEmpty(myEmail))
-                {
-                    mEmail.setError("Enter email !");
-                    mEmail.requestFocus();
-                }
+            if(TextUtils.isEmpty(myEmail))
+            {
+                mEmail.setError("Enter email !");
+                mEmail.requestFocus();
+            }
 
-                else if(TextUtils.isEmpty(mobNum))
-                {
-                    mContact.setError("Enter contact !");
-                    mContact.requestFocus();
-                }
-                else if(!checkContact(mobNum))
-                {
-                    mContact.setError("Your contact is invalid");
-                    mContact.requestFocus();
-                }
+            else if(TextUtils.isEmpty(mobNum))
+            {
+                mContact.setError("Enter contact !");
+                mContact.requestFocus();
+            }
+            else if(!checkContact(mobNum))
+            {
+                mContact.setError("Your contact is invalid");
+                mContact.requestFocus();
+            }
 
-                else if(TextUtils.isEmpty(password) )
-                {
-                    mPwd.setError("Enter password !");
-                    mPwd.requestFocus();
-                }
-                else if(password.length()<=6)
-                {
-                    mPwd.setError("Password length too short");
-                    mPwd.requestFocus();
-                }
-                else if(TextUtils.isEmpty(cnfPassword) )
-                {
-                    mCnfPwd.setError("Enter password again !");
-                    mCnfPwd.requestFocus();
-                }
-                else if(!password.equals(cnfPassword))
-                {
-                    mCnfPwd.setError("Incorrect password! ");
-                    mCnfPwd.requestFocus();
-                }
-                else {
-                    progressBar.setVisibility(View.VISIBLE);
+            else if(TextUtils.isEmpty(password) )
+            {
+                mPwd.setError("Enter password !");
+                mPwd.requestFocus();
+            }
+            else if(password.length()<=6)
+            {
+                mPwd.setError("Password length too short");
+                mPwd.requestFocus();
+            }
+            else if(TextUtils.isEmpty(cnfPassword) )
+            {
+                mCnfPwd.setError("Enter password again !");
+                mCnfPwd.requestFocus();
+            }
+            else if(!password.equals(cnfPassword))
+            {
+                mCnfPwd.setError("Incorrect password! ");
+                mCnfPwd.requestFocus();
+            }
+            else {
+                progressBar.setVisibility(View.VISIBLE);
 
-                    mAuth.createUserWithEmailAndPassword(myEmail, password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Log.i("TAG", "createUserWithEmail:success");
-                                        Toast.makeText(SignUpStudentActivity.this, "Registration Success", Toast.LENGTH_SHORT).show();
-                                        saveStudentProfileDetails();
-                                        startActivity(new Intent(SignUpStudentActivity.this, LogInStudentActivity.class));
-                                    }
-                                    else {
-                                        // If sign in fails, display a message to the user.
-                                        Toast.makeText(SignUpStudentActivity.this, "Failure" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                    progressBar.setVisibility(View.GONE);
-                                }
-                            });
-                }
+                mAuth.createUserWithEmailAndPassword(myEmail, password)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.i("TAG", "createUserWithEmail:success");
+                                Toast.makeText(SignUpStudentActivity.this, "Registration Success", Toast.LENGTH_SHORT).show();
+                                saveStudentProfileDetails();
+                                startActivity(new Intent(SignUpStudentActivity.this, LogInStudentActivity.class));
+                            }
+                            else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(SignUpStudentActivity.this, "Failure" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                            progressBar.setVisibility(View.GONE);
+                        });
             }
         });
     }
@@ -176,75 +167,36 @@ public class SignUpStudentActivity extends AppCompatActivity {
         String name=mName.getText().toString();
         String  email=mEmail.getText().toString();
         String contact=mContact.getText().toString() ;
+        String gender=((RadioButton)findViewById(mGender.getCheckedRadioButtonId())).getText().toString();
         String standard=mStandard.getText().toString();
         String city=mCity.getText().toString();
         String state=mState.getText().toString();
         String description=mDescription.getText().toString();
 
 
-        StorageReference uploader=mStorage.child("Photos/"+uri.getLastPathSegment()+".png");
+        StorageReference uploader=mStorage.child("Photos/"+uri.getLastPathSegment());
 
-        uploader.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                uploader.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-
-
-                        StudentModel sm =new StudentModel(name,email,contact,standard,city,state,description);
+        uploader.putFile(uri).addOnSuccessListener(taskSnapshot -> uploader.getDownloadUrl()
+                .addOnSuccessListener(uri -> {
+                        String url = uri.toString();
+                        StudentModel sm =new StudentModel(name,email,gender,contact,standard,city,state,description, url);
 
                         String user= Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-                        db.child(user).setValue(sm).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        db.child(user).setValue(sm)
+                                .addOnCompleteListener(task -> Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show());
 
-                    }
-                });
+                }))
+                .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error occurred", Toast.LENGTH_SHORT).show());
+     }
 
-
-            }
-
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Error occured", Toast.LENGTH_SHORT).show();
-
-
-            }
-        });
-
-
-    }
 //To put the chosen image in imgView
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         if(requestCode==GALLERY && resultCode==RESULT_OK)
         {
-      uri=data.getData();
-
-//            dp.setImageURI(uri);
-//
-//            StorageReference fileName=mStorage.child("Photos/"+uri.getLastPathSegment()+".png");
-//            fileName.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                @Override
-//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    Toast.makeText(SignUpStudentActivity.this,"Upload Successful",Toast.LENGTH_SHORT).show();
-//                    progressDialog.dismiss();
-//
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(SignUpStudentActivity.this,"Upload Failed",Toast.LENGTH_SHORT).show();
-//
-//                }
-//            });
+            assert data != null;
+            uri=data.getData();
             try {
                 InputStream inputStream=getContentResolver().openInputStream(uri);
                 bitmap= BitmapFactory.decodeStream(inputStream);

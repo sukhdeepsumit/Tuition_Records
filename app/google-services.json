@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1009861211400",
+    "project_id": "tuition-records-52e77",
+    "storage_bucket": "tuition-records-52e77.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009861211400:android:af240b838dcd95ca6a28bd",
+        "android_client_info": {
+          "package_name": "com.example.tuitionrecords"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009861211400-kp6p4hrbopjcg40d1liefkirub13l253.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5VkkbTce9JjlAq1wl5EUBlRHLGbcye_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009861211400-kp6p4hrbopjcg40d1liefkirub13l253.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

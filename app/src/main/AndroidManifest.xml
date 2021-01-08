@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".StudentActivity.SignUpStudentActivity"></activity>
-        <activity android:name=".TeacherActivity.SignUpActivity" />
+        <activity android:name=".TeacherActivity.MessageRequests"></activity>
+        <activity android:name=".StudentActivity.ShowStudentActivity" />
+        <activity android:name=".TeacherActivity.ShowTeacherActivity" />
+        <activity android:name=".StudentActivity.SignUpStudentActivity" />
+        <activity android:name=".TeacherActivity.SignUpTeacherActivity" />
         <activity android:name=".TeacherActivity.LogInTeacherActivity" />
         <activity android:name=".StudentActivity.LogInStudentActivity" />
         <activity android:name=".MainActivity">
@@ -21,5 +24,9 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>
