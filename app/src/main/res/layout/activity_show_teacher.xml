@@ -29,61 +29,73 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <RelativeLayout
-        android:layout_width="180dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/layout_bg"
-        android:elevation="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:layout_editor_absoluteX="16dp">
 
-        <ImageView
-            android:id="@+id/my_students_icon"
-            android:layout_width="162dp"
-            android:layout_height="105dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/students" />
+        <RelativeLayout
+            android:layout_width="180dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            android:background="@drawable/layout_bg"
+            android:elevation="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/my_students_icon"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="43dp"
-            android:text="My Students" />
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/my_students_icon"
+                android:layout_width="162dp"
+                android:layout_height="105dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/students" />
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="180dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/layout_bg"
-        android:elevation="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/my_students_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="43dp"
+                android:text="My Students" />
+        </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/my_fee_status"
-            android:layout_width="126dp"
-            android:layout_height="105dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/fees" />
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="180dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/layout_bg"
+            android:elevation="25dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/my_fee_status"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="45dp"
-            android:layout_marginEnd="51dp"
-            android:text="My Fee Status" />
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/my_fee_status"
+                android:layout_width="126dp"
+                android:layout_height="105dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/fees" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/my_fee_status"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="45dp"
+                android:layout_marginEnd="51dp"
+                android:text="My Fee Status" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
