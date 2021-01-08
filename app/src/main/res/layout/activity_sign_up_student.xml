@@ -13,11 +13,12 @@
         tools:context=".StudentActivity.SignUpStudentActivity">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/dpUpload"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="25dp"
-            android:src="@drawable/add_photo" />
+            android:src="@drawable/ic_add_a_photo" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
