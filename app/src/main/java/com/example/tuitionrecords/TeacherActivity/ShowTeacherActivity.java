@@ -3,6 +3,7 @@ package com.example.tuitionrecords.TeacherActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
@@ -20,5 +21,7 @@ public class ShowTeacherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_teacher);
 
         message = findViewById(R.id.message_requests);
+
+        message.setOnClickListener(view -> startActivity(new Intent(ShowTeacherActivity.this, RequestActivity.class)));
     }
 }
