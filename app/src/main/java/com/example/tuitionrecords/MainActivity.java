@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import com.example.tuitionrecords.StudentActivity.LogInStudentActivity;
 import com.example.tuitionrecords.TeacherActivity.LogInTeacherActivity;
 
-// Commit ho rha hai check
+// Commit check check
 public class MainActivity extends AppCompatActivity {
 
     RelativeLayout teacher, student;
