@@ -42,6 +42,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+//kjsvafrilq
 
 public class SignUpStudentActivity extends AppCompatActivity {
     Button signUpStudentBtn;
