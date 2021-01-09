@@ -85,11 +85,8 @@ public class LogInStudentActivity extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Logged in",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LogInStudentActivity.this,ShowStudentActivity.class));
                     progressBar.setVisibility(View.GONE);
-
-
-
-
                 }
             }
         });

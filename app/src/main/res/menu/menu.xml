@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/ic_myaccount"
+        android:id="@+id/myAccount"
+        android:title="My Profile"
+
+        />
+    <item
+        android:icon="@drawable/ic_schedule"
+        android:id="@+id/schedule"
+        android:title="Schedule"/>
+    <item
+        android:icon="@drawable/ic_contactus"
+        android:id="@+id/contactus"
+        android:title="Contact Us"/>
+    <item
+        android:icon="@drawable/ic_howto"
+        android:id="@+id/howto"
+        android:title="How to use Tuition Records"/>
+    <item
+        android:icon="@drawable/ic_logout"
+        android:id="@+id/logout"
+        android:title="Log Out"/>
+
+
+</menu>
