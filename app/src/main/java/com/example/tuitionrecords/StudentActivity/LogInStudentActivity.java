@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.TeacherActivity.LogInTeacherActivity;
+import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -31,6 +33,9 @@ public class LogInStudentActivity extends AppCompatActivity {
     private FirebaseAuth myAuth;
     ProgressBar progressBar;
 
+    public static SharedPreferences sharedPreferences;
+    int AUTO_SAVE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,18 +47,18 @@ public class LogInStudentActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progressBar);
         myAuth=FirebaseAuth.getInstance();
 
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LogInStudentActivity.this,SignUpStudentActivity.class));
-            }
-        });
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hideKeybaord(v);
-                logInWithFirebase();
-            }
+        sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
+        int pref = sharedPreferences.getInt("key", 0);
+
+        if (pref > 0) {
+            startActivity(new Intent(LogInStudentActivity.this, ShowStudentActivity.class));
+        }
+
+        signUp.setOnClickListener(v -> startActivity(new Intent(LogInStudentActivity.this,SignUpStudentActivity.class)));
+
+        login.setOnClickListener(v -> {
+            hideKeybaord(v);
+            logInWithFirebase();
         });
 
     }
@@ -101,4 +106,11 @@ public class LogInStudentActivity extends AppCompatActivity {
                 .show();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }

@@ -34,9 +34,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-//kjsvafrilq
-//commit
-//fbvjlbdwqivaq
 
 public class SignUpStudentActivity extends AppCompatActivity {
     Button signUpStudentBtn;
@@ -216,5 +213,10 @@ public class SignUpStudentActivity extends AppCompatActivity {
     private void hideKeybaord(View v) {
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(SignUpStudentActivity.this, LogInStudentActivity.class));
     }
 }

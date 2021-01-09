@@ -8,29 +8,50 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.StudentActivity.LogInStudentActivity;
 import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class ShowTeacherActivity extends AppCompatActivity {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class ShowTeacherActivity extends AppCompatActivity /*implements NavigationView.OnNavigationItemSelectedListener*/ {
     ImageView message;
     NavigationView nav;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
 
+    FirebaseUser firebaseUser;
+    DatabaseReference ref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_teacher);
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        ref = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(firebaseUser.getUid());
+        Log.i("CURRENT_USER", firebaseUser.getUid());
 
         message = findViewById(R.id.message_requests);
         Toolbar toolbar=findViewById(R.id.toolbar);
@@ -44,47 +65,84 @@ public class ShowTeacherActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        nav.setNavigationItemSelectedListener(item -> {
 
-                switch (item.getItemId())
+            switch (item.getItemId())
+            {
+                case R.id.myAccount :
                 {
-                    case R.id.myAccount :
-                    {
-                        Toast.makeText(getApplicationContext(), "My Account opened", Toast.LENGTH_SHORT).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    }
-                    case R.id.schedule :
-                    {
-                        Toast.makeText(getApplicationContext(), "Time table opened", Toast.LENGTH_SHORT).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    }
-                    case R.id.contactus :
-                    {
-                        Toast.makeText(getApplicationContext(), "Contact us opened", Toast.LENGTH_SHORT).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    }
-                    case  R.id.howto:
-                    {
-                        Toast.makeText(getApplicationContext(), "How to use opened", Toast.LENGTH_SHORT).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    }
-                    case R.id.logout:
-                    {
-                        Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ShowTeacherActivity.this, LogInTeacherActivity.class));
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    }
+                    Toast.makeText(getApplicationContext(), "My Account opened", Toast.LENGTH_SHORT).show();
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
                 }
-
-                return true;
+                case R.id.schedule :
+                {
+                    Toast.makeText(getApplicationContext(), "Time table opened", Toast.LENGTH_SHORT).show();
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
+                }
+                case R.id.contactus :
+                {
+                    Toast.makeText(getApplicationContext(), "Contact us opened", Toast.LENGTH_SHORT).show();
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
+                }
+                case  R.id.howto:
+                {
+                    Toast.makeText(getApplicationContext(), "How to use opened", Toast.LENGTH_SHORT).show();
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
+                }
+                case R.id.logout:
+                {
+                    FirebaseAuth.getInstance().signOut();
+                    Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
+                    
+                    SharedPreferences.Editor editor = LogInTeacherActivity.sharedPreferences.edit();
+                    editor.putInt("key", 0);
+                    editor.apply();
+                    
+                    startActivity(new Intent(ShowTeacherActivity.this, LogInTeacherActivity.class));
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
+                }
             }
+
+            return true;
         });
+
+        navigationHeaderDetails();
+    }
+
+    private void navigationHeaderDetails() {
+        View headerView = nav.getHeaderView(0);
+        TextView name = headerView.findViewById(R.id.nav_name);
+        TextView email = headerView.findViewById(R.id.nav_email);
+        CircleImageView imageView = headerView.findViewById(R.id.nav_photo);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                TeacherModel teacherModel = snapshot.getValue(TeacherModel.class);
+                assert teacherModel != null;
+                name.setText(teacherModel.getName());
+                email.setText(teacherModel.getEmail());
+                Glide.with(getApplicationContext()).load(teacherModel.getMyUri()).into(imageView);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 }

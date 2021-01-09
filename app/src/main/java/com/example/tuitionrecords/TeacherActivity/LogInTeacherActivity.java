@@ -30,7 +30,7 @@ public class LogInTeacherActivity extends AppCompatActivity {
 
     FirebaseAuth myAuth;
 
-    SharedPreferences sharedPreferences;
+    public static SharedPreferences sharedPreferences;
     int AUTO_SAVE;
 
     @Override
@@ -113,5 +113,13 @@ public class LogInTeacherActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.ok, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

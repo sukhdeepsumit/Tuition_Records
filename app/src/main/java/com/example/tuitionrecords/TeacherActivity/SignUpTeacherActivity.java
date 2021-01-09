@@ -241,4 +241,9 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(SignUpTeacherActivity.this, LogInTeacherActivity.class));
+    }
 }
