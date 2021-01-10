@@ -26,6 +26,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.tuitionrecords.Contact_us;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.StudentActivity.LogInStudentActivity;
 import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
@@ -80,6 +81,7 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
             {
                 case R.id.myAccount :
                 {
+                    startActivity(new Intent(ShowTeacherActivity.this,TeacherAccountInfo.class));
                     Toast.makeText(getApplicationContext(), "My Account opened", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
@@ -92,6 +94,7 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
                 }
                 case R.id.contactus :
                 {
+                    startActivity(new Intent(ShowTeacherActivity.this, Contact_us.class));
                     Toast.makeText(getApplicationContext(), "Contact us opened", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;

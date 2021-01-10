@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tuitionrecords">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".TeacherActivity.RequestActivity"></activity>
+        <activity android:name=".Contact_us"></activity>
+        <activity android:name=".StudentActivity.StudentAccountInfo" />
+        <activity android:name=".TeacherActivity.TeacherAccountInfo" />
+        <activity android:name=".TeacherActivity.RequestActivity" />
         <activity android:name=".TeacherActivity.MessageRequests" />
         <activity android:name=".StudentActivity.ShowStudentActivity" />
         <activity android:name=".TeacherActivity.ShowTeacherActivity" />
@@ -25,9 +32,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
