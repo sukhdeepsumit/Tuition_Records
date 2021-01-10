@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tuitionrecords.MainActivity;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.TeacherActivity.LogInTeacherActivity;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
@@ -89,6 +90,11 @@ public class LogInStudentActivity extends AppCompatActivity {
                     Log.i("FINDCODE", "Message : " + task.getException());
                 }
                 else {
+                    AUTO_SAVE = 1;
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt("key", AUTO_SAVE);
+                    editor.apply();
+
                     Toast.makeText(getApplicationContext(),"Logged in",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LogInStudentActivity.this,ShowStudentActivity.class));
                     progressBar.setVisibility(View.GONE);
@@ -108,9 +114,8 @@ public class LogInStudentActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = new Intent(LogInStudentActivity.this, MainActivity.class);
+        finish();
         startActivity(intent);
     }
 }

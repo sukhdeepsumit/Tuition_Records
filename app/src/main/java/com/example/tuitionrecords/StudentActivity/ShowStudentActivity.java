@@ -46,7 +46,6 @@ public class ShowStudentActivity extends AppCompatActivity {
     ActionBarDrawerToggle toggle;
     ProgressBar progressBar;
 
-    FirebaseAuth myAuth;
     FirebaseUser firebaseUser;
     DatabaseReference ref;
 
