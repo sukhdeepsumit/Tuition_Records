@@ -13,7 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".Contact_us"></activity>
+        <activity android:name=".Contact_us">
+            <intent-filter>
+                <action android:name="android.intent.action.SENDTO" />
+                <data android:scheme="mailto" />
+            </intent-filter>
+        </activity>
         <activity android:name=".StudentActivity.StudentAccountInfo" />
         <activity android:name=".TeacherActivity.TeacherAccountInfo" />
         <activity android:name=".TeacherActivity.RequestActivity" />
