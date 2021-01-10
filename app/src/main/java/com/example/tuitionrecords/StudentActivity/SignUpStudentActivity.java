@@ -54,6 +54,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_student);
+        
         mName=findViewById(R.id.name_text);
         mEmail=findViewById(R.id.email_text);
         mContact=findViewById(R.id.phone_text);

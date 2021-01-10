@@ -120,7 +120,7 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
         TextView email = headerView.findViewById(R.id.nav_email);
         CircleImageView imageView = headerView.findViewById(R.id.nav_photo);
 
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 TeacherModel teacherModel = snapshot.getValue(TeacherModel.class);
@@ -142,7 +142,10 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
             drawerLayout.closeDrawer(GravityCompat.START);
         }
         else {
-            super.onBackPressed();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 }
