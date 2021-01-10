@@ -1,6 +1,7 @@
 package com.example.tuitionrecords.StudentActivity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,14 +10,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.TeacherActivity.TeacherModel;
 import com.google.android.material.navigation.NavigationView;
@@ -37,6 +44,7 @@ public class ShowStudentActivity extends AppCompatActivity {
     NavigationView nav;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
+    ProgressBar progressBar;
 
     FirebaseAuth myAuth;
     FirebaseUser firebaseUser;
@@ -46,6 +54,8 @@ public class ShowStudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_student);
+
+        progressBar=findViewById(R.id.progressBar);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         ref = FirebaseDatabase.getInstance().getReference().child("Students_Profile").child(firebaseUser.getUid());
@@ -91,7 +101,7 @@ public class ShowStudentActivity extends AppCompatActivity {
                 }
                 case R.id.logout:
                 {
-                    myAuth.signOut();
+                    FirebaseAuth.getInstance().signOut();
                     Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
 
                     SharedPreferences.Editor editor = LogInStudentActivity.sharedPreferences.edit();
@@ -110,19 +120,33 @@ public class ShowStudentActivity extends AppCompatActivity {
     }
 
     private void navigationHeaderDetails() {
+        progressBar.setVisibility(View.VISIBLE);
         View headerView = nav.getHeaderView(0);
         TextView name = headerView.findViewById(R.id.nav_name);
         TextView email = headerView.findViewById(R.id.nav_email);
         CircleImageView imageView = headerView.findViewById(R.id.nav_photo);
 
-       ref.addValueEventListener(new ValueEventListener() {
+       ref.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                StudentModel studentModel = snapshot.getValue(StudentModel.class);
                assert studentModel != null;
                name.setText(studentModel.getName());
                email.setText(studentModel.getMyEmail());
-               Glide.with(getApplicationContext()).load(studentModel.getMyUri()).into(imageView);
+               Glide.with(getApplicationContext()).load(studentModel.getMyUri()).listener(new RequestListener<Drawable>() {
+                   @Override
+                   public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                       progressBar.setVisibility(View.GONE);
+                       return false;
+                   }
+
+                   @Override
+                   public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                       progressBar.setVisibility(View.GONE);
+                       return false;
+                   }
+               }).into(imageView);
            }
 
            @Override
