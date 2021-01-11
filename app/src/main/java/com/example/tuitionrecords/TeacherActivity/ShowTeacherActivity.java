@@ -50,6 +50,8 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+//commit check
+
 public class ShowTeacherActivity extends AppCompatActivity /*implements NavigationView.OnNavigationItemSelectedListener*/ {
     ImageView message;
     NavigationView nav;
@@ -61,8 +63,6 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
     FirebaseUser firebaseUser;
     DatabaseReference ref;
     ProgressBar progressBar;
-
-    SharedPreferences sharedPreferences;
 
     RelativeLayout checkInternet;
     ImageView close;
@@ -131,9 +131,7 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
                     FirebaseAuth.getInstance().signOut();
                     Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
                     
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("key", 0);
-                    editor.apply();
+                    getSharedPreferences("autoLogin", MODE_PRIVATE).edit().putInt("key", 0).apply();
                     
                     startActivity(new Intent(ShowTeacherActivity.this, LogInTeacherActivity.class));
                     drawerLayout.closeDrawer(GravityCompat.START);
