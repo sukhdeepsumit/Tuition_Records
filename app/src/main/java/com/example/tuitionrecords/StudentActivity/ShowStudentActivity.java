@@ -5,17 +5,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,18 +55,35 @@ public class ShowStudentActivity extends AppCompatActivity {
     ActionBarDrawerToggle toggle;
     ProgressBar progressBar;
 
+    FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     DatabaseReference ref;
+
+    ConstraintLayout layout;
+
+    RelativeLayout checkInternet;
+    ImageView close;
+
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_student);
 
+        layout = findViewById(R.id.layout_full);
+
+        checkInternet = findViewById(R.id.check_internet);
+        close = findViewById(R.id.close);
+
+        checkInternet();
+
         progressBar=findViewById(R.id.progressBar);
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        ref = FirebaseDatabase.getInstance().getReference().child("Students_Profile").child(firebaseUser.getUid());
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        String userId = firebaseUser.getUid();
+        ref = FirebaseDatabase.getInstance().getReference().child("Students_Profile").child(userId);
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -107,7 +131,7 @@ public class ShowStudentActivity extends AppCompatActivity {
                     FirebaseAuth.getInstance().signOut();
                     Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
 
-                    SharedPreferences.Editor editor = LogInStudentActivity.sharedPreferences.edit();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("key", 0);
                     editor.apply();
 
@@ -168,5 +192,34 @@ public class ShowStudentActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+    }
+
+    public void checkInternet()
+    {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                ConnectivityManager cm =
+                        (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+                if(!isConnected)
+                {
+                    layout.setVisibility(View.GONE);
+                    showInternetWarning();
+                }
+                else {
+                    layout.setVisibility(View.VISIBLE);
+                }
+                handler.postDelayed(this,3000);
+            }
+        });
+    }
+    public void showInternetWarning() {
+        checkInternet.setVisibility(View.VISIBLE);
+        close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
     }
 }

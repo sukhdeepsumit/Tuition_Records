@@ -5,19 +5,25 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +33,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.tuitionrecords.Contact_us;
+import com.example.tuitionrecords.MainActivity;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.StudentActivity.LogInStudentActivity;
 import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
@@ -49,16 +56,30 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
 
+    ConstraintLayout layout;
+
     FirebaseUser firebaseUser;
     DatabaseReference ref;
     ProgressBar progressBar;
+
+    SharedPreferences sharedPreferences;
+
+    RelativeLayout checkInternet;
+    ImageView close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_teacher);
-        progressBar=findViewById(R.id.progressBar);
 
+        checkInternet = findViewById(R.id.check_internet);
+        close = findViewById(R.id.close);
+
+        layout = findViewById(R.id.full_layout);
+
+        checkInternet();
+
+        progressBar=findViewById(R.id.progressBar);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         ref = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(firebaseUser.getUid());
         Log.i("CURRENT_USER", firebaseUser.getUid());
@@ -110,7 +131,7 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
                     FirebaseAuth.getInstance().signOut();
                     Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
                     
-                    SharedPreferences.Editor editor = LogInTeacherActivity.sharedPreferences.edit();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("key", 0);
                     editor.apply();
                     
@@ -172,5 +193,34 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+    }
+
+    public void checkInternet()
+    {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                ConnectivityManager cm =
+                        (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+                if(!isConnected)
+                {
+                    layout.setVisibility(View.GONE);
+                    showInternetWarning();
+                }
+                else {
+                    layout.setVisibility(View.VISIBLE);
+                }
+                handler.postDelayed(this,3000);
+            }
+        });
+    }
+    public void showInternetWarning() {
+        checkInternet.setVisibility(View.VISIBLE);
+        close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
     }
 }

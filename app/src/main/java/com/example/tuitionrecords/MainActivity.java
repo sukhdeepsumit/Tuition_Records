@@ -12,6 +12,8 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.tuitionrecords.StudentActivity.LogInStudentActivity;
@@ -20,10 +22,8 @@ import com.example.tuitionrecords.TeacherActivity.LogInTeacherActivity;
 // Commit check check check check mkc
 public class MainActivity extends AppCompatActivity {
 
-    RelativeLayout teacher, student;
-
-
-
+    RelativeLayout teacher, student, checkInternet;
+    ImageView close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
         teacher = findViewById(R.id.teacher_layout);
         student = findViewById(R.id.student_layout);
+        checkInternet = findViewById(R.id.check_internet);
+
+        close = findViewById(R.id.close);
 
         teacher.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, LogInTeacherActivity.class)));
 
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void checkInternet()
+    public void checkInternet()
     {
         final Handler handler = new Handler();
         handler.post(new Runnable() {
@@ -55,25 +58,16 @@ public class MainActivity extends AppCompatActivity {
                         activeNetwork.isConnectedOrConnecting();
                 if(!isConnected)
                 {
-                    showAlertDialog();
+                    showInternetWarning();
 
                 }
                 handler.postDelayed(this,3000);
             }
         });
     }
-    private void showAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Error");
-        builder.setMessage("No Network Connection").setCancelable(false)
-                .setIcon(R.drawable.error)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+    public void showInternetWarning() {
+        checkInternet.setVisibility(View.VISIBLE);
+        close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
     }
 
 }

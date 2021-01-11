@@ -8,6 +8,8 @@
     android:background="#FFF"
     tools:context=".MainActivity">
 
+    <include layout="@layout/connectivity_layout" />
+
     <RelativeLayout
         android:id="@+id/teacher_layout"
         android:layout_width="match_parent"
