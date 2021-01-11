@@ -7,6 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".TeacherActivity.LogInTeacherActivity">
 
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        layout="@layout/connectivity_layout" />
+
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
