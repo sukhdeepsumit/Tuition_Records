@@ -34,6 +34,7 @@ import com.bumptech.glide.request.target.Target;
 import com.example.tuitionrecords.Contact_us;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.TeacherActivity.TeacherModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -64,6 +65,8 @@ public class ShowStudentActivity extends AppCompatActivity {
     RelativeLayout checkInternet;
     ImageView close;
 
+    FloatingActionButton add;
+
     SharedPreferences sharedPreferences;
 
     @Override
@@ -72,6 +75,13 @@ public class ShowStudentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_student);
 
         layout = findViewById(R.id.layout_full);
+        add=findViewById(R.id.add);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShowStudentActivity.this,SendRequest.class));
+            }
+        });
 
         checkInternet = findViewById(R.id.check_internet);
         close = findViewById(R.id.close);
