@@ -49,7 +49,7 @@ public class LogInStudentActivity extends AppCompatActivity {
         myAuth=FirebaseAuth.getInstance();
 
         sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
-        int pref = sharedPreferences.getInt("key", 0);
+        int pref = sharedPreferences.getInt("key_student", 0);
 
         if (pref > 0) {
             startActivity(new Intent(LogInStudentActivity.this, ShowStudentActivity.class));
@@ -92,7 +92,7 @@ public class LogInStudentActivity extends AppCompatActivity {
                 else {
                     AUTO_SAVE = 1;
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("key", AUTO_SAVE);
+                    editor.putInt("key_student", AUTO_SAVE);
                     editor.apply();
 
                     Toast.makeText(getApplicationContext(),"Logged in",Toast.LENGTH_SHORT).show();

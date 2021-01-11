@@ -17,6 +17,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -60,8 +61,10 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
 
     ConstraintLayout layout;
 
+    FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     DatabaseReference ref;
+
     ProgressBar progressBar;
 
     RelativeLayout checkInternet;
@@ -80,7 +83,9 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
         checkInternet();
 
         progressBar=findViewById(R.id.progressBar);
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
         ref = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(firebaseUser.getUid());
         Log.i("CURRENT_USER", firebaseUser.getUid());
 
@@ -129,10 +134,12 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
                 case R.id.logout:
                 {
                     FirebaseAuth.getInstance().signOut();
-                    Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
-                    
-                    getSharedPreferences("autoLogin", MODE_PRIVATE).edit().putInt("key", 0).apply();
-                    
+                    SharedPreferences.Editor editor = LogInTeacherActivity.sharedPreferences.edit();
+                    editor.putInt("key_teacher", 0);
+                    editor.apply();
+
+                    Toast.makeText(this, "User Logged Out", Toast.LENGTH_SHORT).show();
+
                     startActivity(new Intent(ShowTeacherActivity.this, LogInTeacherActivity.class));
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
@@ -220,5 +227,15 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
     public void showInternetWarning() {
         checkInternet.setVisibility(View.VISIBLE);
         close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (firebaseAuth == null) {
+            startActivity(new Intent(ShowTeacherActivity.this, LogInTeacherActivity.class));
+            finish();
+        }
     }
 }

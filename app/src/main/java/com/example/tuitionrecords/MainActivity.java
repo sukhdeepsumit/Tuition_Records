@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 
 import com.example.tuitionrecords.StudentActivity.LogInStudentActivity;
 import com.example.tuitionrecords.TeacherActivity.LogInTeacherActivity;
+import com.example.tuitionrecords.TeacherActivity.SignUpTeacherActivity;
 
 // Commit check check check check mkc
 public class MainActivity extends AppCompatActivity {

@@ -131,8 +131,8 @@ public class ShowStudentActivity extends AppCompatActivity {
                     FirebaseAuth.getInstance().signOut();
                     Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("key", 0);
+                    SharedPreferences.Editor editor = LogInStudentActivity.sharedPreferences.edit();
+                    editor.putInt("key_student", 0);
                     editor.apply();
 
                     startActivity(new Intent(ShowStudentActivity.this,LogInStudentActivity.class));
@@ -221,5 +221,14 @@ public class ShowStudentActivity extends AppCompatActivity {
     public void showInternetWarning() {
         checkInternet.setVisibility(View.VISIBLE);
         close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (firebaseAuth == null) {
+            startActivity(new Intent(ShowStudentActivity.this, LogInStudentActivity.class));
+        }
     }
 }
