@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.tuitionrecords.MainActivity;
 import com.example.tuitionrecords.R;
+import com.example.tuitionrecords.ResetActivity;
 import com.example.tuitionrecords.TeacherActivity.LogInTeacherActivity;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,7 +35,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LogInStudentActivity extends AppCompatActivity {
 
-    TextView signUp;
+    TextView signUp, reset;
     Button login;
     EditText myEmail, myPassword;
     private FirebaseAuth myAuth;
@@ -65,6 +66,8 @@ public class LogInStudentActivity extends AppCompatActivity {
         myEmail=findViewById(R.id.email_text);
         myPassword=findViewById(R.id.password_text);
         progressBar=findViewById(R.id.progressBar);
+        reset = findViewById(R.id.reset);
+
         myAuth=FirebaseAuth.getInstance();
 
         sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
@@ -81,6 +84,10 @@ public class LogInStudentActivity extends AppCompatActivity {
             logInWithFirebase();
         });
 
+        reset.setOnClickListener(view -> {
+            startActivity(new Intent(LogInStudentActivity.this, ResetActivity.class));
+            finish();
+        });
     }
     private void hideKeybaord(View v) {
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);

@@ -11,7 +11,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -24,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.tuitionrecords.MainActivity;
 import com.example.tuitionrecords.R;
+import com.example.tuitionrecords.ResetActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -82,6 +82,11 @@ public class LogInTeacherActivity extends AppCompatActivity {
         login.setOnClickListener(view -> {
             hideKeyboard(view);
             loginWithFirebase();
+        });
+
+        reset.setOnClickListener(view -> {
+            startActivity(new Intent(LogInTeacherActivity.this, ResetActivity.class));
+            finish();
         });
     }
 
