@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
+    android:id="@+id/total"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,39 +20,24 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="410dp"
-        android:layout_height="607dp"
-        android:layout_marginTop="-5dp"
-        android:layout_marginBottom="1dp"
-        tools:listitem="@layout/send_request_card"
-        app:layout_constraintBottom_toTopOf="@+id/criterias"
-        app:layout_constraintEnd_toEndOf="@+id/criterias"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <ImageView
-        android:id="@+id/search"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="0dp"
+        tools:listitem="@layout/send_request_card" />
 
     <LinearLayout
         android:id="@+id/criterias"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/filter"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@color/blue_sweet"
             android:orientation="horizontal">
@@ -68,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
+                android:layout_marginStart="2dp"
                 android:text="Filter"
                 android:textColor="#fff"
                 android:layout_gravity="center_vertical"
@@ -75,8 +62,9 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/sort"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:layout_marginStart="1dp"
             android:layout_weight="1"
             android:background="@color/blue_sweet"
@@ -87,14 +75,15 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="50dp"
-                android:src="@drawable/ic_back" />
+                android:src="@drawable/ic_sort" />
 
             <TextView
                 android:id="@+id/back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
-                android:text="Back"
+                android:layout_marginStart="2dp"
+                android:text="Sort"
                 android:layout_gravity="center_vertical"
                 android:textColor="#fff"
                 android:textSize="20sp" />
@@ -102,4 +91,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

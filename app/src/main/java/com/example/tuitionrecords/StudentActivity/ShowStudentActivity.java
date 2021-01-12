@@ -67,8 +67,6 @@ public class ShowStudentActivity extends AppCompatActivity {
 
     FloatingActionButton add;
 
-    SharedPreferences sharedPreferences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

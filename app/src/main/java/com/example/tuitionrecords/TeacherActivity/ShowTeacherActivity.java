@@ -235,7 +235,6 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
 
         if (firebaseAuth == null) {
             startActivity(new Intent(ShowTeacherActivity.this, LogInTeacherActivity.class));
-            finish();
         }
     }
 }

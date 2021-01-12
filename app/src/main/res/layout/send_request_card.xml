@@ -15,10 +15,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_photo"
-            android:layout_width="120dp"
-            android:layout_height="115dp"
+            android:layout_width="100dp"
+            android:layout_height="95dp"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:src="@drawable/anonymous_user" />
@@ -85,6 +85,7 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/send_request"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="SEND REQUEST"

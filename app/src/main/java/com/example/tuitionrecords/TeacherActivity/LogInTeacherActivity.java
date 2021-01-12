@@ -70,7 +70,7 @@ public class LogInTeacherActivity extends AppCompatActivity {
         email = findViewById(R.id.email_text);
         password = findViewById(R.id.password_text);
 
-        sharedPreferences = getSharedPreferences("AutoLogin", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("auto_login_teacher", Context.MODE_PRIVATE);
         int pref = sharedPreferences.getInt("key_teacher", 0);
 
         if (pref > 0) {

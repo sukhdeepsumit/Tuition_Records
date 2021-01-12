@@ -70,7 +70,7 @@ public class LogInStudentActivity extends AppCompatActivity {
 
         myAuth=FirebaseAuth.getInstance();
 
-        sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);
         int pref = sharedPreferences.getInt("key_student", 0);
 
         if (pref > 0) {

@@ -3,8 +3,10 @@ package com.example.tuitionrecords;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.example.tuitionrecords.TeacherActivity.LogInTeacherActivity;
@@ -26,8 +28,15 @@ public class ResetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reset);
 
         email = findViewById(R.id.email_reset);
+        reset = findViewById(R.id.reset);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         reset.setOnClickListener(view -> {
+
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+
             String sendEmail = Objects.requireNonNull(email.getText()).toString();
 
             if (sendEmail.equals("")) {
@@ -46,7 +55,5 @@ public class ResetActivity extends AppCompatActivity {
                 });
             }
         });
-
-
     }
 }
