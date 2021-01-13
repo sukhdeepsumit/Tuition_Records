@@ -70,12 +70,17 @@ public class LogInTeacherActivity extends AppCompatActivity {
         email = findViewById(R.id.email_text);
         password = findViewById(R.id.password_text);
 
-        sharedPreferences = getSharedPreferences("auto_login_teacher", Context.MODE_PRIVATE);
-        int pref = sharedPreferences.getInt("key_teacher", 0);
+        sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_teacher", Context.MODE_PRIVATE);
+        /*int pref = sharedPreferences.getInt("key_teacher", 0);
 
         if (pref > 0) {
             startActivity(new Intent(getApplicationContext(), ShowTeacherActivity.class));
-        }
+        }*/
+
+       /* if (myAuth.getCurrentUser() != null) {
+            startActivity(new Intent(LogInTeacherActivity.this, ShowTeacherActivity.class));
+            finish();
+        }*/
 
         signUp.setOnClickListener(view -> startActivity(new Intent(LogInTeacherActivity.this, SignUpTeacherActivity.class)));
 
@@ -109,9 +114,9 @@ public class LogInTeacherActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
 
-                        AUTO_SAVE = 1;
+                        //AUTO_SAVE = 1;
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putInt("key_teacher", AUTO_SAVE);
+                        editor.putInt("key_teacher", 1);
                         editor.apply();
 
                         Intent intent = new Intent(LogInTeacherActivity.this, ShowTeacherActivity.class);
@@ -175,5 +180,11 @@ public class LogInTeacherActivity extends AppCompatActivity {
     public void showInternetWarning() {
         checkInternet.setVisibility(View.VISIBLE);
         close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 }

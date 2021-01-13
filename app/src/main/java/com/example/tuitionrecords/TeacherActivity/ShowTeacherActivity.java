@@ -53,7 +53,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 //commit check
 
-public class ShowTeacherActivity extends AppCompatActivity /*implements NavigationView.OnNavigationItemSelectedListener*/ {
+public class ShowTeacherActivity extends AppCompatActivity  {
     ImageView message;
     NavigationView nav;
     DrawerLayout drawerLayout;
@@ -70,6 +70,8 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
     RelativeLayout checkInternet;
     ImageView close;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,13 +82,17 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
 
         layout = findViewById(R.id.full_layout);
 
+        sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_teacher", Context.MODE_PRIVATE);
+
         checkInternet();
 
         progressBar=findViewById(R.id.progressBar);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        ref = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(firebaseUser.getUid());
+        assert firebaseUser != null;
+        String userId = firebaseUser.getUid();
+        ref = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(userId);
         Log.i("CURRENT_USER", firebaseUser.getUid());
 
         message = findViewById(R.id.message_requests);
@@ -134,13 +140,15 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
                 case R.id.logout:
                 {
                     FirebaseAuth.getInstance().signOut();
-                    SharedPreferences.Editor editor = LogInTeacherActivity.sharedPreferences.edit();
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("key_teacher", 0);
                     editor.apply();
 
                     Toast.makeText(this, "User Logged Out", Toast.LENGTH_SHORT).show();
 
                     startActivity(new Intent(ShowTeacherActivity.this, LogInTeacherActivity.class));
+                    finish();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 }
@@ -232,9 +240,15 @@ public class ShowTeacherActivity extends AppCompatActivity /*implements Navigati
     @Override
     protected void onStart() {
         super.onStart();
-
         if (firebaseAuth == null) {
+            //firebaseAuth.signOut();
             startActivity(new Intent(ShowTeacherActivity.this, LogInTeacherActivity.class));
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

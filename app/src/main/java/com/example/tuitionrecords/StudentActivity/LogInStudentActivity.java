@@ -42,7 +42,7 @@ public class LogInStudentActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     public static SharedPreferences sharedPreferences;
-    int AUTO_SAVE;
+    //int AUTO_SAVE;
 
     RelativeLayout checkInternet;
     ImageView close;
@@ -70,12 +70,18 @@ public class LogInStudentActivity extends AppCompatActivity {
 
         myAuth=FirebaseAuth.getInstance();
 
-        sharedPreferences = getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);
-        int pref = sharedPreferences.getInt("key_student", 0);
+        sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);
+        /*int pref = sharedPreferences.getInt("key_student", 0);
 
         if (pref > 0) {
             startActivity(new Intent(LogInStudentActivity.this, ShowStudentActivity.class));
-        }
+        }*/
+
+        /*if (myAuth.getCurrentUser() != null) {
+            Log.i("CHECK_USER", myAuth.getCurrentUser().toString());
+            startActivity(new Intent(LogInStudentActivity.this, ShowStudentActivity.class));
+            finish();
+        }*/
 
         signUp.setOnClickListener(v -> startActivity(new Intent(LogInStudentActivity.this,SignUpStudentActivity.class)));
 
@@ -116,9 +122,9 @@ public class LogInStudentActivity extends AppCompatActivity {
                     Log.i("FINDCODE", "Message : " + task.getException());
                 }
                 else {
-                    AUTO_SAVE = 1;
+                    //AUTO_SAVE = 1;
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("key_student", AUTO_SAVE);
+                    editor.putInt("key_student", 1);
                     editor.apply();
 
                     Toast.makeText(getApplicationContext(),"Logged in",Toast.LENGTH_SHORT).show();
@@ -172,5 +178,11 @@ public class LogInStudentActivity extends AppCompatActivity {
     public void showInternetWarning() {
         checkInternet.setVisibility(View.VISIBLE);
         close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 }

@@ -67,6 +67,8 @@ public class ShowStudentActivity extends AppCompatActivity {
 
     FloatingActionButton add;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,15 +76,12 @@ public class ShowStudentActivity extends AppCompatActivity {
 
         layout = findViewById(R.id.layout_full);
         add=findViewById(R.id.add);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShowStudentActivity.this,SendRequest.class));
-            }
-        });
+        add.setOnClickListener(v -> startActivity(new Intent(ShowStudentActivity.this,SendRequest.class)));
 
         checkInternet = findViewById(R.id.check_internet);
         close = findViewById(R.id.close);
+
+        sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);
 
         checkInternet();
 
@@ -90,6 +89,7 @@ public class ShowStudentActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
+        assert firebaseUser != null;
         String userId = firebaseUser.getUid();
         ref = FirebaseDatabase.getInstance().getReference().child("Students_Profile").child(userId);
 
@@ -139,7 +139,7 @@ public class ShowStudentActivity extends AppCompatActivity {
                     FirebaseAuth.getInstance().signOut();
                     Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
 
-                    SharedPreferences.Editor editor = LogInStudentActivity.sharedPreferences.edit();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("key_student", 0);
                     editor.apply();
 
@@ -235,8 +235,15 @@ public class ShowStudentActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        Log.i("UID_USER", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
         if (firebaseAuth == null) {
             startActivity(new Intent(ShowStudentActivity.this, LogInStudentActivity.class));
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }
