@@ -119,6 +119,8 @@ public class StudentAccountInfo extends AppCompatActivity {
         View myView= dialogPlus.getHolderView();
 
         final TextInputEditText editText=myView.findViewById(R.id.text);
+
+
         final AppCompatButton update=myView.findViewById(R.id.update);
 
         switch (check)
