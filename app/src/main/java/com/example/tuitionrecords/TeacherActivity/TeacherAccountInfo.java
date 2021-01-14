@@ -147,12 +147,9 @@ public class TeacherAccountInfo extends AppCompatActivity {
             case "about" : editText.setText(about.getText().toString());
                 break;
         }
-
         dialogPlus.show();
 
         String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-
-
 
         update.setOnClickListener(view -> {
             String result = Objects.requireNonNull(editText.getText()).toString();
@@ -175,32 +172,12 @@ public class TeacherAccountInfo extends AppCompatActivity {
 
             }
             else {
-                FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child(check).setValue(result).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getApplicationContext(),"Record Updated",Toast.LENGTH_SHORT).show();
-                //map.put(check,result);
-                    }
+                FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child(check).setValue(result).addOnCompleteListener(task -> {
+                    Toast.makeText(getApplicationContext(),"Record Updated",Toast.LENGTH_SHORT).show();
+                        //map.put(check,result);
                 });
 
             }
-//            reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Void> task) {
-//                    Toast.makeText(getApplicationContext(), "Record Updated", Toast.LENGTH_SHORT).show();
-//                    dialogPlus.dismiss();
-//
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(getApplicationContext(), "Could not be Updated", Toast.LENGTH_SHORT).show();
-//                    dialogPlus.dismiss();
-//
-//                }
-//            });
-
-
          dialogPlus.dismiss();
             //Toast.makeText(this, "Record Updated", Toast.LENGTH_SHORT).show();
         });

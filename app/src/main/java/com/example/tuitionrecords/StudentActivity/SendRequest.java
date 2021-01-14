@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -92,5 +93,11 @@ public class SendRequest extends AppCompatActivity {
         studentAdapter = new StudentAdapter(options);
         studentAdapter.startListening();
         recyclerView.setAdapter(studentAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(SendRequest.this, ShowStudentActivity.class));
+        finish();
     }
 }
