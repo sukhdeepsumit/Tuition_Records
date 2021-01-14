@@ -120,6 +120,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
                 }
                 case R.id.schedule :
                 {
+                    startActivity(new Intent(ShowTeacherActivity.this,TeacherSchedule.class));
                     Toast.makeText(getApplicationContext(), "Time table opened", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
