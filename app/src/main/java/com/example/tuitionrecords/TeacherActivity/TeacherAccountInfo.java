@@ -14,8 +14,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.tuitionrecords.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -63,7 +69,7 @@ public class TeacherAccountInfo extends AppCompatActivity {
         String userId = firebaseUser.getUid();
         reference = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(userId);
 
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 TeacherModel model = snapshot.getValue(TeacherModel.class);
@@ -145,9 +151,14 @@ public class TeacherAccountInfo extends AppCompatActivity {
         dialogPlus.show();
 
         String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-        String result = Objects.requireNonNull(editText.getText()).toString();
+
+
 
         update.setOnClickListener(view -> {
+            String result = Objects.requireNonNull(editText.getText()).toString();
+
+            //Map<String,Object> map=new HashMap<>();
+
             if (check.equals("location")) {
 
                 //DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Teacher_profile");
@@ -157,18 +168,40 @@ public class TeacherAccountInfo extends AppCompatActivity {
                 String state = loc[1];
 
                 FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child("city").setValue(city);
-                FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child("state").setValue(state);
+               FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child("state").setValue(state);
+
+//                map.put("city",city);
+//                map.put("state",state);
+
             }
             else {
-                FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child(check).setValue(result)
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(this, "Record Updated", Toast.LENGTH_SHORT).show();
-                        })
-                        .addOnFailureListener(aVoid -> {
-                            Toast.makeText(this, "Could not updated", Toast.LENGTH_SHORT).show();
-                        });
+                FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child(check).setValue(result).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getApplicationContext(),"Record Updated",Toast.LENGTH_SHORT).show();
+                //map.put(check,result);
+                    }
+                });
+
             }
-            dialogPlus.dismiss();
+//            reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Void> task) {
+//                    Toast.makeText(getApplicationContext(), "Record Updated", Toast.LENGTH_SHORT).show();
+//                    dialogPlus.dismiss();
+//
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(getApplicationContext(), "Could not be Updated", Toast.LENGTH_SHORT).show();
+//                    dialogPlus.dismiss();
+//
+//                }
+//            });
+
+
+         dialogPlus.dismiss();
             //Toast.makeText(this, "Record Updated", Toast.LENGTH_SHORT).show();
         });
     }

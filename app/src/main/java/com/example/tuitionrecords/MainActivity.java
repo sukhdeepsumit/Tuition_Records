@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         student.setOnClickListener(view -> {
-            startActivity(new Intent(MainActivity.this, SignUpStudentActivity.class));
+            startActivity(new Intent(MainActivity.this, LogInStudentActivity.class));
             finish();
         });
     }

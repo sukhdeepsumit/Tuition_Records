@@ -73,8 +73,9 @@ public class LogInStudentActivity extends AppCompatActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);
         /*int pref = sharedPreferences.getInt("key_student", 0);
 
+
         if (pref > 0) {
-            startActivity(new Intent(LogInStudentActivity.this, ShowStudentActivity.class));
+            startActivity(new Intent(getApplicationContext(), ShowStudentActivity.class));
         }*/
 
         /*if (myAuth.getCurrentUser() != null) {
