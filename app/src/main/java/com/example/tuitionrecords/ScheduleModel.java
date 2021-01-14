@@ -3,6 +3,9 @@ package com.example.tuitionrecords;
 public class ScheduleModel {
     String timing, subject, subjectStatus;
 
+    public ScheduleModel() {
+    }
+
     public ScheduleModel(String timing, String subject, String subjectStatus) {
         this.timing = timing;
         this.subject = subject;

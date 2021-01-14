@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
-    android:id="@+id/total"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".StudentActivity.SendRequest">
+    android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue_sweet"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Meet Your Teachers"
-        app:titleTextColor="#FFF" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <RelativeLayout
+        android:id="@+id/total"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:layout_marginTop="0dp"
-        tools:listitem="@layout/send_request_card" />
+        android:layout_above="@+id/criterias"
+        tools:context=".StudentActivity.SendRequest">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue_sweet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Meet Your Teachers"
+            app:titleTextColor="#FFF" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginTop="0dp"
+            tools:listitem="@layout/send_request_card" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/criterias"

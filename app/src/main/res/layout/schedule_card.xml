@@ -6,18 +6,21 @@
     android:layout_height="wrap_content"
     android:background="@drawable/layout_bg"
     android:elevation="20dp"
-    android:layout_margin="15dp">
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="5dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/timing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Timing"
+            android:fontFamily="monospace"
             android:textColor="#FFF"
             android:textSize="17sp"
             android:background="@color/blue_sweet"
@@ -27,21 +30,29 @@
             android:paddingTop="8dp"
             android:layout_gravity="center_horizontal" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/subject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Subject "
             android:textSize="16sp"
-            android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/batch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Batch No. "
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Status "
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_margin="5dp"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>

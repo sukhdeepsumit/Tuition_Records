@@ -16,7 +16,7 @@ import com.example.tuitionrecords.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SendRequest extends AppCompatActivity {
+public class  SendRequest extends AppCompatActivity {
 
     LinearLayout sort, filter;
     RecyclerView recyclerView;
