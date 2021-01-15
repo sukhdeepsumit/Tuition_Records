@@ -45,15 +45,8 @@
             android:layout_height="wrap_content"
             android:text="Batch No. "
             android:textSize="16sp"
-            android:layout_gravity="center_horizontal" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status "
-            android:textSize="14sp"
-            android:layout_margin="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 

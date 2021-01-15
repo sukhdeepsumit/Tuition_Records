@@ -1,15 +1,22 @@
 package com.example.tuitionrecords;
 
+import android.graphics.Color;
+import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class ScheduleAdapter extends FirebaseRecyclerAdapter<ScheduleModel, ScheduleAdapter.MyViewHolder> {
 
@@ -23,11 +30,12 @@ public class ScheduleAdapter extends FirebaseRecyclerAdapter<ScheduleModel, Sche
         super(options);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull ScheduleModel model) {
         holder.time.setText(model.getTiming());
         holder.subject.setText(model.getSubject());
-        holder.status.setText(model.getSubjectStatus());
+        holder.batch.setText(model.getBatch());
     }
 
     @NonNull
@@ -39,14 +47,14 @@ public class ScheduleAdapter extends FirebaseRecyclerAdapter<ScheduleModel, Sche
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        AppCompatTextView time, subject, status;
+        AppCompatTextView time, subject, batch;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             time = itemView.findViewById(R.id.timing);
             subject = itemView.findViewById(R.id.subject);
-            status = itemView.findViewById(R.id.status);
+            batch = itemView.findViewById(R.id.batch);
         }
     }
 }

@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_margin="20dp"
+        android:elevation="20dp"
         xmlns:tools="http://schemas.android.com/tools"
         tools:context=".TeacherActivity.TeacherSchedule"
-        >
+        android:background="@drawable/layout_bg">
 
         <LinearLayout
-            android:layout_width="370dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="24dp"
-            android:background="@drawable/layout_bg"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
@@ -48,11 +46,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="8dp"
-
-                >
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/subject_text"
@@ -66,7 +61,6 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/timingText"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="8dp"
@@ -183,20 +177,42 @@
                 android:text="07-08 PM"
                 android:textSize="18sp" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="300dp"
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/checkbox12"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/blue_sweet"
-                android:text="Add"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="8dp"
+                android:checked="false"
+                android:text="08-09 PM"
+                android:textSize="18sp" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/checkbox13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:checked="false"
+                android:text="09-10 PM"
+                android:textSize="18sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/add"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/accept_button_bg"
+                android:text="Add"
+                android:textColor="#FFF"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
                 android:textAllCaps="false"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="35dp"
                 android:textSize="20sp"
                 />
         </LinearLayout>
 
     </LinearLayout>
-
 
 </ScrollView>

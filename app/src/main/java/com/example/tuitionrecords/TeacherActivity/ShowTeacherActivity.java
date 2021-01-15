@@ -8,6 +8,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -36,8 +38,11 @@ import com.bumptech.glide.request.target.Target;
 import com.example.tuitionrecords.Contact_us;
 import com.example.tuitionrecords.MainActivity;
 import com.example.tuitionrecords.R;
+import com.example.tuitionrecords.ScheduleAdapter;
+import com.example.tuitionrecords.ScheduleModel;
 import com.example.tuitionrecords.StudentActivity.LogInStudentActivity;
 import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,6 +65,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
     ActionBarDrawerToggle toggle;
 
     ConstraintLayout layout;
+    RecyclerView recyclerView;
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
@@ -71,6 +77,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
     ImageView close;
 
     SharedPreferences sharedPreferences;
+    ScheduleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +88,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         close = findViewById(R.id.close);
 
         layout = findViewById(R.id.full_layout);
+        recyclerView = findViewById(R.id.recyclerView);
 
         sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_teacher", Context.MODE_PRIVATE);
 
@@ -98,6 +106,14 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         message = findViewById(R.id.message_requests);
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        FirebaseRecyclerOptions<ScheduleModel> options =
+                new FirebaseRecyclerOptions.Builder<ScheduleModel>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Time_Table").child(userId).orderByChild("order"), ScheduleModel.class)
+                .build();
+
+        adapter = new ScheduleAdapter(options);
+        recyclerView.setAdapter(adapter);
 
         nav=findViewById(R.id.navMenu);
         drawerLayout=findViewById(R.id.drawer);
@@ -132,13 +148,13 @@ public class ShowTeacherActivity extends AppCompatActivity  {
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 }
-                case  R.id.howto:
+                case  R.id.howto :
                 {
                     Toast.makeText(getApplicationContext(), "How to use opened", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 }
-                case R.id.logout:
+                case R.id.logout :
                 {
                     FirebaseAuth.getInstance().signOut();
 
@@ -246,11 +262,13 @@ public class ShowTeacherActivity extends AppCompatActivity  {
             //firebaseAuth.signOut();
             startActivity(new Intent(ShowTeacherActivity.this, LogInTeacherActivity.class));
         }
+        adapter.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        adapter.stopListening();
         finish();
     }
 }

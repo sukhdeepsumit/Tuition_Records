@@ -1,15 +1,16 @@
 package com.example.tuitionrecords;
 
 public class ScheduleModel {
-    String timing, subject, subjectStatus;
+    String timing, subject, batch, order;
 
     public ScheduleModel() {
     }
 
-    public ScheduleModel(String timing, String subject, String subjectStatus) {
+    public ScheduleModel(String timing, String subject, String batch, String order) {
         this.timing = timing;
         this.subject = subject;
-        this.subjectStatus = subjectStatus;
+        this.batch = batch;
+        this.order = order;
     }
 
     public String getTiming() {
@@ -28,11 +29,19 @@ public class ScheduleModel {
         this.subject = subject;
     }
 
-    public String getSubjectStatus() {
-        return subjectStatus;
+    public String getBatch() {
+        return batch;
     }
 
-    public void setSubjectStatus(String subjectStatus) {
-        this.subjectStatus = subjectStatus;
+    public void setBatch(String batch) {
+        this.batch = batch;
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
     }
 }
