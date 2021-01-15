@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".TeacherActivity.TeacherSchedule"></activity>
+        <activity android:name=".TeacherActivity.FeeStatus"></activity>
+        <activity android:name=".TeacherActivity.TeacherSchedule" />
         <activity android:name=".StudentActivity.SendRequest" />
         <activity android:name=".ResetActivity" />
         <activity android:name=".Contact_us">

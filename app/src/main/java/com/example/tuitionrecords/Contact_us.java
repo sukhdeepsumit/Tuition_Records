@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 
+import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
+
 public class Contact_us extends AppCompatActivity {
 
     RelativeLayout email_contact, feedback;
@@ -38,5 +40,10 @@ public class Contact_us extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(uri));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Contact_us.this, ShowTeacherActivity.class));
     }
 }
