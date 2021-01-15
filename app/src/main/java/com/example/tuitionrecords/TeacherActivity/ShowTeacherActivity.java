@@ -96,14 +96,14 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
         progressBar=findViewById(R.id.progressBar);
         feeStatus=findViewById(R.id.relativeLayout);
-
         feeStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ShowTeacherActivity.this,FeeStatus.class));
-
             }
         });
+
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
