@@ -3,6 +3,7 @@ package com.example.tuitionrecords.TeacherActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.tuitionrecords.R;
@@ -53,5 +54,10 @@ public class FeeStatus extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         //listens for page change... matlab jab hum swipe krenge
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(FeeStatus.this,ShowTeacherActivity.class));
     }
 }
