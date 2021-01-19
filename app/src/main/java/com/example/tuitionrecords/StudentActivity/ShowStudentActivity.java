@@ -18,7 +18,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -33,7 +32,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.tuitionrecords.Contact_us;
 import com.example.tuitionrecords.R;
-import com.example.tuitionrecords.TeacherActivity.TeacherModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -61,7 +59,6 @@ public class ShowStudentActivity extends AppCompatActivity {
     DatabaseReference ref;
 
     ConstraintLayout layout;
-
     RelativeLayout checkInternet;
     ImageView close;
 
@@ -76,7 +73,6 @@ public class ShowStudentActivity extends AppCompatActivity {
 
         layout = findViewById(R.id.layout_full);
         add=findViewById(R.id.add);
-        add.setOnClickListener(v -> startActivity(new Intent(ShowStudentActivity.this,SendRequest.class)));
 
         checkInternet = findViewById(R.id.check_internet);
         close = findViewById(R.id.close);
@@ -92,6 +88,13 @@ public class ShowStudentActivity extends AppCompatActivity {
         assert firebaseUser != null;
         String userId = firebaseUser.getUid();
         ref = FirebaseDatabase.getInstance().getReference().child("Students_Profile").child(userId);
+
+        add.setOnClickListener(view -> {
+            Intent intent = new Intent(ShowStudentActivity.this,SendRequest.class);
+            intent.putExtra("userId", userId);
+            startActivity(intent);
+            finish();
+        });
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

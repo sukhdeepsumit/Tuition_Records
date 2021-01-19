@@ -45,7 +45,7 @@ public class  SendRequest extends AppCompatActivity {
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("Teacher_profile"), TeacherShowModel.class)
                 .build();
 
-        studentAdapter = new StudentAdapter(options);
+        studentAdapter = new StudentAdapter(options, getApplicationContext());
         recyclerView.setAdapter(studentAdapter);
     }
 
@@ -90,7 +90,7 @@ public class  SendRequest extends AppCompatActivity {
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("Teacher_profile").orderByChild("name")
                                                                                .startAt(s).endAt(s+"\uf8ff"), TeacherShowModel.class).build();
 
-        studentAdapter = new StudentAdapter(options);
+        studentAdapter = new StudentAdapter(options, getApplicationContext());
         studentAdapter.startListening();
         recyclerView.setAdapter(studentAdapter);
     }

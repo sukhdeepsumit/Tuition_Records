@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tuitionrecords">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".TeacherActivity.FeeStatus"></activity>
+        <activity android:name=".TeacherActivity.Requests.CheckStudentProfile"></activity>
+        <activity android:name=".StudentActivity.CheckTeacherProfile" />
+        <activity android:name=".TeacherActivity.Students.MyStudents" />
+        <activity android:name=".TeacherActivity.TeacherFee.FeeStatus" />
         <activity android:name=".TeacherActivity.TeacherSchedule" />
         <activity android:name=".StudentActivity.SendRequest" />
         <activity android:name=".ResetActivity" />
@@ -27,13 +25,12 @@
         </activity>
         <activity android:name=".StudentActivity.StudentAccountInfo" />
         <activity android:name=".TeacherActivity.TeacherAccountInfo" />
-        <activity android:name=".TeacherActivity.RequestActivity" />
-        <activity android:name=".TeacherActivity.MessageRequests" />
+        <activity android:name=".TeacherActivity.Requests.RequestActivity" />
         <activity android:name=".StudentActivity.ShowStudentActivity" />
         <activity android:name=".TeacherActivity.ShowTeacherActivity" />
         <activity android:name=".StudentActivity.SignUpStudentActivity" />
-        <activity android:name=".TeacherActivity.SignUpTeacherActivity" />
-        <activity android:name=".TeacherActivity.LogInTeacherActivity" />
+        <activity android:name=".TeacherActivity.Authentication.SignUpTeacherActivity" />
+        <activity android:name=".TeacherActivity.Authentication.LogInTeacherActivity" />
         <activity android:name=".StudentActivity.LogInStudentActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -43,5 +40,10 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

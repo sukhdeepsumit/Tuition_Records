@@ -8,7 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -19,10 +18,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -36,12 +32,14 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.tuitionrecords.Contact_us;
-import com.example.tuitionrecords.MainActivity;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.ScheduleAdapter;
 import com.example.tuitionrecords.ScheduleModel;
-import com.example.tuitionrecords.StudentActivity.LogInStudentActivity;
-import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
+import com.example.tuitionrecords.TeacherActivity.Authentication.LogInTeacherActivity;
+import com.example.tuitionrecords.TeacherActivity.Authentication.TeacherModel;
+import com.example.tuitionrecords.TeacherActivity.Requests.RequestActivity;
+import com.example.tuitionrecords.TeacherActivity.Students.MyStudents;
+import com.example.tuitionrecords.TeacherActivity.TeacherFee.FeeStatus;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,20 +50,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Objects;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 //commit check
 
 public class ShowTeacherActivity extends AppCompatActivity  {
-    ImageView message;
+    ImageView requests;
     NavigationView nav;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
 
     ConstraintLayout layout;
     RecyclerView recyclerView;
+    RelativeLayout myStudents;
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
@@ -89,6 +86,9 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
         layout = findViewById(R.id.full_layout);
         recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+
+        myStudents = findViewById(R.id.my_students);
 
         sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_teacher", Context.MODE_PRIVATE);
 
@@ -96,13 +96,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
         progressBar=findViewById(R.id.progressBar);
         feeStatus=findViewById(R.id.relativeLayout);
-        feeStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShowTeacherActivity.this,FeeStatus.class));
-            }
-        });
-
+        feeStatus.setOnClickListener(view -> startActivity(new Intent(ShowTeacherActivity.this, FeeStatus.class)));
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -112,7 +106,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         ref = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(userId);
         Log.i("CURRENT_USER", firebaseUser.getUid());
 
-        message = findViewById(R.id.message_requests);
+        requests = findViewById(R.id.message_requests);
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -123,6 +117,16 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
         adapter = new ScheduleAdapter(options);
         recyclerView.setAdapter(adapter);
+
+        requests.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), RequestActivity.class));
+            finish();
+        });
+
+        myStudents.setOnClickListener(view -> {
+            startActivity(new Intent(this, MyStudents.class));
+            finish();
+        });
 
         nav=findViewById(R.id.navMenu);
         drawerLayout=findViewById(R.id.drawer);

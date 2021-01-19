@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.TeacherActivity;
+package com.example.tuitionrecords.TeacherActivity.Authentication;
 
 public class TeacherModel {
     String name, email, contact,gender, city, state, content, standard, about, myUri;

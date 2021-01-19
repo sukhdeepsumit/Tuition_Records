@@ -3,13 +3,12 @@ package com.example.tuitionrecords;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.example.tuitionrecords.TeacherActivity.LogInTeacherActivity;
+import com.example.tuitionrecords.TeacherActivity.Authentication.LogInTeacherActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 

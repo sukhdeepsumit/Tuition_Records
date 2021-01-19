@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.TeacherActivity;
+package com.example.tuitionrecords.TeacherActivity.Authentication;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.tuitionrecords.MainActivity;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.ResetActivity;
+import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 

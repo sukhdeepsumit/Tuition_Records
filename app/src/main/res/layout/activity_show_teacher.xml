@@ -91,6 +91,7 @@
             tools:layout_editor_absoluteX="16dp">
 
             <RelativeLayout
+                android:id="@+id/my_students"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"

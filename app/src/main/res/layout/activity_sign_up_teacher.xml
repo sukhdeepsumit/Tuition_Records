@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:context=".TeacherActivity.SignUpTeacherActivity">
+            tools:context=".TeacherActivity.Authentication.SignUpTeacherActivity">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_picture"

@@ -26,8 +26,6 @@ import android.widget.Toast;
 import com.example.tuitionrecords.MainActivity;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.ResetActivity;
-import com.example.tuitionrecords.TeacherActivity.LogInTeacherActivity;
-import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

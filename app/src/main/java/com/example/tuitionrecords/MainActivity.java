@@ -16,10 +16,8 @@ import android.widget.RelativeLayout;
 
 import com.example.tuitionrecords.StudentActivity.LogInStudentActivity;
 import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
-import com.example.tuitionrecords.StudentActivity.SignUpStudentActivity;
-import com.example.tuitionrecords.TeacherActivity.LogInTeacherActivity;
+import com.example.tuitionrecords.TeacherActivity.Authentication.LogInTeacherActivity;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
-import com.example.tuitionrecords.TeacherActivity.SignUpTeacherActivity;
 
 
 // Commit check check check check mkc
