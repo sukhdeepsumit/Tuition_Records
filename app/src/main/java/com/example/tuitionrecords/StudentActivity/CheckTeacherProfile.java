@@ -36,7 +36,7 @@ public class CheckTeacherProfile extends AppCompatActivity {
     AppCompatButton send;
     ProgressBar progressBar;
 
-    DatabaseReference received, requestRef;
+    DatabaseReference received, requestRef, accepted;
 
     String CURRENT_STATE;
     String sender, receiver;
@@ -67,6 +67,7 @@ public class CheckTeacherProfile extends AppCompatActivity {
 
         received = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(receiver);
         requestRef = FirebaseDatabase.getInstance().getReference("Requests");
+        accepted = FirebaseDatabase.getInstance().getReference("Accepted_Students");
 
         received.addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
@@ -118,11 +119,25 @@ public class CheckTeacherProfile extends AppCompatActivity {
                         send.setBackgroundColor(Color.parseColor("#758283"));
                         send.setText("Cancel Request");
                     }
-                    else {
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+
+        accepted.child(sender).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(receiver)) {
+                    String status = snapshot.child(receiver).child("status").getValue().toString();
+
+                    if (status.equals("teacher")) {
                         send.setEnabled(true);
-                        CURRENT_STATE = "Not Teacher";
-                        send.setBackgroundColor(Color.parseColor("#1C8D73"));
-                        send.setText("Send Request");
+                        CURRENT_STATE = "Accepted";
+                        send.setBackgroundColor(Color.parseColor("#D82E2F"));
+                        send.setTextColor(Color.parseColor("#FFFFFF"));
+                        send.setText("REMOVE");
                     }
                 }
             }

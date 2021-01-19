@@ -28,7 +28,6 @@
             android:id="@+id/linear_layout_text"
             android:layout_width="219dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-3dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="25dp"
             android:layout_marginEnd="15dp"
@@ -40,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -48,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -56,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Gender"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -64,14 +63,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Location"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:layout_gravity="center"/>
             <TextView
                 android:id="@+id/standard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Standard"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -79,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="About"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -88,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:text="Allot batch no."
                 android:textColor="@color/blue_sweet"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_gravity="center"/>
 
         </LinearLayout>
