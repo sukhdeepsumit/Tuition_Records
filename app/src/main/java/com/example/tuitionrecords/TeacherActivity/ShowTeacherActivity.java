@@ -88,7 +88,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
         layout = findViewById(R.id.full_layout);
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+
 
         myStudents = findViewById(R.id.my_students);
 
