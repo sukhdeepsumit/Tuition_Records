@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -68,9 +69,9 @@ public class ShowTeacherActivity extends AppCompatActivity  {
     FirebaseUser firebaseUser;
     DatabaseReference ref;
 
-    ProgressBar progressBar;
+    ProgressDialog progressDialog;
 
-    RelativeLayout checkInternet,feeStatus;
+    RelativeLayout checkInternet,feeStatus, myBatches;
     ImageView close;
 
     SharedPreferences sharedPreferences;
@@ -84,6 +85,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         checkInternet = findViewById(R.id.check_internet);
         close = findViewById(R.id.close);
 
+
         layout = findViewById(R.id.full_layout);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -93,11 +95,22 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_teacher", Context.MODE_PRIVATE);
 
         checkInternet();
+        progressDialog=new ProgressDialog(this);
 
-        progressBar=findViewById(R.id.progressBar);
+        progressDialog.setTitle("Welcome aboard !");
+        progressDialog.setMessage("Just a moment...");
+
+
         feeStatus=findViewById(R.id.relativeLayout);
         feeStatus.setOnClickListener(view -> startActivity(new Intent(ShowTeacherActivity.this, FeeStatus.class)));
 
+        myBatches=findViewById(R.id.batches);
+        myBatches.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShowTeacherActivity.this,MyBatches.class));
+            }
+        });
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -191,7 +204,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
     }
 
     private void navigationHeaderDetails() {
-        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.show();
         View headerView = nav.getHeaderView(0);
         TextView name = headerView.findViewById(R.id.nav_name);
         TextView email = headerView.findViewById(R.id.nav_email);
@@ -207,13 +220,13 @@ public class ShowTeacherActivity extends AppCompatActivity  {
                 Glide.with(getApplicationContext()).load(teacherModel.getMyUri()).listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        progressBar.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        progressBar.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         return false;
                     }
                 }).into(imageView);

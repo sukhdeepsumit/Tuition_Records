@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -52,7 +53,7 @@ public class ShowStudentActivity extends AppCompatActivity {
     NavigationView nav;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
-    ProgressBar progressBar;
+    ProgressDialog progressDialog;
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
@@ -70,6 +71,10 @@ public class ShowStudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_student);
+        progressDialog=new ProgressDialog(this);
+
+        progressDialog.setTitle("Welcome aboard !");
+        progressDialog.setMessage("Just a moment...");
 
         layout = findViewById(R.id.layout_full);
         add=findViewById(R.id.add);
@@ -81,7 +86,7 @@ public class ShowStudentActivity extends AppCompatActivity {
 
         checkInternet();
 
-        progressBar=findViewById(R.id.progressBar);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -158,7 +163,7 @@ public class ShowStudentActivity extends AppCompatActivity {
     }
 
     private void navigationHeaderDetails() {
-        progressBar.setVisibility(View.VISIBLE);
+        progressDialog.show();
         View headerView = nav.getHeaderView(0);
         TextView name = headerView.findViewById(R.id.nav_name);
         TextView email = headerView.findViewById(R.id.nav_email);
@@ -175,13 +180,13 @@ public class ShowStudentActivity extends AppCompatActivity {
                Glide.with(getApplicationContext()).load(studentModel.getMyUri()).listener(new RequestListener<Drawable>() {
                    @Override
                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                       progressBar.setVisibility(View.GONE);
+                       progressDialog.dismiss();
                        return false;
                    }
 
                    @Override
                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                       progressBar.setVisibility(View.GONE);
+                       progressDialog.dismiss();
                        return false;
                    }
                }).into(imageView);

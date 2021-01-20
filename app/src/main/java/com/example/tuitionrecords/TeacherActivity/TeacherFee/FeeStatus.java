@@ -18,8 +18,8 @@ import java.util.Objects;
 public class FeeStatus extends AppCompatActivity {
     RecyclerView recyclerView;
     FeeStatusAdapter feeStatusAdapter;
-    String user;
     DatabaseReference reference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +28,22 @@ public class FeeStatus extends AppCompatActivity {
         recyclerView=findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        reference = FirebaseDatabase.getInstance().getReference("Accepted_Students").child(currentUser);
+
         FirebaseRecyclerOptions<FeeStatusModel> options =
                 new FirebaseRecyclerOptions.Builder<FeeStatusModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Students_Profile"),FeeStatusModel.class)
+                        .setQuery(reference,FeeStatusModel.class)
                         .build();
 
-        feeStatusAdapter=new FeeStatusAdapter(options,reference);
+        feeStatusAdapter=new FeeStatusAdapter(options,getApplicationContext());
         recyclerView.setAdapter(feeStatusAdapter);
 
-        user= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-        reference=FirebaseDatabase.getInstance().getReference("Fee_Status").child(user);
-
-        FeeStatusModel feeStatusModel=new FeeStatusModel();
-        reference.push().setValue(feeStatusModel);
+//        user= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+//        reference=FirebaseDatabase.getInstance().getReference("Fee_Status").child(user);
+//
+//        FeeStatusModel feeStatusModel=new FeeStatusModel();
+//        reference.push().setValue(feeStatusModel);
 
 
 
