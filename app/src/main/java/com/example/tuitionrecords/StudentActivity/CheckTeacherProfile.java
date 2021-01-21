@@ -203,11 +203,8 @@ public class CheckTeacherProfile extends AppCompatActivity {
                     String status = snapshot.child(receiver).child("status").getValue().toString();
 
                     if (status.equals("teacher")) {
-                        send.setEnabled(true);
                         CURRENT_STATE = "Accepted";
-                        send.setBackgroundColor(Color.parseColor("#D82E2F"));
-                        send.setTextColor(Color.parseColor("#FFFFFF"));
-                        send.setText("REMOVE");
+                        send.setVisibility(View.GONE);
                     }
                 }
             }

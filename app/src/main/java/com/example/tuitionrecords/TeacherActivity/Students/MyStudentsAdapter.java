@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +17,9 @@ import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.StudentActivity.StudentModel;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +39,7 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
 
     Context context;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Students_Profile");
+    DatabaseReference accepted = FirebaseDatabase.getInstance().getReference("Accepted_Students");
 
     public MyStudentsAdapter(@NonNull FirebaseRecyclerOptions<StudentModel> options, Context context) {
         super(options);
@@ -64,6 +70,16 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
 
                 Glide.with(context).load(photoURL).into(holder.dp);
 
+                holder.remove.setOnClickListener(view -> {
+                    accepted.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(student_key).removeValue()
+                            .addOnCompleteListener(task -> {
+                                accepted.child(student_key).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).removeValue()
+                                        .addOnCompleteListener(task1 -> {
+                                            Toast.makeText(context, "Removed from your student list", Toast.LENGTH_SHORT).show();
+                                        });
+                            });
+                });
+
             }
 
             @Override
@@ -83,6 +99,7 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
 
         TextView name, email, gender, location, standard, about, batch;
         CircleImageView dp;
+        AppCompatButton remove;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +113,7 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
             batch = itemView.findViewById(R.id.batch);
 
             dp = itemView.findViewById(R.id.profile_photo);
+            remove = itemView.findViewById(R.id.remove);
         }
     }
 }
