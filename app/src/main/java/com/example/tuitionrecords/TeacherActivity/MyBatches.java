@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.tuitionrecords.FeeStatusModel;
@@ -19,8 +20,6 @@ public class MyBatches extends AppCompatActivity {
     RecyclerView recyclerView;
     BatchAdapter batchAdapter;
     DatabaseReference reference;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,5 +50,11 @@ public class MyBatches extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         batchAdapter.stopListening();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(MyBatches.this, ShowTeacherActivity.class));
+        finish();
     }
 }

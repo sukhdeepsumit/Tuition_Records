@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,20 +15,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.tuitionrecords.Notifications.APIService;
+import com.example.tuitionrecords.Notifications.Client;
+import com.example.tuitionrecords.Notifications.Data;
+import com.example.tuitionrecords.Notifications.MyResponse;
+import com.example.tuitionrecords.Notifications.NotificationSender;
+import com.example.tuitionrecords.Notifications.Token;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.TeacherActivity.Authentication.TeacherModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 //commit check
 public class CheckTeacherProfile extends AppCompatActivity {
@@ -37,10 +49,13 @@ public class CheckTeacherProfile extends AppCompatActivity {
     AppCompatButton send;
     ProgressBar progressBar;
 
-    DatabaseReference received, requestRef, accepted;
+    DatabaseReference received, requestRef, accepted, requestNotify, sent;
 
     String CURRENT_STATE;
     String sender, receiver;
+    String username;
+
+    APIService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +78,27 @@ public class CheckTeacherProfile extends AppCompatActivity {
 
         CURRENT_STATE = "Not Teacher";
 
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+
         sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
         receiver = getIntent().getStringExtra("userId");
 
+        sent = FirebaseDatabase.getInstance().getReference("Students_Profile").child(sender);
         received = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(receiver);
         requestRef = FirebaseDatabase.getInstance().getReference("Requests");
         accepted = FirebaseDatabase.getInstance().getReference("Accepted_Students");
+        requestNotify = FirebaseDatabase.getInstance().getReference("Tokens");
+
+        sent.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                StudentModel model = snapshot.getValue(StudentModel.class);
+                username = model.getName();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {  }
+        });
 
         received.addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
@@ -98,12 +128,51 @@ public class CheckTeacherProfile extends AppCompatActivity {
         send.setOnClickListener(view -> {
             if (CURRENT_STATE.equals("Not Teacher")) {
                 sendTeacherRequest();
+                requestNotify.child(receiver).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String userToken = snapshot.getValue(String.class);
+                        sendNotifications(userToken, "Student Request", username + " sent you a Student Request");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
 
             if (CURRENT_STATE.equals("Request Sent")) {
                 cancelTeacherRequest();
             }
             send.setEnabled(true);
+        });
+
+        updateToken();
+    }
+
+    private void updateToken() {
+        String refreshToken = FirebaseInstanceId.getInstance().getToken();
+        Token token = new Token(refreshToken);
+        FirebaseDatabase.getInstance().getReference("Tokens").child(sender).setValue(token);
+    }
+
+    public void sendNotifications(String userToken, String title, String req) {
+        Data data = new Data(title, req);
+
+        NotificationSender sender = new NotificationSender(data, userToken);
+        apiService.sendNotification(sender).enqueue(new Callback<MyResponse>() {
+            @Override
+            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body().success != 1) {
+                        Toast.makeText(CheckTeacherProfile.this, "Request Failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyResponse> call, Throwable t) { }
         });
     }
 

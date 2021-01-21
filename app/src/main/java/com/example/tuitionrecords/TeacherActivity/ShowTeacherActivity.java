@@ -67,7 +67,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-    DatabaseReference ref;
+    DatabaseReference ref, notification;
 
     ProgressDialog progressDialog;
 
@@ -77,6 +77,8 @@ public class ShowTeacherActivity extends AppCompatActivity  {
     SharedPreferences sharedPreferences;
     ScheduleAdapter adapter;
 
+    CircleImageView notificationStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,10 +87,8 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         checkInternet = findViewById(R.id.check_internet);
         close = findViewById(R.id.close);
 
-
         layout = findViewById(R.id.full_layout);
         recyclerView = findViewById(R.id.recyclerView);
-
 
         myStudents = findViewById(R.id.my_students);
 
@@ -100,17 +100,11 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         progressDialog.setTitle("Welcome aboard !");
         progressDialog.setMessage("Just a moment...");
 
-
         feeStatus=findViewById(R.id.relativeLayout);
         feeStatus.setOnClickListener(view -> startActivity(new Intent(ShowTeacherActivity.this, FeeStatus.class)));
 
         myBatches=findViewById(R.id.batches);
-        myBatches.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShowTeacherActivity.this,MyBatches.class));
-            }
-        });
+        myBatches.setOnClickListener(v -> startActivity(new Intent(ShowTeacherActivity.this,MyBatches.class)));
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -120,6 +114,26 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         Log.i("CURRENT_USER", firebaseUser.getUid());
 
         requests = findViewById(R.id.message_requests);
+        notificationStatus = findViewById(R.id.alert);
+
+        notification = FirebaseDatabase.getInstance().getReference("Requests").child(userId);
+        notification.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(userId)) {
+                    notificationStatus.setVisibility(View.VISIBLE);
+                }
+                else {
+                    notificationStatus.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
