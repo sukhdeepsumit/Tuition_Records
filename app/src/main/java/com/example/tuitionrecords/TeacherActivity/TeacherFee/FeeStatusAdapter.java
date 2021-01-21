@@ -80,47 +80,23 @@ public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,Fee
         });
 
 
-//        holder.update.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                final DialogPlus dialogPlus=DialogPlus.newDialog(holder.update.getContext())
-//                        .setContentHolder(new ViewHolder(R.layout.update_teacher_profile_content))
-//                        .setExpanded(true, WindowManager.LayoutParams.WRAP_CONTENT)
-//                        .create();
-//
-//                View myView= dialogPlus.getHolderView();
-//
-//                final TextInputEditText editText=myView.findViewById(R.id.text);
-//
-//                final AppCompatButton updateFeeStatus=myView.findViewById(R.id.update);
-//
-//                editText.setText(holder.feeStatus.getText().toString());
-//                dialogPlus.show();
-//
-//                String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-//
-//
-//                updateFeeStatus.setOnClickListener(new View.OnClickListener() {
-//
-//                    final String result = Objects.requireNonNull(editText.getText()).toString();
-//
-//                    @Override
-//                    public void onClick(View v) {
-//                        FirebaseDatabase.getInstance().getReference("Fee_Status").child(uid)
-//                                .child(Objects.requireNonNull(getRef(position).getKey())).setValue(result)
-//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
-//                                Toast.makeText(holder.update.getContext(),"Record Updated",Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                        dialogPlus.dismiss();
-//                    }
-//                });
-//
-//
-//            }
-//        });
+        holder.update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DialogPlus dialogPlus=DialogPlus.newDialog(holder.update.getContext())
+                        .setContentHolder(new ViewHolder(R.layout.update_teacher_profile_content))
+                        .setExpanded(true, WindowManager.LayoutParams.WRAP_CONTENT)
+                        .create();
+
+                View myView= dialogPlus.getHolderView();
+
+                final TextInputEditText editText=myView.findViewById(R.id.text);
+
+                final AppCompatButton updateFeeStatus=myView.findViewById(R.id.update);
+
+
+            }
+        });
 
     }
 

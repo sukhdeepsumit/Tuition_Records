@@ -39,13 +39,13 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
      * @param options
      */
 
-    Context context;
+    private final Context mContext;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Students_Profile");
     DatabaseReference accepted = FirebaseDatabase.getInstance().getReference("Accepted_Students");
 
     public MyStudentsAdapter(@NonNull FirebaseRecyclerOptions<StudentModel> options, Context context) {
         super(options);
-        this.context = context;
+        mContext = context;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
                 holder.location.setText(location);
                 holder.standard.setText(standard);
 
-                Glide.with(context).load(photoURL).into(holder.dp);
+                Glide.with(mContext).load(photoURL).into(holder.dp);
 
                 holder.remove.setOnClickListener(view -> {
                     removeStudent(student_key);
@@ -85,7 +85,7 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
     }
 
     private void removeStudent(String student_key) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("Remove");
         builder.setMessage("Do you want to remove this student from your list? ");
         builder.setCancelable(false);
@@ -93,7 +93,7 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
         builder.setPositiveButton("YES", (dialogInterface, i) -> accepted.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(student_key).removeValue()
                 .addOnCompleteListener(task -> accepted.child(student_key).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).removeValue()
                         .addOnCompleteListener(task1 -> {
-                            Toast.makeText(context, "Removed from your student list", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "Removed from your student list", Toast.LENGTH_SHORT).show();
                         })
                 )
         );
