@@ -72,9 +72,7 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
 
                 Glide.with(mContext).load(photoURL).into(holder.dp);
 
-                holder.remove.setOnClickListener(view -> {
-                    removeStudent(student_key);
-                });
+                holder.remove.setOnClickListener(view -> removeStudent(student_key));
 
             }
 

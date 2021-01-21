@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.tuitionrecords.FeeStatusModel;
 import com.example.tuitionrecords.R;
+import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -44,9 +46,7 @@ public class FeeStatus extends AppCompatActivity {
 //
 //        FeeStatusModel feeStatusModel=new FeeStatusModel();
 //        reference.push().setValue(feeStatusModel);
-
-
-
+        
     }
 
     @Override
@@ -60,4 +60,9 @@ public class FeeStatus extends AppCompatActivity {
         feeStatusAdapter.stopListening();
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(FeeStatus.this, ShowTeacherActivity.class));
+        finish();
+    }
 }

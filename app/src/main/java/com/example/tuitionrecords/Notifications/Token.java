@@ -1,7 +1,7 @@
 package com.example.tuitionrecords.Notifications;
 
 public class Token {
-    private String token;
+    String token;
 
     public Token() {
     }

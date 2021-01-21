@@ -117,7 +117,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         notificationStatus = findViewById(R.id.alert);
 
         notification = FirebaseDatabase.getInstance().getReference("Requests").child(userId);
-        notification.addListenerForSingleValueEvent(new ValueEventListener() {
+        notification.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.hasChild(userId)) {

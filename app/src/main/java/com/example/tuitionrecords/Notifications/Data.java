@@ -1,14 +1,18 @@
 package com.example.tuitionrecords.Notifications;
 
 public class Data {
-    private String title, notif;
+    private String title, user, body, sent;
+    int icon;
 
     public Data() {
     }
 
-    public Data(String title, String notif) {
+    public Data(String user, int icon, String body, String title, String sent) {
         this.title = title;
-        this.notif = notif;
+        this.user = user;
+        this.body = body;
+        this.sent = sent;
+        this.icon = icon;
     }
 
     public String getTitle() {
@@ -19,11 +23,35 @@ public class Data {
         this.title = title;
     }
 
-    public String getNotif() {
-        return notif;
+    public String getUser() {
+        return user;
     }
 
-    public void setNotif(String notif) {
-        this.notif = notif;
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getSent() {
+        return sent;
+    }
+
+    public void setSent(String sent) {
+        this.sent = sent;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 }

@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -128,18 +130,6 @@ public class CheckTeacherProfile extends AppCompatActivity {
         send.setOnClickListener(view -> {
             if (CURRENT_STATE.equals("Not Teacher")) {
                 sendTeacherRequest();
-                requestNotify.child(receiver).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String userToken = snapshot.getValue(String.class);
-                        sendNotifications(userToken, "Student Request", username + " sent you a Student Request");
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
             }
 
             if (CURRENT_STATE.equals("Request Sent")) {
@@ -157,22 +147,33 @@ public class CheckTeacherProfile extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference("Tokens").child(sender).setValue(token);
     }
 
-    public void sendNotifications(String userToken, String title, String req) {
-        Data data = new Data(title, req);
-
-        NotificationSender sender = new NotificationSender(data, userToken);
-        apiService.sendNotification(sender).enqueue(new Callback<MyResponse>() {
+    public void sendNotifications(String receiver, String username, String message) {
+        Query query = requestNotify.orderByKey().equalTo(receiver);
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                if (response.code() == 200) {
-                    if (response.body().success != 1) {
-                        Toast.makeText(CheckTeacherProfile.this, "Request Failed", Toast.LENGTH_SHORT).show();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Token token = snapshot.getValue(Token.class);
+                Data data = new Data(sender, R.drawable.chat, username + ": " + message, "New Request", receiver);
+
+                NotificationSender sender = new NotificationSender(data, token.getToken());
+
+                apiService.sendNotification(sender).enqueue(new Callback<MyResponse>() {
+                    @Override
+                    public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                        if (response.code() == 200) {
+                            if (response.body().success != 1) {
+                                Toast.makeText(CheckTeacherProfile.this, "Request Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
-                }
+
+                    @Override
+                    public void onFailure(Call<MyResponse> call, Throwable t) {    }
+                });
             }
 
             @Override
-            public void onFailure(Call<MyResponse> call, Throwable t) { }
+            public void onCancelled(@NonNull DatabaseError error) {   }
         });
     }
 
@@ -251,6 +252,17 @@ public class CheckTeacherProfile extends AppCompatActivity {
                     }
                 });
             }
+        });
+
+        sent.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                StudentModel studentModel = snapshot.getValue(StudentModel.class);
+                sendNotifications(receiver, studentModel.getName(), studentModel.getName() + " sent you a student request");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
 
