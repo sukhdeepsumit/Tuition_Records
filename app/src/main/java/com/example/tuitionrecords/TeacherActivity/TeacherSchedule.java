@@ -159,75 +159,9 @@ public class TeacherSchedule extends AppCompatActivity {
 
     }
 
-   /* public void checkBoxClicked(View view) {
-        boolean checked = ((CheckBox) view).isChecked();
-
-        switch (view.getId()) {
-            case R.id.checkbox1:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox1)).getText().toString() + " ";
-                }
-            break;
-            case R.id.checkbox2:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox2)).getText().toString() + " ";
-                }
-            break;
-            case R.id.checkbox3:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox3)).getText().toString() + " ";
-                }
-            break;
-            case R.id.checkbox4:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox4)).getText().toString() + " ";
-                }
-            break;
-            case R.id.checkbox5:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox5)).getText().toString() + " ";
-                }
-            break;
-            case R.id.checkbox6:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox6)).getText().toString() + " ";
-                }
-            break;
-            case R.id.checkbox7:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox7)).getText().toString() + " ";
-                }
-            break;
-            case R.id.checkbox8:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox8)).getText().toString() + " ";
-                }
-            break;
-            case R.id.checkbox9:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox9)).getText().toString() + " ";
-                }
-            break;
-            case R.id.checkbox10:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox10)).getText().toString() + " ";
-                }
-            break;
-            case R.id.checkbox11:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox11)).getText().toString() + " ";
-                }
-            break;
-            case R.id.checkbox12:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox12)).getText().toString() + " ";
-                }
-            break;
-            case R.id.checkbox13:
-                if (checked) {
-                    time += ((CheckBox)findViewById(R.id.checkbox13)).getText().toString() + " ";
-                }
-            break;
-        }
-    }*/
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(TeacherSchedule.this,ShowTeacherActivity.class));
+        finish();
+    }
 }

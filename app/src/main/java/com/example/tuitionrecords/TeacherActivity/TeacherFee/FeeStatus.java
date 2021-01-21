@@ -30,7 +30,7 @@ public class FeeStatus extends AppCompatActivity {
         recyclerView=findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String currentUser = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         reference = FirebaseDatabase.getInstance().getReference("Accepted_Students").child(currentUser);
 
         FirebaseRecyclerOptions<FeeStatusModel> options =

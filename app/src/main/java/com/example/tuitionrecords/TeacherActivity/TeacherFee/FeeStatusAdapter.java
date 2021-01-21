@@ -68,9 +68,11 @@ public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,Fee
                 String name  = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
                 String email  = Objects.requireNonNull(snapshot.child("myEmail").getValue()).toString();
                 String photoURL = Objects.requireNonNull(snapshot.child("myUri").getValue()).toString();
+                String feeStatus= Objects.requireNonNull(snapshot.child("feeStatus").getValue()).toString();
 
                 holder.name.setText(name);
                 holder.email.setText(email);
+                holder.feeStatus.setText(feeStatus);
 
                 Glide.with(context).load(photoURL).into(holder.profilePic);
             }
@@ -91,9 +93,27 @@ public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,Fee
                 View myView= dialogPlus.getHolderView();
 
                 final TextInputEditText editText=myView.findViewById(R.id.text);
-
                 final AppCompatButton updateFeeStatus=myView.findViewById(R.id.update);
 
+                editText.setText(holder.feeStatus.getText().toString());
+                dialogPlus.show();
+
+                updateFeeStatus.setOnClickListener(new View.OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View v) {
+                        final String result= Objects.requireNonNull(editText.getText()).toString();
+                        reference.child(request_key).child("feeStatus").setValue(result).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.i("FINAL_VALUE",result);
+                                Toast.makeText(context,"Record Updated",Toast.LENGTH_SHORT).show();
+                                dialogPlus.dismiss();
+                            }
+                        });
+                    }
+                });
 
             }
         });

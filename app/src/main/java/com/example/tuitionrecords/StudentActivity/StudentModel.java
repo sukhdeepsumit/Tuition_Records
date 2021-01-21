@@ -1,7 +1,7 @@
 package com.example.tuitionrecords.StudentActivity;
 
 public class StudentModel {
-    String name,  myEmail, myContact, myStandard, myCity, myState, myDescription, myGender, myUri;
+    String name,  myEmail, myContact, myStandard, myCity, myState, myDescription, myGender, myUri, feeStatus;
 
     public StudentModel() {
     }
@@ -18,6 +18,7 @@ public class StudentModel {
         this.myGender = myGender;
         this.myUri = myUri;
     }
+
 
     public String getName() {
         return name;
@@ -89,5 +90,13 @@ public class StudentModel {
 
     public void setMyUri(String myUri) {
         this.myUri = myUri;
+    }
+
+    public String getFeeStatus() {
+        return feeStatus;
+    }
+
+    public void setFeeStatus(String feeStatus) {
+        this.feeStatus = feeStatus;
     }
 }
