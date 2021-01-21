@@ -1,6 +1,8 @@
 package com.example.tuitionrecords.TeacherActivity.Students;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,13 +73,7 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
                 Glide.with(context).load(photoURL).into(holder.dp);
 
                 holder.remove.setOnClickListener(view -> {
-                    accepted.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(student_key).removeValue()
-                            .addOnCompleteListener(task -> {
-                                accepted.child(student_key).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).removeValue()
-                                        .addOnCompleteListener(task1 -> {
-                                            Toast.makeText(context, "Removed from your student list", Toast.LENGTH_SHORT).show();
-                                        });
-                            });
+                    removeStudent(student_key);
                 });
 
             }
@@ -86,6 +82,25 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
+    }
+
+    private void removeStudent(String student_key) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Remove");
+        builder.setMessage("Do you want to remove this student from your list? ");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("YES", (dialogInterface, i) -> accepted.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(student_key).removeValue()
+                .addOnCompleteListener(task -> accepted.child(student_key).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).removeValue()
+                        .addOnCompleteListener(task1 -> {
+                            Toast.makeText(context, "Removed from your student list", Toast.LENGTH_SHORT).show();
+                        })
+                )
+        );
+
+        builder.setNegativeButton("NO", (dialogInterface, i) -> dialogInterface.cancel());
+
+        builder.create().show();
     }
 
     @NonNull
