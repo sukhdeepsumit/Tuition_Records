@@ -22,7 +22,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +39,7 @@ import com.example.tuitionrecords.TeacherActivity.Authentication.LogInTeacherAct
 import com.example.tuitionrecords.TeacherActivity.Authentication.TeacherModel;
 import com.example.tuitionrecords.TeacherActivity.Requests.RequestActivity;
 import com.example.tuitionrecords.TeacherActivity.Students.MyStudents;
+import com.example.tuitionrecords.TeacherActivity.TeacherBatches.MyBatches;
 import com.example.tuitionrecords.TeacherActivity.TeacherFee.FeeStatus;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
@@ -104,7 +104,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         feeStatus.setOnClickListener(view -> startActivity(new Intent(ShowTeacherActivity.this, FeeStatus.class)));
 
         myBatches=findViewById(R.id.batches);
-        myBatches.setOnClickListener(v -> startActivity(new Intent(ShowTeacherActivity.this,MyBatches.class)));
+        myBatches.setOnClickListener(v -> startActivity(new Intent(ShowTeacherActivity.this, MyBatches.class)));
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -116,7 +116,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         requests = findViewById(R.id.message_requests);
         notificationStatus = findViewById(R.id.alert);
 
-        notification = FirebaseDatabase.getInstance().getReference("Requests").child(userId);
+        notification = FirebaseDatabase.getInstance().getReference("Requests");
         notification.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -137,6 +137,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //orderByChild("order"):
         FirebaseRecyclerOptions<ScheduleModel> options =
                 new FirebaseRecyclerOptions.Builder<ScheduleModel>()
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("Time_Table").child(userId).orderByChild("order"), ScheduleModel.class)

@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.orhanobut.dialogplus.DialogPlus;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -63,12 +64,14 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
                 String location = snapshot.child("myCity").getValue().toString() + ", " + snapshot.child("myState").getValue().toString();
                 String standard = snapshot.child("myStandard").getValue().toString();
                 String photoURL = snapshot.child("myUri").getValue().toString();
+                String about = snapshot.child("myDescription").getValue().toString();
 
                 holder.name.setText(name);
                 holder.email.setText(email);
                 holder.gender.setText(gender);
                 holder.location.setText(location);
                 holder.standard.setText(standard);
+                holder.about.setText(about);
 
                 Glide.with(mContext).load(photoURL).into(holder.dp);
 

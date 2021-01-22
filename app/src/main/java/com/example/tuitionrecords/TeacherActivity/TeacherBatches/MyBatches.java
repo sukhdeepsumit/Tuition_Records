@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.TeacherActivity;
+package com.example.tuitionrecords.TeacherActivity.TeacherBatches;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.tuitionrecords.FeeStatusModel;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.ScheduleModel;
+import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;

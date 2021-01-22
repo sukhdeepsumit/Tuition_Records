@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".TeacherActivity.MyBatches" />
+        <activity android:name=".TeacherActivity.TeacherBatches.MyBatches" />
         <activity android:name=".TeacherActivity.Requests.CheckStudentProfile" />
         <activity android:name=".StudentActivity.CheckTeacherProfile" />
         <activity android:name=".TeacherActivity.Students.MyStudents" />

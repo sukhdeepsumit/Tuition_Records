@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.TeacherActivity;
+package com.example.tuitionrecords.TeacherActivity.TeacherBatches;
 
 
 import android.view.LayoutInflater;

@@ -148,8 +148,9 @@ public class TeacherSchedule extends AppCompatActivity {
             Log.i("TIME_CURRENT" ,String.valueOf(current_hour));
             Log.i("TIME_PERIOD", first + " "  + last);
 
-            ScheduleModel model = new ScheduleModel(result_time, subject.getText().toString(), batch.getText().toString(), String.valueOf(last));
-            reference.push().setValue(model);
+            String batchNo = batch.getText().toString().toLowerCase();
+            ScheduleModel model = new ScheduleModel(result_time, subject.getText().toString(), batchNo, String.valueOf(last));
+            reference.child(batchNo).push().setValue(model);
 
             Toast.makeText(this, "Time Table Added", Toast.LENGTH_SHORT).show();
 

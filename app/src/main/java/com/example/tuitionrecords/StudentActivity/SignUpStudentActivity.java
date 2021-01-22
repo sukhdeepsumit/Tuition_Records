@@ -166,7 +166,6 @@ public class SignUpStudentActivity extends AppCompatActivity {
         String state=mState.getText().toString();
         String description=mDescription.getText().toString();
 
-
         StorageReference uploader=mStorage.child("Photos/"+uri.getLastPathSegment());
 
         uploader.putFile(uri).addOnSuccessListener(taskSnapshot -> uploader.getDownloadUrl()
@@ -223,5 +222,6 @@ public class SignUpStudentActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         startActivity(new Intent(SignUpStudentActivity.this, LogInStudentActivity.class));
+        finish();
     }
 }
