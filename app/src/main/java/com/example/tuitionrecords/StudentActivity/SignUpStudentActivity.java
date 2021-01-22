@@ -180,6 +180,10 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
                 }))
                 .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error occurred", Toast.LENGTH_SHORT).show());
+
+
+
+
      }
 
 //To put the chosen image in imgView

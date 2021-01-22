@@ -47,6 +47,7 @@ public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,Fee
 
     private final Context context;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Students_Profile");
+    String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     public FeeStatusAdapter(@NonNull FirebaseRecyclerOptions<FeeStatusModel> options, Context context) {
         super(options);
@@ -68,17 +69,29 @@ public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,Fee
                 String name  = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
                 String email  = Objects.requireNonNull(snapshot.child("myEmail").getValue()).toString();
                 String photoURL = Objects.requireNonNull(snapshot.child("myUri").getValue()).toString();
-                String feeStatus= Objects.requireNonNull(snapshot.child("feeStatus").getValue()).toString();
 
                 holder.name.setText(name);
                 holder.email.setText(email);
-                holder.feeStatus.setText(feeStatus);
+
 
                 Glide.with(context).load(photoURL).into(holder.profilePic);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {  }
+        });
+
+        FirebaseDatabase.getInstance().getReference("Fee_Status").child(uid).child(request_key).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String status=Objects.requireNonNull(snapshot.child("feeStatus").getValue()).toString();
+                holder.feeStatus.setText(status);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
 
 
@@ -100,20 +113,29 @@ public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,Fee
 
                 updateFeeStatus.setOnClickListener(new View.OnClickListener() {
 
-
                     @Override
                     public void onClick(View v) {
-                        final String result= Objects.requireNonNull(editText.getText()).toString();
-                        reference.child(request_key).child("feeStatus").setValue(result).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        String result=editText.getText().toString();
+
+                        FirebaseDatabase.getInstance().getReference("Fee_Status").child(uid).child(request_key).child("feeStatus").setValue(result).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Log.i("FINAL_VALUE",result);
-                                Toast.makeText(context,"Record Updated",Toast.LENGTH_SHORT).show();
-                                dialogPlus.dismiss();
+                                if(task.isSuccessful())
+                                {
+                                    FirebaseDatabase.getInstance().getReference("Fee_Status").child(request_key).child(uid).child("feeStatus").setValue(result).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task1) {
+                                            Toast.makeText(context,"Record Updated",Toast.LENGTH_SHORT).show();
+                                            dialogPlus.dismiss();
+
+                                        }
+                                    });
+                                }
                             }
                         });
                     }
                 });
+
 
             }
         });
