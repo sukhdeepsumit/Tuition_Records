@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 
+import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 
 public class Contact_us extends AppCompatActivity {
@@ -44,6 +45,16 @@ public class Contact_us extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(Contact_us.this, ShowTeacherActivity.class));
+        String checkId=getIntent().getStringExtra("userId");
+        if(checkId.equals("Teacher"))
+        {
+            startActivity(new Intent(Contact_us.this,ShowTeacherActivity.class));
+
+        }
+        else
+        {
+            startActivity(new Intent(Contact_us.this, ShowStudentActivity.class));
+
+        }
     }
 }

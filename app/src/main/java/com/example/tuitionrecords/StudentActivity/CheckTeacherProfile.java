@@ -268,7 +268,14 @@ public class CheckTeacherProfile extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), SendRequest.class));
-        finish();
+        String checkId=getIntent().getStringExtra("check");
+        if(checkId.equals("Student"))
+        {
+            startActivity(new Intent(getApplicationContext(),MyTeachers.class));
+        }
+        else {
+            startActivity(new Intent(getApplicationContext(), SendRequest.class));
+            finish();
+        }
     }
 }

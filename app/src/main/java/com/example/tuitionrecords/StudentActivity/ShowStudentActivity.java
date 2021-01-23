@@ -60,7 +60,7 @@ public class ShowStudentActivity extends AppCompatActivity {
     DatabaseReference ref;
 
     ConstraintLayout layout;
-    RelativeLayout checkInternet;
+    RelativeLayout checkInternet, myTeachers;
     ImageView close;
 
     FloatingActionButton add;
@@ -85,6 +85,16 @@ public class ShowStudentActivity extends AppCompatActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);
 
         checkInternet();
+
+        myTeachers=findViewById(R.id.myTeachers);
+        myTeachers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShowStudentActivity.this,MyTeachers.class));
+                finish();
+            }
+        });
+
 
 
 
@@ -131,7 +141,9 @@ public class ShowStudentActivity extends AppCompatActivity {
                 }
                 case R.id.contactus :
                 {
-                    startActivity(new Intent(ShowStudentActivity.this, Contact_us.class));
+                    Intent intent=new Intent(ShowStudentActivity.this,Contact_us.class);
+                    intent.putExtra("userId","Student");
+                    startActivity(intent);
                     Toast.makeText(getApplicationContext(), "Contact us opened", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;

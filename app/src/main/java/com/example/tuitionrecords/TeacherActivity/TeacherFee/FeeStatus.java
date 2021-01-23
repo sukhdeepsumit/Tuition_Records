@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.tuitionrecords.FeeStatusModel;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -21,6 +23,7 @@ public class FeeStatus extends AppCompatActivity {
     RecyclerView recyclerView;
     FeeStatusAdapter feeStatusAdapter;
     DatabaseReference reference;
+
 //comitt check
 
     @Override
@@ -41,11 +44,6 @@ public class FeeStatus extends AppCompatActivity {
         feeStatusAdapter=new FeeStatusAdapter(options,getApplicationContext());
         recyclerView.setAdapter(feeStatusAdapter);
 
-//        user= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-//        reference=FirebaseDatabase.getInstance().getReference("Fee_Status").child(user);
-//
-//        FeeStatusModel feeStatusModel=new FeeStatusModel();
-//        reference.push().setValue(feeStatusModel);
         
     }
 

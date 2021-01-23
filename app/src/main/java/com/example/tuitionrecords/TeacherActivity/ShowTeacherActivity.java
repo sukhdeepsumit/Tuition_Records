@@ -184,7 +184,9 @@ public class ShowTeacherActivity extends AppCompatActivity  {
                 }
                 case R.id.contactus :
                 {
-                    startActivity(new Intent(ShowTeacherActivity.this, Contact_us.class));
+                    Intent intent=new Intent(ShowTeacherActivity.this,Contact_us.class);
+                    intent.putExtra("userId","Teacher");
+                    startActivity(intent);
                     Toast.makeText(getApplicationContext(), "Contact us opened", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;

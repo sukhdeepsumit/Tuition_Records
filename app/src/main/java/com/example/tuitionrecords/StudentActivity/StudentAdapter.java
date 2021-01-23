@@ -63,6 +63,7 @@ public class StudentAdapter extends FirebaseRecyclerAdapter<TeacherShowModel, St
             Intent intent = new Intent(context, CheckTeacherProfile.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("userId", userid);
+            intent.putExtra("check","StudentFromSendRequest");
             context.startActivity(intent);
         });
 
