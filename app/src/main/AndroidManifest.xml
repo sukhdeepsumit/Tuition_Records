@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".TeacherActivity.Students.My_Registered_Students"></activity>
+        <activity android:name=".StudentActivity.MyTeacherProfile"></activity>
+        <activity android:name=".TeacherActivity.Students.My_Registered_Students" />
         <activity android:name=".TeacherActivity.TeacherFee.FeeHistory" />
         <activity android:name=".TeacherActivity.TeacherFee.FeeAdd" />
         <activity android:name=".StudentActivity.MyTeachers" />
@@ -62,10 +63,10 @@
             </intent-filter>
         </service>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

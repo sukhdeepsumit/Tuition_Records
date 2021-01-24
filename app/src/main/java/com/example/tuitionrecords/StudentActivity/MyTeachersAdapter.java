@@ -61,26 +61,18 @@ public class MyTeachersAdapter extends FirebaseRecyclerAdapter<TeacherShowModel,
                 holder.about.setText(about);
                 Glide.with(mContext).load(photoURL).into(holder.dp);
 
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mContext, CheckTeacherProfile.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("userId", teacherKey);
-                        intent.putExtra("check","Student");
-                        mContext.startActivity(intent);
-                    }
+                holder.itemView.setOnClickListener(view -> {
+                    Intent intent = new Intent(mContext, MyTeacherProfile.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("userId", teacherKey);
+                    //intent.putExtra("check","Student");
+                    mContext.startActivity(intent);
                 });
-
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
-
-
 
     }
 
@@ -95,7 +87,6 @@ public class MyTeachersAdapter extends FirebaseRecyclerAdapter<TeacherShowModel,
     {
         TextView name, about;
         CircleImageView dp;
-
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

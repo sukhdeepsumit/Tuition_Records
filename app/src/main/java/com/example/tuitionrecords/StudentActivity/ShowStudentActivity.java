@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -63,6 +64,8 @@ public class ShowStudentActivity extends AppCompatActivity {
     RelativeLayout checkInternet, myTeachers;
     ImageView close;
 
+    RecyclerView recyclerView;
+
     FloatingActionButton add;
 
     SharedPreferences sharedPreferences;
@@ -71,6 +74,7 @@ public class ShowStudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_student);
+
         progressDialog=new ProgressDialog(this);
 
         progressDialog.setTitle("Welcome aboard !");
@@ -86,17 +90,13 @@ public class ShowStudentActivity extends AppCompatActivity {
 
         checkInternet();
 
+        recyclerView = findViewById(R.id.recyclerView);
+
         myTeachers=findViewById(R.id.myTeachers);
-        myTeachers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShowStudentActivity.this,MyTeachers.class));
-                finish();
-            }
+        myTeachers.setOnClickListener(view -> {
+            startActivity(new Intent(ShowStudentActivity.this,MyTeachers.class));
+            finish();
         });
-
-
-
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
