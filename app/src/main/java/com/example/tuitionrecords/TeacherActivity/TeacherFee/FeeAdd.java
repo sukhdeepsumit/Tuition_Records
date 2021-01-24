@@ -33,6 +33,7 @@ public class FeeAdd extends AppCompatActivity implements DatePickerDialog.OnDate
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fee_add);
+
         button=findViewById(R.id.addButton);
         amount=findViewById(R.id.amount_text);
         dateInput=findViewById(R.id.date);
@@ -53,7 +54,7 @@ public class FeeAdd extends AppCompatActivity implements DatePickerDialog.OnDate
 
             }
         });
-        String student_uid=getIntent().getStringExtra("Student_uid");
+        String student_uid=getIntent().getStringExtra("student_uid");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

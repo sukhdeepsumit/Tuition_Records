@@ -2,6 +2,7 @@ package com.example.tuitionrecords.TeacherActivity.TeacherBatches;
 
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,12 +43,14 @@ public class BatchAdapter extends FirebaseRecyclerAdapter<ScheduleModel,BatchAda
     @Override
     protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull ScheduleModel model) {
         String refKey = getRef(position).getKey();
+        Log.i("OUTER_KEY", refKey);
         reference.child(refKey).addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     String key = snap.getKey();
+                    Log.i("BATCH_KEY", key);
                     holder.subject.setText(snapshot.child(key).child("subject").getValue().toString());
                     holder.batch.setText("Batch No. " + snapshot.child(key).child("batch").getValue().toString());
                 }

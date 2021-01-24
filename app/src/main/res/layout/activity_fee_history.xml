@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="590dp"
         android:orientation="vertical"
+        tools:listitem="@layout/fee_history_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

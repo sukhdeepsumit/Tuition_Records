@@ -69,7 +69,6 @@ public class MyTeachersAdapter extends FirebaseRecyclerAdapter<TeacherShowModel,
                         intent.putExtra("userId", teacherKey);
                         intent.putExtra("check","Student");
                         mContext.startActivity(intent);
-
                     }
                 });
 

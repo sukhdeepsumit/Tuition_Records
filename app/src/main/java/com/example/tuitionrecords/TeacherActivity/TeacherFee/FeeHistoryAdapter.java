@@ -41,17 +41,16 @@ public class FeeHistoryAdapter extends FirebaseRecyclerAdapter<FeeHistoryModel,F
     @Override
     protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull FeeHistoryModel model) {
         String refKey = getRef(position).getKey();
-
+        Log.i("CHECK_KEY", refKey);
         reference.child(refKey).addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     String key = snap.getKey();
-                    Log.i("KEY",key);
+                    Log.i("INNER_KEY",key);
                     holder.feeAmount.setText(snap.child(key).child("amount").getValue().toString());
                     holder.payDate.setText(snap.child(key).child("date").getValue().toString());
-
                 }
             }
 

@@ -41,7 +41,7 @@ public class FeeStatus extends AppCompatActivity {
                         .setQuery(reference,FeeStatusModel.class)
                         .build();
 
-        feeStatusAdapter=new FeeStatusAdapter(options,getApplicationContext());
+        feeStatusAdapter=new FeeStatusAdapter(options,FeeStatus.this);
         recyclerView.setAdapter(feeStatusAdapter);
 
         

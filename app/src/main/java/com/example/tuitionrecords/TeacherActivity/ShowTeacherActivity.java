@@ -39,6 +39,7 @@ import com.example.tuitionrecords.TeacherActivity.Authentication.LogInTeacherAct
 import com.example.tuitionrecords.TeacherActivity.Authentication.TeacherModel;
 import com.example.tuitionrecords.TeacherActivity.Requests.RequestActivity;
 import com.example.tuitionrecords.TeacherActivity.Students.MyStudents;
+import com.example.tuitionrecords.TeacherActivity.Students.My_Registered_Students;
 import com.example.tuitionrecords.TeacherActivity.TeacherBatches.MyBatches;
 import com.example.tuitionrecords.TeacherActivity.TeacherFee.FeeStatus;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -152,7 +153,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         });
 
         myStudents.setOnClickListener(view -> {
-            startActivity(new Intent(this, MyStudents.class));
+            startActivity(new Intent(this, My_Registered_Students.class));
             finish();
         });
 

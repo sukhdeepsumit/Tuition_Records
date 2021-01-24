@@ -36,12 +36,12 @@ public class FeeHistory extends AppCompatActivity {
             public void onClick(View v) {
                String student_ref =getIntent().getStringExtra("student_uid");
                Intent intent=new Intent(FeeHistory.this,FeeAdd.class);
-               intent.putExtra("Student_uid",student_ref);
+               intent.putExtra("student_uid",student_ref);
                startActivity(intent);
             }
         });
         recyclerView=findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(FeeHistory.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         String user= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         reference = FirebaseDatabase.getInstance().getReference("Fee_Status").child(user);
@@ -50,11 +50,9 @@ public class FeeHistory extends AppCompatActivity {
                 new FirebaseRecyclerOptions.Builder<FeeHistoryModel>()
                         .setQuery(reference,FeeHistoryModel.class)
                         .build();
+
         feeHistoryAdapter=new FeeHistoryAdapter(options);
         recyclerView.setAdapter(feeHistoryAdapter);
-
-
-
 
     }
     @Override
@@ -71,6 +69,6 @@ public class FeeHistory extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         startActivity(new Intent(FeeHistory.this,FeeStatus.class));
-
+        finish();
     }
 }

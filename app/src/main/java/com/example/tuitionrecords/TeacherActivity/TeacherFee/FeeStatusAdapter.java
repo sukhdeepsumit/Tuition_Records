@@ -49,14 +49,12 @@ public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,Fee
 
     private final Context context;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Students_Profile");
-    String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+    //String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     public FeeStatusAdapter(@NonNull FirebaseRecyclerOptions<FeeStatusModel> options, Context context) {
         super(options);
         this.context=context;
     }
-
-
 
     @Override
     protected void onBindViewHolder(@NonNull MyViewHolder holder, final int position, @NonNull FeeStatusModel model) {

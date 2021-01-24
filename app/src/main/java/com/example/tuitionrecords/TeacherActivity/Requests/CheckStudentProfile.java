@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.tuitionrecords.Notifications.Token;
@@ -36,6 +37,7 @@ public class CheckStudentProfile extends AppCompatActivity {
 
     String currentUser, requestUser;
     DatabaseReference reference, acceptedStudent, requestRef;
+    DatabaseReference batchRef = FirebaseDatabase.getInstance().getReference("Allot_Batches");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,7 @@ public class CheckStudentProfile extends AppCompatActivity {
                         if (task1.isSuccessful()) {
                             requestRef.child(currentUser).child(requestUser).removeValue();
                             requestRef.child(requestUser).child(currentUser).removeValue();
+                            allotBatch();
                             progressBar.setVisibility(View.GONE);
                         }
                     });
@@ -120,6 +123,18 @@ public class CheckStudentProfile extends AppCompatActivity {
         });
 
         updateToken(FirebaseInstanceId.getInstance().getToken());
+    }
+
+    private void allotBatch() {
+        batchRef.child(currentUser).child(requestUser).child("batch").setValue("Allot Batch No.").addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                batchRef.child(requestUser).child(currentUser).child("batch").setValue("Allot Batch No.").addOnCompleteListener(task1 -> {
+                    if (task1.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), "Batch Number Allotted", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     private void updateToken(String token) {
