@@ -135,16 +135,6 @@ public class TeacherSchedule extends AppCompatActivity {
                 }
             }
 
-            /*if (current_hour < first) {
-                status = "upcoming";
-            }
-            else if(current_hour > last) {
-                status = "completed";
-            }
-            else {
-                status = "ongoing";
-            }*/
-
             Log.i("TIME_CURRENT" ,String.valueOf(current_hour));
             Log.i("TIME_PERIOD", first + " "  + last);
 

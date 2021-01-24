@@ -146,6 +146,7 @@ public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,Fee
             public void onClick(View v) {
                 Intent intent = new Intent(context, FeeHistory.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("student_uid",request_key);
                 context.startActivity(intent);
             }
         });

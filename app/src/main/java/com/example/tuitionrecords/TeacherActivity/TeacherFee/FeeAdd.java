@@ -12,14 +12,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.tuitionrecords.FeeHistoryModel;
 import com.example.tuitionrecords.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class FeeAdd extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    EditText amount,dateInput;
+    TextInputEditText amount,dateInput;
     AppCompatButton button;
     ImageView calendar;
+    DatabaseReference reference;
+    String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,9 @@ public class FeeAdd extends AppCompatActivity implements DatePickerDialog.OnDate
         amount=findViewById(R.id.amount_text);
         dateInput=findViewById(R.id.date);
         calendar=findViewById(R.id.calendar);
+        user= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        reference = FirebaseDatabase.getInstance().getReference("Fee_Status").child(user);
+
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,13 +53,19 @@ public class FeeAdd extends AppCompatActivity implements DatePickerDialog.OnDate
 
             }
         });
+        String student_uid=getIntent().getStringExtra("Student_uid");
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Added",Toast.LENGTH_SHORT).show();
+
+                FeeHistoryModel feeHistoryModel=new FeeHistoryModel(amount.getText().toString(),dateInput.getText().toString());
+                reference.child(student_uid).push().setValue(feeHistoryModel);
+                Toast.makeText(FeeAdd.this, "Record added", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(FeeAdd.this,FeeHistory.class));
+                finish();
             }
         });
-
 
 
     }
