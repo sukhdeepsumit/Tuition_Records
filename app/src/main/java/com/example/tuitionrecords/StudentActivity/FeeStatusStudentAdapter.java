@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.TeacherActivity.TeacherFee;
+package com.example.tuitionrecords.StudentActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,39 +6,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tuitionrecords.FeeStatusModel;
 import com.example.tuitionrecords.R;
-import com.example.tuitionrecords.StudentActivity.CheckTeacherProfile;
+import com.example.tuitionrecords.TeacherActivity.TeacherFee.FeeHistory;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.ViewHolder;
 
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,FeeStatusAdapter.MyViewHolder> {
+public class FeeStatusStudentAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,FeeStatusStudentAdapter.MyViewHolder> {
 
+    private final Context mContext;
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Teacher_profile");
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -46,19 +38,13 @@ public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,Fee
      *
      * @param options
      */
-
-    private final Context context;
-    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Students_Profile");
-    //String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-    public FeeStatusAdapter(@NonNull FirebaseRecyclerOptions<FeeStatusModel> options, Context context) {
+    public FeeStatusStudentAdapter(@NonNull FirebaseRecyclerOptions options, Context context) {
         super(options);
-        this.context=context;
+        mContext=context;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull MyViewHolder holder, final int position, @NonNull FeeStatusModel model) {
-
+    protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull FeeStatusModel model) {
         String request_key=getRef(position).getKey();
         Log.i("REQUEST_REF", request_key);
 
@@ -66,28 +52,27 @@ public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,Fee
         reference.child(request_key).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 String name  = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
-                String email  = Objects.requireNonNull(snapshot.child("myEmail").getValue()).toString();
+                String email  = Objects.requireNonNull(snapshot.child("email").getValue()).toString();
                 String photoURL = Objects.requireNonNull(snapshot.child("myUri").getValue()).toString();
 
                 holder.name.setText(name);
                 holder.email.setText(email);
 
-
-                Glide.with(context).load(photoURL).into(holder.profilePic);
+                Glide.with(mContext).load(photoURL).into(holder.profilePic);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {  }
         });
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, FeeHistory.class);
+                Intent intent = new Intent(mContext, FeeHistoryStudent.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("student_uid",request_key);
-                context.startActivity(intent);
+                intent.putExtra("teacher_uid",request_key);
+                mContext.startActivity(intent);
             }
         });
 
@@ -96,22 +81,21 @@ public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,Fee
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fee_status_card,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.fee_status_card,parent,false);
         return new MyViewHolder(view);
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder
+
+    static  class MyViewHolder extends RecyclerView.ViewHolder
     {
         CircleImageView profilePic;
         TextView name, email;
-
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             profilePic=itemView.findViewById(R.id.profile_photo);
             name=itemView.findViewById(R.id.name);
             email=itemView.findViewById(R.id.email);
-
         }
     }
 }

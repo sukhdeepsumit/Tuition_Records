@@ -29,6 +29,7 @@ public class FeeAdd extends AppCompatActivity implements DatePickerDialog.OnDate
     DatabaseReference reference;
     String user;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,14 +57,17 @@ public class FeeAdd extends AppCompatActivity implements DatePickerDialog.OnDate
         });
         String student_uid=getIntent().getStringExtra("student_uid");
 
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                FeeHistoryModel feeHistoryModel=new FeeHistoryModel(amount.getText().toString(),dateInput.getText().toString());
+                FeeHistoryModel feeHistoryModel=new FeeHistoryModel("Rs. "+amount.getText().toString(),dateInput.getText().toString());
                 reference.child(student_uid).push().setValue(feeHistoryModel);
                 Toast.makeText(FeeAdd.this, "Record added", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(FeeAdd.this,FeeHistory.class));
+                Intent intent=new Intent(FeeAdd.this,FeeHistory.class);
+                intent.putExtra("student_uid",student_uid);
+                startActivity(intent);
                 finish();
             }
         });
@@ -80,6 +84,10 @@ public class FeeAdd extends AppCompatActivity implements DatePickerDialog.OnDate
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(FeeAdd.this,FeeHistory.class));
+        String student_uid=getIntent().getStringExtra("student_uid");
+        Intent intent=new Intent(FeeAdd.this,FeeHistory.class);
+        intent.putExtra("student_uid",student_uid);
+        startActivity(intent);
+        finish();
     }
 }

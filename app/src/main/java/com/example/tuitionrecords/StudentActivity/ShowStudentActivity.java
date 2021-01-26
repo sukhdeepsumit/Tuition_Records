@@ -61,7 +61,7 @@ public class ShowStudentActivity extends AppCompatActivity {
     DatabaseReference ref;
 
     ConstraintLayout layout;
-    RelativeLayout checkInternet, myTeachers;
+    RelativeLayout checkInternet, myTeachers, myFeeStatus;
     ImageView close;
 
     RecyclerView recyclerView;
@@ -89,6 +89,15 @@ public class ShowStudentActivity extends AppCompatActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);
 
         checkInternet();
+
+        myFeeStatus=findViewById(R.id.feeStatus);
+        myFeeStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShowStudentActivity.this,FeeStatusStudent.class));
+                finish();
+            }
+        });
 
         recyclerView = findViewById(R.id.recyclerView);
 

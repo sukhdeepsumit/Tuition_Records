@@ -43,16 +43,17 @@ public class BatchAdapter extends FirebaseRecyclerAdapter<ScheduleModel,BatchAda
     @Override
     protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull ScheduleModel model) {
         String refKey = getRef(position).getKey();
-        Log.i("OUTER_KEY", refKey);
+        Log.i("REF_KEY",refKey);
         reference.child(refKey).addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.i("CHILDREN_COUNT",String.valueOf(snapshot.getChildrenCount()));
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     String key = snap.getKey();
-                    Log.i("BATCH_KEY", key);
-                    holder.subject.setText(snapshot.child(key).child("subject").getValue().toString());
-                    holder.batch.setText("Batch No. " + snapshot.child(key).child("batch").getValue().toString());
+                    Log.i("KEY2",key);
+                    holder.subject.setText(snapshot.child(key).child("subject").getValue(String.class));
+                    holder.batch.setText("Batch No. " + snapshot.child(key).child("batch").getValue(String.class));
                 }
             }
 

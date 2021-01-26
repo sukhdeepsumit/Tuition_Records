@@ -2,26 +2,19 @@ package com.example.tuitionrecords;
 
 public class FeeStatusModel {
 
-    String name, myEmail, myUri ,feeStatus;
+    String name, myEmail, myUri ;
 
     public FeeStatusModel()
     {
 
     }
 
-    public String getFeeStatus() {
-        return feeStatus;
-    }
 
-    public void setFeeStatus(String feeStatus) {
-        this.feeStatus = feeStatus;
-    }
-
-    public FeeStatusModel(String name, String email, String myUri, String feeStatus) {
+    public FeeStatusModel(String name, String email, String myUri) {
         this.name = name;
         this.myEmail = email;
         this.myUri = myUri;
-        this.feeStatus= feeStatus;
+
     }
 
     public String getName() {
