@@ -77,7 +77,7 @@ public class FeeAdd extends AppCompatActivity implements DatePickerDialog.OnDate
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date="dd/mm/yyyy:  "+dayOfMonth+"/"+month+1+"/"+year;
+        String date="dd/mm/yyyy:  "+dayOfMonth+"/"+String.valueOf(month+1)+"/"+year;
         dateInput.setText(date);
 
     }
