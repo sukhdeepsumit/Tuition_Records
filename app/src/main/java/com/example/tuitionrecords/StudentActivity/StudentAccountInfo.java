@@ -1,12 +1,10 @@
 package com.example.tuitionrecords.StudentActivity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,13 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.example.tuitionrecords.R;
-import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
-import com.example.tuitionrecords.TeacherActivity.TeacherAccountInfo;
+import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;

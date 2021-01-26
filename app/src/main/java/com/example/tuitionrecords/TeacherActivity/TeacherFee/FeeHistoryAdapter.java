@@ -55,77 +55,58 @@ public class FeeHistoryAdapter extends FirebaseRecyclerAdapter<FeeHistoryModel,F
 
         String ref_key=getRef(position).getKey();
 
-//
             holder.feeAmount.setText(model.getAmount());
             holder.payDate.setText(model.getDate());
 
-            holder.feeUpdate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final DialogPlus dialogPlus = DialogPlus.newDialog(mContext)
-                            .setContentHolder(new ViewHolder(R.layout.update_teacher_profile_content))
-                            .setExpanded(true, WindowManager.LayoutParams.WRAP_CONTENT)
-                            .create();
+            holder.feeUpdate.setOnClickListener(v -> {
+                final DialogPlus dialogPlus = DialogPlus.newDialog(mContext)
+                        .setContentHolder(new ViewHolder(R.layout.update_teacher_profile_content))
+                        .setExpanded(true, WindowManager.LayoutParams.WRAP_CONTENT)
+                        .create();
 
-                    View myView = dialogPlus.getHolderView();
-                    final TextInputEditText editText = myView.findViewById(R.id.text);
-                    final AppCompatButton update = myView.findViewById(R.id.update);
+                View myView = dialogPlus.getHolderView();
+                final TextInputEditText editText = myView.findViewById(R.id.text);
+                final AppCompatButton update = myView.findViewById(R.id.update);
 
-                    editText.setText(holder.feeAmount.getText().toString());
-                    dialogPlus.show();
+                editText.setText(holder.feeAmount.getText().toString());
+                dialogPlus.show();
 
-                    String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-                    update.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            String amount_edit=editText.getText().toString();
-                            FirebaseDatabase.getInstance().getReference("Fee_Status").child(uid).child(student_uid).child(ref_key).child("amount").setValue(amount_edit).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(mContext,"Record Updated",Toast.LENGTH_SHORT).show();
-                                    dialogPlus.dismiss();
-                                }
-                            });
+                String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-
-                        }
+                update.setOnClickListener(v1 -> {
+                    String amount_edit=editText.getText().toString();
+                    FirebaseDatabase.getInstance().getReference("Fee_Status").child(uid).child(student_uid).child(ref_key)
+                            .child("amount").setValue(amount_edit).addOnCompleteListener(task -> {
+                            Toast.makeText(mContext,"Record Updated",Toast.LENGTH_SHORT).show();
+                            dialogPlus.dismiss();
                     });
-                }
+                });
             });
 
-            holder.dateUpdate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final DialogPlus dialogPlus = DialogPlus.newDialog(mContext)
-                            .setContentHolder(new ViewHolder(R.layout.update_teacher_profile_content))
-                            .setExpanded(true, WindowManager.LayoutParams.WRAP_CONTENT)
-                            .create();
+            holder.dateUpdate.setOnClickListener(view -> {
+                final DialogPlus dialogPlus = DialogPlus.newDialog(mContext)
+                        .setContentHolder(new ViewHolder(R.layout.update_teacher_profile_content))
+                        .setExpanded(true, WindowManager.LayoutParams.WRAP_CONTENT)
+                        .create();
 
-                    View myView = dialogPlus.getHolderView();
-                    final TextInputEditText editText = myView.findViewById(R.id.text);
-                    final AppCompatButton update = myView.findViewById(R.id.update);
+                View myView = dialogPlus.getHolderView();
+                final TextInputEditText editText = myView.findViewById(R.id.text);
+                final AppCompatButton update = myView.findViewById(R.id.update);
 
-                    editText.setText(holder.payDate.getText().toString());
-                    dialogPlus.show();
+                editText.setText(holder.payDate.getText().toString());
+                dialogPlus.show();
 
-                    String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-                    update.setOnClickListener(new View.OnClickListener() {
+                String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+                update.setOnClickListener(v -> {
+                    String date_edit=editText.getText().toString();
+                    FirebaseDatabase.getInstance().getReference("Fee_Status").child(uid).child(student_uid).child(ref_key).child("date").setValue(date_edit).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onClick(View v) {
-                            String date_edit=editText.getText().toString();
-                            FirebaseDatabase.getInstance().getReference("Fee_Status").child(uid).child(student_uid).child(ref_key).child("date").setValue(date_edit).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(mContext,"Record Updated",Toast.LENGTH_SHORT).show();
-                                    dialogPlus.dismiss();
-                                }
-                            });
-
-
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(mContext,"Record Updated",Toast.LENGTH_SHORT).show();
+                            dialogPlus.dismiss();
                         }
                     });
-
-                }
+                });
             });
     }
 

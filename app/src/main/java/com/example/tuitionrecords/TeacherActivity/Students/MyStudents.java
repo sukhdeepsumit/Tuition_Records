@@ -3,8 +3,6 @@ package com.example.tuitionrecords.TeacherActivity.Students;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -16,9 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.tuitionrecords.R;
-import com.example.tuitionrecords.StudentActivity.StudentModel;
-import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +29,7 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MyStudents extends AppCompatActivity {
+public class  MyStudents extends AppCompatActivity {
 
     CircleImageView profile_picture;
     TextView name, email, gender, city_state, standard, about, batch;

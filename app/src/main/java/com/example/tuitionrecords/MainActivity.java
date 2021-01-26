@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.example.tuitionrecords.StudentActivity.LogInStudentActivity;
+import com.example.tuitionrecords.StudentActivity.Authentication.LogInStudentActivity;
 import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
 import com.example.tuitionrecords.TeacherActivity.Authentication.LogInTeacherActivity;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;

@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.StudentActivity;
+package com.example.tuitionrecords.StudentActivity.Authentication;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;

@@ -22,7 +22,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +33,11 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.tuitionrecords.Contact_us;
 import com.example.tuitionrecords.R;
+import com.example.tuitionrecords.StudentActivity.Authentication.LogInStudentActivity;
+import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
+import com.example.tuitionrecords.StudentActivity.FeeStatus.FeeStatusStudent;
+import com.example.tuitionrecords.StudentActivity.MyTeacher.MyTeachers;
+import com.example.tuitionrecords.StudentActivity.Request.SendRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,6 +74,9 @@ public class ShowStudentActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
 
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Accepted_Students");
+    DatabaseReference batchRef = FirebaseDatabase.getInstance().getReference("Allot_Batches");
+    DatabaseReference timetable = FirebaseDatabase.getInstance().getReference("Time_Table");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +101,7 @@ public class ShowStudentActivity extends AppCompatActivity {
         myFeeStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShowStudentActivity.this,FeeStatusStudent.class));
+                startActivity(new Intent(ShowStudentActivity.this, FeeStatusStudent.class));
                 finish();
             }
         });
@@ -103,7 +110,7 @@ public class ShowStudentActivity extends AppCompatActivity {
 
         myTeachers=findViewById(R.id.myTeachers);
         myTeachers.setOnClickListener(view -> {
-            startActivity(new Intent(ShowStudentActivity.this,MyTeachers.class));
+            startActivity(new Intent(ShowStudentActivity.this, MyTeachers.class));
             finish();
         });
 
@@ -114,10 +121,38 @@ public class ShowStudentActivity extends AppCompatActivity {
         ref = FirebaseDatabase.getInstance().getReference().child("Students_Profile").child(userId);
 
         add.setOnClickListener(view -> {
-            Intent intent = new Intent(ShowStudentActivity.this,SendRequest.class);
+            Intent intent = new Intent(ShowStudentActivity.this, SendRequest.class);
             intent.putExtra("userId", userId);
             startActivity(intent);
             finish();
+        });
+
+        Log.i("REFERENCE_KEY", reference.child(userId).getKey());
+        reference.child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Log.i("REFERENCE_KEY_INNER", dataSnapshot.getKey());
+                    String key = dataSnapshot.getKey();
+                    //String[] batch = {""};
+                    batchRef.child(userId).child(key).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                           String batch =  snapshot.child("batch").getValue().toString();
+                           Log.i("BATCH", snapshot.child("batch").getValue().toString());
+
+
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) { }
+                    });
+                    //Log.i("BATCHNUMBER", batch[0]);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
 
         Toolbar toolbar=findViewById(R.id.toolbar);
@@ -172,7 +207,7 @@ public class ShowStudentActivity extends AppCompatActivity {
                     editor.putInt("key_student", 0);
                     editor.apply();
 
-                    startActivity(new Intent(ShowStudentActivity.this,LogInStudentActivity.class));
+                    startActivity(new Intent(ShowStudentActivity.this, LogInStudentActivity.class));
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 }

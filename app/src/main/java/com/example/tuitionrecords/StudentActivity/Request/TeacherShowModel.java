@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.StudentActivity;
+package com.example.tuitionrecords.StudentActivity.Request;
 
 public class TeacherShowModel {
 

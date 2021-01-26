@@ -80,6 +80,9 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
     CircleImageView notificationStatus;
 
+    String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Time_Table").child(user);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,19 +133,21 @@ public class ShowTeacherActivity extends AppCompatActivity  {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //orderByChild("order"):
+
         FirebaseRecyclerOptions<ScheduleModel> options =
                 new FirebaseRecyclerOptions.Builder<ScheduleModel>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("Time_Table").child(userId).orderByChild("order"), ScheduleModel.class)
-                .build();
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Time_Table")
+                        .child(userId).orderByChild("order"), ScheduleModel.class)
+                        .build();
+
+        new ScheduleAdapter(options).notifyDataSetChanged();
 
         adapter = new ScheduleAdapter(options);
         recyclerView.setAdapter(adapter);

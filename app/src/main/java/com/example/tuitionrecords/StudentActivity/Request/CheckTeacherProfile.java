@@ -1,13 +1,11 @@
-package com.example.tuitionrecords.StudentActivity;
+package com.example.tuitionrecords.StudentActivity.Request;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -23,11 +21,10 @@ import com.example.tuitionrecords.Notifications.MyResponse;
 import com.example.tuitionrecords.Notifications.NotificationSender;
 import com.example.tuitionrecords.Notifications.Token;
 import com.example.tuitionrecords.R;
+import com.example.tuitionrecords.StudentActivity.MyTeacher.MyTeachers;
+import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
 import com.example.tuitionrecords.TeacherActivity.Authentication.TeacherModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -271,7 +268,7 @@ public class CheckTeacherProfile extends AppCompatActivity {
         String checkId=getIntent().getStringExtra("check");
         if(checkId.equals("Student"))
         {
-            startActivity(new Intent(getApplicationContext(),MyTeachers.class));
+            startActivity(new Intent(getApplicationContext(), MyTeachers.class));
         }
         else {
             startActivity(new Intent(getApplicationContext(), SendRequest.class));

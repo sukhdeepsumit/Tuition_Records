@@ -46,21 +46,51 @@ public class ScheduleAdapter extends FirebaseRecyclerAdapter<ScheduleModel, Sche
     protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull ScheduleModel model) {
         Log.i("GET_REF_CHECK", getRef(position).getKey());
         String refKey = getRef(position).getKey();
-        reference.child(refKey).addValueEventListener(new ValueEventListener() {
-            @SuppressLint("SetTextI18n")
+
+        reference.child(refKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snap : snapshot.getChildren()) {
-                    String key = snap.getKey();
-                    holder.time.setText(snapshot.child(key).child("timing").getValue().toString());
-                    holder.subject.setText(snapshot.child(key).child("subject").getValue().toString());
-                    holder.batch.setText("Batch No. " + snapshot.child(key).child("batch").getValue().toString());
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    holder.time.setText(dataSnapshot.child("timing").getValue().toString());
+                    holder.subject.setText(dataSnapshot.child("subject").getValue().toString());
+                    holder.batch.setText(dataSnapshot.child("batch").getValue().toString());
+                    notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {  }
         });
+
+
+        /*reference.child(refKey).addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.i("SNAPSHOT_KEY", snapshot.getKey());
+
+                for (DataSnapshot snap : snapshot.getChildren()) {
+                    String key = snap.getKey();
+                    Log.i("SNAP_KEY", snap.getKey());
+                    assert key != null;
+                    *//*time = snapshot.child(key).child("timing").getValue().toString();
+                    subject = snapshot.child(key).child("subject").getValue().toString();
+                    batch = "Batch No. " + snapshot.child(key).child("batch").getValue().toString();*//*
+
+                    holder.time.setText(snapshot.child(key).child("timing").getValue().toString());
+                    holder.subject.setText(snapshot.child(key).child("subject").getValue().toString());
+                    holder.batch.setText("Batch No. " + snapshot.child(key).child("batch").getValue().toString());
+                }
+                //notifyDataSetChanged();
+
+                String count = String .valueOf(snapshot.getChildrenCount());
+                Log.i("SNAP_COUNT", count);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {  }
+        });*/
     }
 
     @NonNull

@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.StudentActivity;
+package com.example.tuitionrecords.StudentActivity.Authentication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.example.tuitionrecords.MainActivity;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.ResetActivity;
+import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -82,7 +83,7 @@ public class LogInStudentActivity extends AppCompatActivity {
             finish();
         }*/
 
-        signUp.setOnClickListener(v -> startActivity(new Intent(LogInStudentActivity.this,SignUpStudentActivity.class)));
+        signUp.setOnClickListener(v -> startActivity(new Intent(LogInStudentActivity.this, SignUpStudentActivity.class)));
 
         login.setOnClickListener(v -> {
             hideKeybaord(v);
@@ -127,7 +128,7 @@ public class LogInStudentActivity extends AppCompatActivity {
                     editor.apply();
 
                     Toast.makeText(getApplicationContext(),"Logged in",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LogInStudentActivity.this,ShowStudentActivity.class));
+                    startActivity(new Intent(LogInStudentActivity.this, ShowStudentActivity.class));
                     progressBar.setVisibility(View.GONE);
                 }
             }

@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.StudentActivity;
+package com.example.tuitionrecords.StudentActivity.MyTeacher;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

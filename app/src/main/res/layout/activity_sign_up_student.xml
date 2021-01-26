@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".StudentActivity.SignUpStudentActivity">
+        tools:context=".StudentActivity.Authentication.SignUpStudentActivity">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/dpUpload"

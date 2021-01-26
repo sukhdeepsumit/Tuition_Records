@@ -14,20 +14,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".StudentActivity.FeeHistoryStudent"></activity>
-        <activity android:name=".StudentActivity.FeeStatusStudent" />
-        <activity android:name=".StudentActivity.MyTeacherProfile" />
+        <activity android:name=".StudentActivity.FeeStatus.FeeHistoryStudent"></activity>
+        <activity android:name=".StudentActivity.FeeStatus.FeeStatusStudent" />
+        <activity android:name=".StudentActivity.MyTeacher.MyTeacherProfile" />
         <activity android:name=".TeacherActivity.Students.My_Registered_Students" />
         <activity android:name=".TeacherActivity.TeacherFee.FeeHistory" />
         <activity android:name=".TeacherActivity.TeacherFee.FeeAdd" />
-        <activity android:name=".StudentActivity.MyTeachers" />
+        <activity android:name=".StudentActivity.MyTeacher.MyTeachers" />
         <activity android:name=".TeacherActivity.TeacherBatches.MyBatches" />
         <activity android:name=".TeacherActivity.Requests.CheckStudentProfile" />
-        <activity android:name=".StudentActivity.CheckTeacherProfile" />
+        <activity android:name=".StudentActivity.Request.CheckTeacherProfile" />
         <activity android:name=".TeacherActivity.Students.MyStudents" />
         <activity android:name=".TeacherActivity.TeacherFee.FeeStatus" />
         <activity android:name=".TeacherActivity.TeacherSchedule" />
-        <activity android:name=".StudentActivity.SendRequest" />
+        <activity android:name=".StudentActivity.Request.SendRequest" />
         <activity android:name=".ResetActivity" />
         <activity android:name=".Contact_us">
             <intent-filter>
@@ -41,10 +41,10 @@
         <activity android:name=".TeacherActivity.Requests.RequestActivity" />
         <activity android:name=".StudentActivity.ShowStudentActivity" />
         <activity android:name=".TeacherActivity.ShowTeacherActivity" />
-        <activity android:name=".StudentActivity.SignUpStudentActivity" />
+        <activity android:name=".StudentActivity.Authentication.SignUpStudentActivity" />
         <activity android:name=".TeacherActivity.Authentication.SignUpTeacherActivity" />
         <activity android:name=".TeacherActivity.Authentication.LogInTeacherActivity" />
-        <activity android:name=".StudentActivity.LogInStudentActivity" />
+        <activity android:name=".StudentActivity.Authentication.LogInStudentActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

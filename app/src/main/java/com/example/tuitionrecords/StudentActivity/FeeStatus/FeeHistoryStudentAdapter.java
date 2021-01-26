@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.StudentActivity;
+package com.example.tuitionrecords.StudentActivity.FeeStatus;
 
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.StudentActivity;
+package com.example.tuitionrecords.StudentActivity.MyTeacher;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.tuitionrecords.R;
+import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
+import com.example.tuitionrecords.StudentActivity.Request.TeacherShowModel;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -54,7 +56,7 @@ public class MyTeachers extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(MyTeachers.this,ShowStudentActivity.class));
+        startActivity(new Intent(MyTeachers.this, ShowStudentActivity.class));
         finish();
     }
 }

@@ -5,11 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
@@ -19,16 +17,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.PropertyName;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 //commit check
-public class TeacherSchedule extends AppCompatActivity {
+public class  TeacherSchedule extends AppCompatActivity {
 
     TextInputEditText batch, subject;
     AppCompatButton add;
@@ -140,7 +136,7 @@ public class TeacherSchedule extends AppCompatActivity {
 
             String batchNo = batch.getText().toString().toLowerCase();
             ScheduleModel model = new ScheduleModel(result_time, subject.getText().toString(), batchNo, String.valueOf(last));
-            reference.child(batchNo).push().setValue(model);
+            reference.push().setValue(model);
 
             Toast.makeText(this, "Time Table Added", Toast.LENGTH_SHORT).show();
 

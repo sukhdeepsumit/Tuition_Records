@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.tuitionrecords.R;
-import com.example.tuitionrecords.StudentActivity.StudentModel;
+import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
