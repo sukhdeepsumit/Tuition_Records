@@ -105,7 +105,7 @@ public class FeeHistoryAdapter extends FirebaseRecyclerAdapter<FeeHistoryModel,F
                     final TextInputEditText editText = myView.findViewById(R.id.text);
                     final AppCompatButton update = myView.findViewById(R.id.update);
 
-                    editText.setText(holder.feeAmount.getText().toString());
+                    editText.setText(holder.payDate.getText().toString());
                     dialogPlus.show();
 
                     String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
