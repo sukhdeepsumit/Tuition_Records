@@ -32,15 +32,15 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.tuitionrecords.Contact_us;
+import com.example.tuitionrecords.Day_TimeTable;
 import com.example.tuitionrecords.R;
-import com.example.tuitionrecords.ScheduleAdapter;
-import com.example.tuitionrecords.ScheduleModel;
+import com.example.tuitionrecords.Schedule.Schedule;
+import com.example.tuitionrecords.Schedule.ScheduleAdapter;
+import com.example.tuitionrecords.Schedule.ScheduleModel;
 import com.example.tuitionrecords.TeacherActivity.Authentication.LogInTeacherActivity;
 import com.example.tuitionrecords.TeacherActivity.Authentication.TeacherModel;
-import com.example.tuitionrecords.TeacherActivity.Chatting.ChatTeacher;
 import com.example.tuitionrecords.TeacherActivity.Requests.RequestActivity;
 import com.example.tuitionrecords.TeacherActivity.Students.My_Registered_Students;
-import com.example.tuitionrecords.TeacherActivity.TeacherBatches.MyBatches;
 import com.example.tuitionrecords.TeacherActivity.TeacherFee.FeeStatus;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
@@ -51,6 +51,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -72,7 +77,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
     ProgressDialog progressDialog;
 
-    RelativeLayout checkInternet,feeStatus, myBatches, chat;
+    RelativeLayout checkInternet,feeStatus, timetable;
     ImageView close;
 
     SharedPreferences sharedPreferences;
@@ -81,7 +86,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
     CircleImageView notificationStatus;
 
     String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Time_Table").child(user);
+    //DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Time_Table").child(user);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,17 +112,13 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         feeStatus=findViewById(R.id.relativeLayout);
         feeStatus.setOnClickListener(view -> startActivity(new Intent(ShowTeacherActivity.this, FeeStatus.class)));
 
-        myBatches=findViewById(R.id.batches);
-        myBatches.setOnClickListener(v -> startActivity(new Intent(ShowTeacherActivity.this, MyBatches.class)));
-
-        chat=findViewById(R.id.chat);
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShowTeacherActivity.this, ChatTeacher.class));
-                finish();
-            }
+        timetable = findViewById(R.id.time_table);
+        timetable.setOnClickListener(view -> {
+            Intent intent = new Intent(ShowTeacherActivity.this, Day_TimeTable.class);
+            intent.putExtra("user", "teacher");
+            startActivity(intent);
         });
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         assert firebaseUser != null;
@@ -149,13 +150,19 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
         //orderByChild("order"):
 
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+
+        String day = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime());
+        Log.i("DAY_CURRENT", day);
+
         FirebaseRecyclerOptions<ScheduleModel> options =
                 new FirebaseRecyclerOptions.Builder<ScheduleModel>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Time_Table")
-                        .child(userId).orderByChild("order"), ScheduleModel.class)
+                        .child(userId).child(day).orderByChild("order"), ScheduleModel.class)
                         .build();
 
-        new ScheduleAdapter(options).notifyDataSetChanged();
+        //new ScheduleAdapter(options).notifyDataSetChanged();
 
         adapter = new ScheduleAdapter(options);
         recyclerView.setAdapter(adapter);
@@ -191,7 +198,9 @@ public class ShowTeacherActivity extends AppCompatActivity  {
                 }
                 case R.id.schedule :
                 {
-                    startActivity(new Intent(ShowTeacherActivity.this,TeacherSchedule.class));
+                    Intent intent = new Intent(ShowTeacherActivity.this, Schedule.class);
+                    intent.putExtra("user", "teacher");
+                    startActivity(intent);
                     Toast.makeText(getApplicationContext(), "Time table opened", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;

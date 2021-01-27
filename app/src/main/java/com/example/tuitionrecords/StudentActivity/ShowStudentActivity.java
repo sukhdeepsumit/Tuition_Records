@@ -32,12 +32,18 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.tuitionrecords.Contact_us;
+import com.example.tuitionrecords.Day_TimeTable;
 import com.example.tuitionrecords.R;
+import com.example.tuitionrecords.Schedule.Schedule;
+import com.example.tuitionrecords.Schedule.ScheduleAdapter;
+import com.example.tuitionrecords.Schedule.ScheduleModel;
 import com.example.tuitionrecords.StudentActivity.Authentication.LogInStudentActivity;
 import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
 import com.example.tuitionrecords.StudentActivity.FeeStatus.FeeStatusStudent;
 import com.example.tuitionrecords.StudentActivity.MyTeacher.MyTeachers;
 import com.example.tuitionrecords.StudentActivity.Request.SendRequest;
+import com.example.tuitionrecords.TeacherActivity.TeacherBatches.BatchAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,6 +54,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -65,10 +75,11 @@ public class ShowStudentActivity extends AppCompatActivity {
     DatabaseReference ref;
 
     ConstraintLayout layout;
-    RelativeLayout checkInternet, myTeachers, myFeeStatus;
+    RelativeLayout checkInternet, myTeachers, myFeeStatus, myClass, myChats;
     ImageView close;
 
     RecyclerView recyclerView;
+    ScheduleAdapter adapter;
 
     FloatingActionButton add;
 
@@ -93,17 +104,17 @@ public class ShowStudentActivity extends AppCompatActivity {
         checkInternet = findViewById(R.id.check_internet);
         close = findViewById(R.id.close);
 
+        myClass = findViewById(R.id.time_table);
+        myChats = findViewById(R.id.chat);
+
         sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);
 
         checkInternet();
 
         myFeeStatus=findViewById(R.id.feeStatus);
-        myFeeStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShowStudentActivity.this, FeeStatusStudent.class));
-                finish();
-            }
+        myFeeStatus.setOnClickListener(view -> {
+            startActivity(new Intent(ShowStudentActivity.this, FeeStatusStudent.class));
+            finish();
         });
 
         recyclerView = findViewById(R.id.recyclerView);
@@ -112,6 +123,12 @@ public class ShowStudentActivity extends AppCompatActivity {
         myTeachers.setOnClickListener(view -> {
             startActivity(new Intent(ShowStudentActivity.this, MyTeachers.class));
             finish();
+        });
+
+        myClass.setOnClickListener(view -> {
+            Intent intent = new Intent(ShowStudentActivity.this, Day_TimeTable.class);
+            intent.putExtra("user", "student");
+            startActivity(intent);
         });
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -127,33 +144,22 @@ public class ShowStudentActivity extends AppCompatActivity {
             finish();
         });
 
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+
+        String day = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime());
+        Log.i("DAY_TODAY", day);
+
+        FirebaseRecyclerOptions<ScheduleModel> options =
+                new FirebaseRecyclerOptions.Builder<ScheduleModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Time_Table")
+                                .child(userId).child(day).orderByChild("order"), ScheduleModel.class)
+                                .build();
+
+        adapter = new ScheduleAdapter(options);
+        recyclerView.setAdapter(adapter);
+
         Log.i("REFERENCE_KEY", reference.child(userId).getKey());
-        reference.child(userId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Log.i("REFERENCE_KEY_INNER", dataSnapshot.getKey());
-                    String key = dataSnapshot.getKey();
-                    //String[] batch = {""};
-                    batchRef.child(userId).child(key).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                           String batch =  snapshot.child("batch").getValue().toString();
-                           Log.i("BATCH", snapshot.child("batch").getValue().toString());
-
-
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) { }
-                    });
-                    //Log.i("BATCHNUMBER", batch[0]);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
-        });
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -179,6 +185,9 @@ public class ShowStudentActivity extends AppCompatActivity {
                 }
                 case R.id.schedule :
                 {
+                    Intent intent = new Intent(ShowStudentActivity.this, Schedule.class);
+                    intent.putExtra("user", "student");
+                    startActivity(intent);
                     Toast.makeText(getApplicationContext(), "Time table opened", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
@@ -303,11 +312,14 @@ public class ShowStudentActivity extends AppCompatActivity {
         if (firebaseAuth == null) {
             startActivity(new Intent(ShowStudentActivity.this, LogInStudentActivity.class));
         }
+
+        adapter.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        adapter.stopListening();
         finish();
     }
 }

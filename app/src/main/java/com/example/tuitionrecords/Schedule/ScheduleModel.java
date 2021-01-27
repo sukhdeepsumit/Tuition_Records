@@ -1,4 +1,4 @@
-package com.example.tuitionrecords;
+package com.example.tuitionrecords.Schedule;
 
 public class ScheduleModel {
     String timing, subject, batch, order;

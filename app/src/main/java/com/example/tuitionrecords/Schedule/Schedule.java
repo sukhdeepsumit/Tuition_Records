@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.TeacherActivity;
+package com.example.tuitionrecords.Schedule;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,11 +8,16 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.tuitionrecords.R;
-import com.example.tuitionrecords.ScheduleModel;
+import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
+import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -24,27 +29,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 //commit check
-public class  TeacherSchedule extends AppCompatActivity {
+public class Schedule extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     TextInputEditText batch, subject;
     AppCompatButton add;
+    Spinner spinner;
 
     CheckBox one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen;
     List<String> time = new ArrayList<>();
 
-    String user;
+    String user, check_user;
     DatabaseReference reference;
+    String day;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_schedule);
+        setContentView(R.layout.activity_schedule);
+
+        check_user = getIntent().getStringExtra("user");
 
         batch = findViewById(R.id.batch_text);
         subject = findViewById(R.id.subject_text);
 
         add = findViewById(R.id.add);
+        spinner = findViewById(R.id.day_spinner);
 
         /*batchNo = batch.getText().toString().trim();
         batchNo = batchNo.replace(" ", "_");*/
@@ -66,6 +76,11 @@ public class  TeacherSchedule extends AppCompatActivity {
         twelve = findViewById(R.id.checkbox12);
         thirteen = findViewById(R.id.checkbox13);
 
+        spinner.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> daysAdapter = ArrayAdapter.createFromResource(this, R.array.days, android.R.layout.simple_spinner_item);
+        //ArrayAdapter daysAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, days);
+        daysAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(daysAdapter);
         add.setOnClickListener(view -> {
 
             if (one.isChecked()) {
@@ -136,19 +151,38 @@ public class  TeacherSchedule extends AppCompatActivity {
 
             String batchNo = batch.getText().toString().toLowerCase();
             ScheduleModel model = new ScheduleModel(result_time, subject.getText().toString(), batchNo, String.valueOf(last));
-            reference.push().setValue(model);
 
             Toast.makeText(this, "Time Table Added", Toast.LENGTH_SHORT).show();
 
-            startActivity(new Intent(TeacherSchedule.this, ShowTeacherActivity.class));
+            reference.child(day).push().setValue(model);
+
+            if (check_user.equals("teacher")) {
+                startActivity(new Intent(Schedule.this, ShowTeacherActivity.class));
+            }
+            else {
+                startActivity(new Intent(Schedule.this, ShowStudentActivity.class));
+            }
             finish();
         });
-
     }
 
     @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        Log.i("Day", adapterView.getItemAtPosition(position).toString());
+        day = adapterView.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {  }
+
+    @Override
     public void onBackPressed() {
-        startActivity(new Intent(TeacherSchedule.this,ShowTeacherActivity.class));
+        if (user.equals("teacher")) {
+            startActivity(new Intent(Schedule.this,ShowTeacherActivity.class));
+        }
+        else {
+            startActivity(new Intent(Schedule.this,ShowStudentActivity.class));
+        }
         finish();
     }
 }
