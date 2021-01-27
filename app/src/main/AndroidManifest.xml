@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tuitionrecords">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".TeacherActivity.Chatting.ChatTeacher"></activity>
+        <activity android:name=".Day_TimeTable"></activity>
         <activity android:name=".StudentActivity.FeeStatus.FeeHistoryStudent" />
         <activity android:name=".StudentActivity.FeeStatus.FeeStatusStudent" />
         <activity android:name=".StudentActivity.MyTeacher.MyTeacherProfile" />
@@ -22,12 +17,12 @@
         <activity android:name=".TeacherActivity.TeacherFee.FeeHistory" />
         <activity android:name=".TeacherActivity.TeacherFee.FeeAdd" />
         <activity android:name=".StudentActivity.MyTeacher.MyTeachers" />
-        <activity android:name=".TeacherActivity.TeacherBatches.MyBatches" />
+        <activity android:name=".TeacherActivity.TeacherBatches.MyClasses" />
         <activity android:name=".TeacherActivity.Requests.CheckStudentProfile" />
         <activity android:name=".StudentActivity.Request.CheckTeacherProfile" />
         <activity android:name=".TeacherActivity.Students.MyStudents" />
         <activity android:name=".TeacherActivity.TeacherFee.FeeStatus" />
-        <activity android:name=".TeacherActivity.TeacherSchedule" />
+        <activity android:name=".Schedule.Schedule" />
         <activity android:name=".StudentActivity.Request.SendRequest" />
         <activity android:name=".ResetActivity" />
         <activity android:name=".Contact_us">
@@ -71,5 +66,10 @@
             </intent-filter>
         </service>
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

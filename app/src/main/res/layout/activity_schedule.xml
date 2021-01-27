@@ -10,7 +10,7 @@
         android:layout_margin="20dp"
         android:elevation="20dp"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".TeacherActivity.TeacherSchedule"
+        tools:context=".Schedule.Schedule"
         android:background="@drawable/layout_bg">
 
         <LinearLayout
@@ -42,6 +42,14 @@
                     android:textSize="15sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/day_spinner"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:drawable/btn_dropdown"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/subjectInput"
