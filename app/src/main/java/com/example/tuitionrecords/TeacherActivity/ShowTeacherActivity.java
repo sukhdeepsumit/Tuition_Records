@@ -37,8 +37,8 @@ import com.example.tuitionrecords.ScheduleAdapter;
 import com.example.tuitionrecords.ScheduleModel;
 import com.example.tuitionrecords.TeacherActivity.Authentication.LogInTeacherActivity;
 import com.example.tuitionrecords.TeacherActivity.Authentication.TeacherModel;
+import com.example.tuitionrecords.TeacherActivity.Chatting.ChatTeacher;
 import com.example.tuitionrecords.TeacherActivity.Requests.RequestActivity;
-import com.example.tuitionrecords.TeacherActivity.Students.MyStudents;
 import com.example.tuitionrecords.TeacherActivity.Students.My_Registered_Students;
 import com.example.tuitionrecords.TeacherActivity.TeacherBatches.MyBatches;
 import com.example.tuitionrecords.TeacherActivity.TeacherFee.FeeStatus;
@@ -72,7 +72,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
     ProgressDialog progressDialog;
 
-    RelativeLayout checkInternet,feeStatus, myBatches;
+    RelativeLayout checkInternet,feeStatus, myBatches, chat;
     ImageView close;
 
     SharedPreferences sharedPreferences;
@@ -110,6 +110,14 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         myBatches=findViewById(R.id.batches);
         myBatches.setOnClickListener(v -> startActivity(new Intent(ShowTeacherActivity.this, MyBatches.class)));
 
+        chat=findViewById(R.id.chat);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShowTeacherActivity.this, ChatTeacher.class));
+                finish();
+            }
+        });
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         assert firebaseUser != null;

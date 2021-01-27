@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".StudentActivity.FeeStatus.FeeHistoryStudent"></activity>
+        <activity android:name=".TeacherActivity.Chatting.ChatTeacher"></activity>
+        <activity android:name=".StudentActivity.FeeStatus.FeeHistoryStudent" />
         <activity android:name=".StudentActivity.FeeStatus.FeeStatusStudent" />
         <activity android:name=".StudentActivity.MyTeacher.MyTeacherProfile" />
         <activity android:name=".TeacherActivity.Students.My_Registered_Students" />
