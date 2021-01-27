@@ -32,7 +32,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.tuitionrecords.Contact_us;
-import com.example.tuitionrecords.Day_TimeTable;
+import com.example.tuitionrecords.DayTimeTable;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.Schedule.Schedule;
 import com.example.tuitionrecords.Schedule.ScheduleAdapter;
@@ -114,7 +114,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
         timetable = findViewById(R.id.time_table);
         timetable.setOnClickListener(view -> {
-            Intent intent = new Intent(ShowTeacherActivity.this, Day_TimeTable.class);
+            Intent intent = new Intent(ShowTeacherActivity.this, DayTimeTable.class);
             intent.putExtra("user", "teacher");
             startActivity(intent);
         });
