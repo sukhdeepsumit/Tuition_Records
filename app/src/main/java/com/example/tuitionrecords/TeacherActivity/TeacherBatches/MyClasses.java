@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.tuitionrecords.Day_TimeTable;
+import com.example.tuitionrecords.DayTimeTable;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.Schedule.ScheduleModel;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -59,7 +59,7 @@ public class MyClasses extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(MyClasses.this, Day_TimeTable.class);
+        Intent intent = new Intent(MyClasses.this, DayTimeTable.class);
         intent.putExtra("user", user);
         finish();
     }

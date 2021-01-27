@@ -32,7 +32,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.tuitionrecords.Contact_us;
-import com.example.tuitionrecords.Day_TimeTable;
+import com.example.tuitionrecords.DayTimeTable;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.Schedule.Schedule;
 import com.example.tuitionrecords.Schedule.ScheduleAdapter;
@@ -42,7 +42,6 @@ import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
 import com.example.tuitionrecords.StudentActivity.FeeStatus.FeeStatusStudent;
 import com.example.tuitionrecords.StudentActivity.MyTeacher.MyTeachers;
 import com.example.tuitionrecords.StudentActivity.Request.SendRequest;
-import com.example.tuitionrecords.TeacherActivity.TeacherBatches.BatchAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -126,7 +125,7 @@ public class ShowStudentActivity extends AppCompatActivity {
         });
 
         myClass.setOnClickListener(view -> {
-            Intent intent = new Intent(ShowStudentActivity.this, Day_TimeTable.class);
+            Intent intent = new Intent(ShowStudentActivity.this, DayTimeTable.class);
             intent.putExtra("user", "student");
             startActivity(intent);
         });
