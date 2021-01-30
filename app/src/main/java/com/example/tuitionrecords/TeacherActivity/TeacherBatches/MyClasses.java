@@ -46,6 +46,7 @@ public class MyClasses extends AppCompatActivity {
         recyclerView.setAdapter(batchAdapter);
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();

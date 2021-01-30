@@ -31,6 +31,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.tuitionrecords.Chat;
 import com.example.tuitionrecords.Contact_us;
 import com.example.tuitionrecords.DayTimeTable;
 import com.example.tuitionrecords.R;
@@ -77,7 +78,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
     ProgressDialog progressDialog;
 
-    RelativeLayout checkInternet,feeStatus, timetable;
+    RelativeLayout checkInternet,feeStatus, timetable, chat;
     ImageView close;
 
     SharedPreferences sharedPreferences;
@@ -112,6 +113,13 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         feeStatus=findViewById(R.id.relativeLayout);
         feeStatus.setOnClickListener(view -> startActivity(new Intent(ShowTeacherActivity.this, FeeStatus.class)));
 
+        chat=findViewById(R.id.chat);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShowTeacherActivity.this, Chat.class));
+            }
+        });
         timetable = findViewById(R.id.time_table);
         timetable.setOnClickListener(view -> {
             Intent intent = new Intent(ShowTeacherActivity.this, DayTimeTable.class);
