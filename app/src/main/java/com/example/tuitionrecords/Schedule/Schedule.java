@@ -177,7 +177,7 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemSel
 
     @Override
     public void onBackPressed() {
-        if (user.equals("teacher")) {
+        if (check_user.equals("teacher")) {
             startActivity(new Intent(Schedule.this,ShowTeacherActivity.class));
         }
         else {
