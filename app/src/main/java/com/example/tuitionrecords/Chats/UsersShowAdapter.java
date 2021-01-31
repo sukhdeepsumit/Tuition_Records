@@ -33,16 +33,27 @@ public class UsersShowAdapter extends FirebaseRecyclerAdapter<UsersShowModel,Use
      * @param options
      */
     private final Context context;
-    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Students_Profile");
-    public UsersShowAdapter(@NonNull FirebaseRecyclerOptions<UsersShowModel> options, Context ctx) {
+    String role;
+    DatabaseReference reference;
+
+
+    public UsersShowAdapter(@NonNull FirebaseRecyclerOptions<UsersShowModel> options, Context ctx, String user) {
         super(options);
         context=ctx;
+        role=user;
     }
 
     @Override
     protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull UsersShowModel model) {
         String request_key=getRef(position).getKey();
         Log.i("REQUEST_REF", request_key);
+        if(role.equals("teacher")) {
+            reference = FirebaseDatabase.getInstance().getReference().child("Students_Profile");
+        }
+        else
+        {
+            reference = FirebaseDatabase.getInstance().getReference().child("Teacher_profile");
+        }
 
         assert request_key != null;
         reference.child(request_key).addValueEventListener(new ValueEventListener() {

@@ -155,15 +155,6 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         if (cancel) {
             focusView.requestFocus();
         }
-        if (imageUri==null)
-        {
-            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-            builder.setTitle("Missing");
-            builder.setMessage("Upload your photo!!! ");
-            builder.setCancelable(false);
-            builder.setPositiveButton("OK",(dialogInterface, i) -> dialogInterface.cancel());
-            builder.create().show();
-        }
         else {
             signInWithFirebase();
         }
@@ -238,11 +229,13 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         String sn = Objects.requireNonNull(standard.getText()).toString();
         String ab = Objects.requireNonNull(about.getText()).toString();
 
+
         StorageReference ref = storageReference.child("Photos/" + imageUri.getLastPathSegment());
 
         ref.putFile(imageUri).addOnSuccessListener(taskSnapshot -> ref.getDownloadUrl()
                 .addOnSuccessListener(uri -> {
                         String url = uri.toString();
+
                         TeacherModel model = new TeacherModel(nm, em, cn,gn, ct, st, cnt, sn, ab, url);
 
                         String user = Objects.requireNonNull(myAuth.getCurrentUser()).getUid();

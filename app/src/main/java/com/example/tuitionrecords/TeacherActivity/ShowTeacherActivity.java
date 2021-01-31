@@ -117,7 +117,9 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShowTeacherActivity.this, Chat.class));
+                Intent intent=new Intent(ShowTeacherActivity.this,Chat.class);
+                intent.putExtra("user","teacher");
+                startActivity(intent);
             }
         });
         timetable = findViewById(R.id.time_table);

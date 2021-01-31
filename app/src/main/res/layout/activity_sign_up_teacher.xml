@@ -43,7 +43,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Your Name"
-                    android:inputType="textEmailAddress"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,7 +58,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Your Email"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textNoSuggestions"
+                    android:importantForAutofill="no"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Your Password"
-                    android:inputType="textPassword"
+                   android:inputType="textPassword"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 

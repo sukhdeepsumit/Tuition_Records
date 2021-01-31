@@ -23,10 +23,15 @@ public class UsersFragment extends Fragment {
     RecyclerView recyclerView;
     DatabaseReference reference;
     UsersShowAdapter adapter;
+    String who;
 
 
     public UsersFragment() {
         // Required empty public constructor
+    }
+    public UsersFragment(String role)
+    {
+        who=role;
     }
 
     @Override
@@ -42,7 +47,7 @@ public class UsersFragment extends Fragment {
                 new FirebaseRecyclerOptions.Builder<UsersShowModel>()
                         .setQuery(reference,UsersShowModel.class)
                         .build();
-        adapter=new UsersShowAdapter(options,getContext());
+        adapter=new UsersShowAdapter(options,getContext(),who);
         recyclerView.setAdapter(adapter);
         return view;
     }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.tuitionrecords.R;
+import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -16,6 +17,7 @@ public class Chat extends AppCompatActivity {
     TabItem chat, users;
     ViewPager viewPager;
     PageAdapter pageAdapter;
+    String who;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,9 +26,9 @@ public class Chat extends AppCompatActivity {
         tabLayout=findViewById(R.id.tabLayout);
         chat=findViewById(R.id.chatHere);
         users=findViewById(R.id.users);
-
+        who=getIntent().getStringExtra("user");
         viewPager=findViewById(R.id.viewPager);
-        pageAdapter=new PageAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        pageAdapter=new PageAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),who);
         viewPager.setAdapter(pageAdapter);
 
 
@@ -59,7 +61,13 @@ public class Chat extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(Chat.this, ShowTeacherActivity.class));
+        if(who.equals("teacher")) {
+            startActivity(new Intent(Chat.this, ShowTeacherActivity.class));
+        }
+        else
+        {
+            startActivity(new Intent(Chat.this, ShowStudentActivity.class));
+        }
         finish();
     }
 }

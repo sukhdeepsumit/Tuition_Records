@@ -9,11 +9,12 @@ import com.example.tuitionrecords.Chats.ChatFragment;
 import com.example.tuitionrecords.Chats.UsersFragment;
 
 public class PageAdapter extends FragmentPagerAdapter {
-
+    String role;
     int tabCount;
-    public PageAdapter(@NonNull FragmentManager fm, int behavior) {
+    public PageAdapter(@NonNull FragmentManager fm, int behavior, String user) {
         super(fm, behavior);
         tabCount=behavior;
+        role=user;
     }
 
     @NonNull
@@ -22,7 +23,7 @@ public class PageAdapter extends FragmentPagerAdapter {
         switch (position)
         {
             case 0: return new ChatFragment();
-            case 1: return new UsersFragment();
+            case 1: return new UsersFragment(role);
             default: return null;
 
         }
