@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".Chat"></activity>
+        <activity android:name=".Chats.Chat"></activity>
         <activity android:name=".DayTimeTable" />
         <activity android:name=".StudentActivity.FeeStatus.FeeHistoryStudent" />
         <activity android:name=".StudentActivity.FeeStatus.FeeStatusStudent" />

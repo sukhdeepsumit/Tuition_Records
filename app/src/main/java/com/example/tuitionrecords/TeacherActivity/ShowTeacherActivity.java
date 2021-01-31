@@ -31,7 +31,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.example.tuitionrecords.Chat;
+import com.example.tuitionrecords.Chats.Chat;
 import com.example.tuitionrecords.Contact_us;
 import com.example.tuitionrecords.DayTimeTable;
 import com.example.tuitionrecords.R;

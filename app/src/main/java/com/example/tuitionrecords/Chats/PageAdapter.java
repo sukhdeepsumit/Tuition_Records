@@ -1,9 +1,12 @@
-package com.example.tuitionrecords;
+package com.example.tuitionrecords.Chats;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.example.tuitionrecords.Chats.ChatFragment;
+import com.example.tuitionrecords.Chats.UsersFragment;
 
 public class PageAdapter extends FragmentPagerAdapter {
 

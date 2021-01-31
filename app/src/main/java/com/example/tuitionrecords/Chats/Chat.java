@@ -1,4 +1,4 @@
-package com.example.tuitionrecords;
+package com.example.tuitionrecords.Chats;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
