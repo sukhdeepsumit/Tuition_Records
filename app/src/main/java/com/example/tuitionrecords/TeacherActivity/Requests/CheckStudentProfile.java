@@ -102,15 +102,6 @@ public class CheckStudentProfile extends AppCompatActivity {
                 }
             });
 
-            FirebaseDatabase.getInstance().getReference("Fee_Status").child(currentUser).child(requestUser).child("feeStatus").setValue("Not Paid").addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful())
-                    {
-                        FirebaseDatabase.getInstance().getReference("Fee_Status").child(requestUser).child(currentUser).child("feeStatus").setValue("Not Paid");
-                    }
-                }
-            });
             startActivity(new Intent(CheckStudentProfile.this, RequestActivity.class));
             finish();
         });

@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.TeacherActivity.Authentication.TeacherModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -60,6 +61,7 @@ public class MyTeacherProfile extends AppCompatActivity {
                 subject.setText(model.getContent());
                 standard.setText(model.getStandard());
                 about.setText(model.getAbout());
+                Glide.with(getApplicationContext()).load(model.getMyUri()).into(dp);
             }
 
             @Override

@@ -20,7 +20,6 @@ public class PageAdapter extends FragmentPagerAdapter {
         {
             case 0: return new ChatFragment();
             case 1: return new UsersFragment();
-            case 2: return new ProfileFragment();
             default: return null;
 
         }
