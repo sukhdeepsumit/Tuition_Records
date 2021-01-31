@@ -155,6 +155,15 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         if (cancel) {
             focusView.requestFocus();
         }
+        if (imageUri==null)
+        {
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+            builder.setTitle("Missing");
+            builder.setMessage("Upload your photo!!! ");
+            builder.setCancelable(false);
+            builder.setPositiveButton("OK",(dialogInterface, i) -> dialogInterface.cancel());
+            builder.create().show();
+        }
         else {
             signInWithFirebase();
         }
