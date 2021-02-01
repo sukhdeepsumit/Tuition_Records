@@ -36,6 +36,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageActivity extends AppCompatActivity {
 
+    //commit check
+
     RecyclerView recyclerView;
     TextView username;
     EditText sendText;
