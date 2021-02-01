@@ -54,12 +54,9 @@ public class Chat extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name=snapshot.child("name").getValue().toString();
                 String photoUrl=snapshot.child("myUri").getValue().toString();
-
                 user_name.setText(name);
                 Glide.with(getApplicationContext()).load(photoUrl).into(dp);
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

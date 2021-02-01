@@ -197,39 +197,22 @@ public class SignUpStudentActivity extends AppCompatActivity {
         String state=mState.getText().toString();
         String description=mDescription.getText().toString();
 
-        file = Uri.fromFile(new File(String.valueOf(mStorage.child("Photos/unknownUser.jpg"))));
         StorageReference uploader;
-        if(uri==null)
-        {
-            uploader=mStorage.child("Photos/unknownUser.jpg");
-            uploader.child("Photos/"+ file.getLastPathSegment());
-            uploader.putFile(file).addOnSuccessListener(taskSnapshot -> uploader.getDownloadUrl()
-                    .addOnSuccessListener(file -> {
-                        String url = file.toString();
-                        String user = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-                        StudentModel sm = new StudentModel(name, email, gender, contact, standard, city, state, description, url, user);
-                        db.child(user).setValue(sm)
-                                .addOnCompleteListener(task -> Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show());
 
-                    }))
-                    .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error occurred", Toast.LENGTH_SHORT).show());
-        }
-        else {
             uploader = mStorage.child("Photos/" + uri.getLastPathSegment());
 
             uploader.putFile(uri).addOnSuccessListener(taskSnapshot -> uploader.getDownloadUrl()
                     .addOnSuccessListener(uri -> {
                         String url = uri.toString();
-
                         String user = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-                        StudentModel sm = new StudentModel(name, email, gender, contact, standard, city, state, description, url, user);
-
+                        StudentModel sm = new StudentModel(name,email,gender,contact,standard,city,state,description,url,user);
+                        Log.i("USER",user);
                         db.child(user).setValue(sm)
                                 .addOnCompleteListener(task -> Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show());
 
                     }))
                     .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error occurred", Toast.LENGTH_SHORT).show());
-        }
+
      }
 
 

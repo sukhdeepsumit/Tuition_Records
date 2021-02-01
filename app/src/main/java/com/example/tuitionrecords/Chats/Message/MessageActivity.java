@@ -2,15 +2,22 @@ package com.example.tuitionrecords.Chats.Message;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +51,7 @@ public class MessageActivity extends AppCompatActivity {
 
     CircleImageView profileImage;
     ImageButton sendButton;
+    ImageView call;
 
     DatabaseReference reference;
     String userId, who;
@@ -52,6 +60,9 @@ public class MessageActivity extends AppCompatActivity {
 
     MessageAdapter adapter;
     FirebaseUser firebaseUser;
+    String contact;
+
+    private static final int REQUEST_PHONE_CALL=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +73,14 @@ public class MessageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        call=findViewById(R.id.call);
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makePhoneCall();
+            }
+        });
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -116,6 +135,8 @@ public class MessageActivity extends AppCompatActivity {
                     assert model != null;
                     username.setText(model.getName());
                     Glide.with(getApplicationContext()).load(model.getMyUri()).into(profileImage);
+                    contact=model.getContact();
+                    Log.i("TEACHER_CONTACT",contact);
 
                     displayMessage(firebaseUser.getUid(), userId, model.getMyUri());
                 }
@@ -127,6 +148,8 @@ public class MessageActivity extends AppCompatActivity {
                     assert model != null;
                     username.setText(model.getName());
                     Glide.with(getApplicationContext()).load(model.getMyUri()).into(profileImage);
+                    contact=model.getMyContact();
+                    Log.i("STUDENT_CONTACT",contact);
 
                     displayMessage(firebaseUser.getUid(), userId, model.getMyUri());
                 }
@@ -136,6 +159,39 @@ public class MessageActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
+    }
+
+    private void makePhoneCall()
+    {
+        if(contact.length()>0)
+        {
+            if(ContextCompat.checkSelfPermission(MessageActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(MessageActivity.this
+                        ,new String[]{Manifest.permission.CALL_PHONE},REQUEST_PHONE_CALL);
+
+            }
+            else
+            {
+                String dial="tel:"+contact;
+                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+            }
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode==REQUEST_PHONE_CALL)
+        {
+            if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED)
+            {
+                makePhoneCall();
+            }
+            else {
+                Toast.makeText(this,"Permission Denied",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void sendMessage(String sender, String receiver, String message) {
