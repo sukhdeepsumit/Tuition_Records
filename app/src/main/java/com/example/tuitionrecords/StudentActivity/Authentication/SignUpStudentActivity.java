@@ -78,7 +78,6 @@ public class SignUpStudentActivity extends AppCompatActivity {
         mDescription.setScroller(new Scroller(getApplicationContext()));
         mDescription.setVerticalScrollBarEnabled(true);
 
-
         dp.setOnClickListener(v -> {
             Intent intent=new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
@@ -140,7 +139,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
                 builder.setTitle("Missing");
                 builder.setMessage("Upload your photo!!! ");
                 builder.setCancelable(false);
-                builder.setPositiveButton("OK",(dialogInterface, i) -> dialogInterface.cancel());
+                builder.setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.cancel());
                 builder.create().show();
             }
             else {
@@ -190,10 +189,6 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
                 }))
                 .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error occurred", Toast.LENGTH_SHORT).show());
-
-
-
-
      }
 
 //To put the chosen image in imgView

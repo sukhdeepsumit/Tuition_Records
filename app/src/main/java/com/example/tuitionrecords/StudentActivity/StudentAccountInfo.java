@@ -75,7 +75,7 @@ public class StudentAccountInfo extends AppCompatActivity {
                 email.setText(model.getMyEmail());
                 phone.setText(model.getMyContact());
                 gender.setText(model.getMyGender());
-                String location= model.getMyCity()+", "+model.getMyState();
+                String location= model.getMyCity()+","+model.getMyState();
                 city_state.setText(location);
                 standard.setText(model.getMyStandard());
                 about.setText(model.getMyDescription());
@@ -145,39 +145,36 @@ public class StudentAccountInfo extends AppCompatActivity {
 
         String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        update.setOnClickListener(view -> {
 
-                String result = Objects.requireNonNull(editText.getText()).toString();
+            String result = Objects.requireNonNull(editText.getText()).toString();
 
-                if (check.equals("location")) {
+            if (check.equals("location")) {
 
-                    String[] loc = result.split(",");
-                    String city = loc[0];
-                    String state = loc[1];
+                String[] loc = result.split(",");
+                String city = loc[0];
+                String state = loc[1];
 
-                    FirebaseDatabase.getInstance().getReference("Students_Profile").child(uid).child("myCity").setValue(city);
-                    FirebaseDatabase.getInstance().getReference("Students_Profile").child(uid).child("myState").setValue(state);
+                FirebaseDatabase.getInstance().getReference("Students_Profile").child(uid).child("myCity").setValue(city);
+                FirebaseDatabase.getInstance().getReference("Students_Profile").child(uid).child("myState").setValue(state);
 
 //                map.put("city",city);
 //                map.put("state",state);
 
-                }
-                else {
-                    FirebaseDatabase.getInstance().getReference("Students_Profile").child(uid).child(check).setValue(result).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(getApplicationContext(),"Record Updated",Toast.LENGTH_SHORT).show();
-                            //map.put(check,result);
-                        }
-                    });
-
-                }
-                dialogPlus.dismiss();
-
+            }
+            else {
+                FirebaseDatabase.getInstance().getReference("Students_Profile").child(uid).child(check).setValue(result).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getApplicationContext(),"Record Updated",Toast.LENGTH_SHORT).show();
+                        //map.put(check,result);
+                    }
+                });
 
             }
+            dialogPlus.dismiss();
+
+
         });
 
     }

@@ -25,9 +25,6 @@ public class BatchAdapter extends FirebaseRecyclerAdapter<ScheduleModel,BatchAda
      *
      * @param options
      */
-    String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    //DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Time_Table").child(currentUser);
-
 
     public BatchAdapter(@NonNull FirebaseRecyclerOptions<ScheduleModel> options) {
         super(options);
