@@ -1,12 +1,12 @@
 package com.example.tuitionrecords.StudentActivity.Authentication;
 
 public class StudentModel {
-    String name,  myEmail, myContact, myStandard, myCity, myState, myDescription, myGender, myUri;
+    String name,  myEmail, myContact, myStandard, myCity, myState, myDescription, myGender, myUri, id;
 
     public StudentModel() {
     }
 
-    public StudentModel(String name, String myEmail, String myGender, String myContact, String myStandard, String myCity, String myState, String myDescription, String myUri) {
+    public StudentModel(String name, String myEmail, String myGender, String myContact, String myStandard, String myCity, String myState, String myDescription, String myUri, String id) {
 
         this.name = name;
         this.myEmail = myEmail;
@@ -17,8 +17,7 @@ public class StudentModel {
         this.myDescription = myDescription;
         this.myGender = myGender;
         this.myUri = myUri;
-
-
+        this.id = id;
     }
 
 
@@ -94,5 +93,11 @@ public class StudentModel {
         this.myUri = myUri;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 }

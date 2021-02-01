@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.Chats;
+package com.example.tuitionrecords.Chats.Users;
 
 import android.os.Bundle;
 
@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tuitionrecords.Chats.Users.UsersShowAdapter;
+import com.example.tuitionrecords.Chats.Users.UsersShowModel;
 import com.example.tuitionrecords.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,16 +41,21 @@ public class UsersFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_users, container, false);
+
         recyclerView=view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         String currentUser = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         reference = FirebaseDatabase.getInstance().getReference("Accepted_Students").child(currentUser);
+
         FirebaseRecyclerOptions<UsersShowModel> options =
                 new FirebaseRecyclerOptions.Builder<UsersShowModel>()
                         .setQuery(reference,UsersShowModel.class)
                         .build();
+
         adapter=new UsersShowAdapter(options,getContext(),who);
         recyclerView.setAdapter(adapter);
+
         return view;
     }
 

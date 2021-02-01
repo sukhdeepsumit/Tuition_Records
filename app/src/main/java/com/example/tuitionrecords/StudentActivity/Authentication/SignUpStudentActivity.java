@@ -206,8 +206,8 @@ public class SignUpStudentActivity extends AppCompatActivity {
             uploader.putFile(file).addOnSuccessListener(taskSnapshot -> uploader.getDownloadUrl()
                     .addOnSuccessListener(file -> {
                         String url = file.toString();
-                        StudentModel sm = new StudentModel(name, email, gender, contact, standard, city, state, description, url);
                         String user = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+                        StudentModel sm = new StudentModel(name, email, gender, contact, standard, city, state, description, url, user);
                         db.child(user).setValue(sm)
                                 .addOnCompleteListener(task -> Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show());
 
@@ -221,9 +221,9 @@ public class SignUpStudentActivity extends AppCompatActivity {
                     .addOnSuccessListener(uri -> {
                         String url = uri.toString();
 
-                        StudentModel sm = new StudentModel(name, email, gender, contact, standard, city, state, description, url);
-
                         String user = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+                        StudentModel sm = new StudentModel(name, email, gender, contact, standard, city, state, description, url, user);
+
                         db.child(user).setValue(sm)
                                 .addOnCompleteListener(task -> Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show());
 

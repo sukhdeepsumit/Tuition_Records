@@ -1,6 +1,7 @@
-package com.example.tuitionrecords.Chats;
+package com.example.tuitionrecords.Chats.Users;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.tuitionrecords.Chats.Message.MessageActivity;
 import com.example.tuitionrecords.R;
+import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
+import com.example.tuitionrecords.TeacherActivity.Authentication.TeacherModel;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,14 +37,14 @@ public class UsersShowAdapter extends FirebaseRecyclerAdapter<UsersShowModel,Use
      *
      * @param options
      */
-    private final Context context;
+    private final Context user_context;
     String role;
     DatabaseReference reference;
 
 
     public UsersShowAdapter(@NonNull FirebaseRecyclerOptions<UsersShowModel> options, Context ctx, String user) {
         super(options);
-        context=ctx;
+        user_context = ctx;
         role=user;
     }
 
@@ -64,11 +69,18 @@ public class UsersShowAdapter extends FirebaseRecyclerAdapter<UsersShowModel,Use
 
                 holder.name.setText(name);
 
-                Glide.with(context).load(photoURL).into(holder.profilePic);
+                Glide.with(user_context).load(photoURL).into(holder.profilePic);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {  }
+        });
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(user_context, MessageActivity.class);
+            intent.putExtra("userId", request_key);
+            intent.putExtra("user", role);
+            user_context.startActivity(intent);
         });
 
     }

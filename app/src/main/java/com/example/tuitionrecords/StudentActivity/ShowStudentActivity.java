@@ -107,13 +107,11 @@ public class ShowStudentActivity extends AppCompatActivity {
 
         myClass = findViewById(R.id.time_table);
         myChats = findViewById(R.id.chat);
-        myChats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(ShowStudentActivity.this, Chat.class);
-                intent.putExtra("user","student");
-                startActivity(intent);
-            }
+
+        myChats.setOnClickListener(view -> {
+            Intent intent=new Intent(ShowStudentActivity.this, Chat.class);
+            intent.putExtra("user","student");
+            startActivity(intent);
         });
 
         sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);

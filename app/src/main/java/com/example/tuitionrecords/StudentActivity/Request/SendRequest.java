@@ -34,12 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
-// LOCATION FILTER IS LEFT
-// NOTHING HAS BEEN CHECKED, ONLY CODE IS WRITTEN
-
 public class  SendRequest extends AppCompatActivity {
-
-    //commit check
 
     LinearLayout sort, filter;
     RecyclerView recyclerView;

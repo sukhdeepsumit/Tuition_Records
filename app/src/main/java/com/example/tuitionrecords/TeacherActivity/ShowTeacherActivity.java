@@ -114,13 +114,10 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         feeStatus.setOnClickListener(view -> startActivity(new Intent(ShowTeacherActivity.this, FeeStatus.class)));
 
         chat=findViewById(R.id.chat);
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(ShowTeacherActivity.this,Chat.class);
-                intent.putExtra("user","teacher");
-                startActivity(intent);
-            }
+        chat.setOnClickListener(view -> {
+            Intent intent=new Intent(ShowTeacherActivity.this,Chat.class);
+            intent.putExtra("user","teacher");
+            startActivity(intent);
         });
         timetable = findViewById(R.id.time_table);
         timetable.setOnClickListener(view -> {
