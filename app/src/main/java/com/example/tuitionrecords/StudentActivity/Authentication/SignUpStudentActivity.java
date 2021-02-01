@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,6 +30,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.orhanobut.dialogplus.DialogPlusBuilder;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Objects;
@@ -43,7 +45,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
     EditText mName, mEmail,mContact,mPwd,mCnfPwd, mStandard,mCity,mState,mDescription;
     ProgressBar progressBar;
     CircleImageView dp;
-    Uri uri;
+    Uri uri, file;
     RadioGroup mGender;
 
     StorageReference mStorage;
@@ -56,7 +58,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_student);
-        
+
         mName=findViewById(R.id.name_text);
         mEmail=findViewById(R.id.email_text);
         mContact=findViewById(R.id.phone_text);
@@ -78,10 +80,9 @@ public class SignUpStudentActivity extends AppCompatActivity {
         mDescription.setScroller(new Scroller(getApplicationContext()));
         mDescription.setVerticalScrollBarEnabled(true);
 
+
         dp.setOnClickListener(v -> {
-            Intent intent=new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            startActivityForResult(intent,GALLERY);
+           openImage();
         });
 
 
@@ -133,15 +134,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
                 mCnfPwd.setError("Incorrect password! ");
                 mCnfPwd.requestFocus();
             }
-            else if (uri==null)
-            {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Missing");
-                builder.setMessage("Upload your photo!!! ");
-                builder.setCancelable(false);
-                builder.setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.cancel());
-                builder.create().show();
-            }
+
             else {
                 progressBar.setVisibility(View.VISIBLE);
 
@@ -164,34 +157,13 @@ public class SignUpStudentActivity extends AppCompatActivity {
         });
     }
 
-    //Saving the data to firebase
-    private void saveStudentProfileDetails()
-    {
-        String name=mName.getText().toString();
-        String  email=mEmail.getText().toString();
-        String contact=mContact.getText().toString() ;
-        String gender=((RadioButton)findViewById(mGender.getCheckedRadioButtonId())).getText().toString();
-        String standard=mStandard.getText().toString();
-        String city=mCity.getText().toString();
-        String state=mState.getText().toString();
-        String description=mDescription.getText().toString();
+    private void openImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, GALLERY);
+    }
 
-        StorageReference uploader=mStorage.child("Photos/"+uri.getLastPathSegment());
-
-        uploader.putFile(uri).addOnSuccessListener(taskSnapshot -> uploader.getDownloadUrl()
-                .addOnSuccessListener(uri -> {
-                        String url = uri.toString();
-                        StudentModel sm =new StudentModel(name,email,gender,contact,standard,city,state,description, url);
-
-                        String user= Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-                        db.child(user).setValue(sm)
-                                .addOnCompleteListener(task -> Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show());
-
-                }))
-                .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error occurred", Toast.LENGTH_SHORT).show());
-     }
-
-//To put the chosen image in imgView
+    //To put the chosen image in imgView
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -210,6 +182,57 @@ public class SignUpStudentActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
+
+    //Saving the data to firebase
+    private void saveStudentProfileDetails()
+    {
+        String name=mName.getText().toString();
+        String  email=mEmail.getText().toString();
+        String contact=mContact.getText().toString() ;
+        String gender=((RadioButton)findViewById(mGender.getCheckedRadioButtonId())).getText().toString();
+        String standard=mStandard.getText().toString();
+        String city=mCity.getText().toString();
+        String state=mState.getText().toString();
+        String description=mDescription.getText().toString();
+
+        file = Uri.fromFile(new File(String.valueOf(mStorage.child("Photos/unknownUser.jpg"))));
+        StorageReference uploader;
+        if(uri==null)
+        {
+            uploader=mStorage.child("Photos/unknownUser.jpg");
+            uploader.child("Photos/"+ file.getLastPathSegment());
+            uploader.putFile(file).addOnSuccessListener(taskSnapshot -> uploader.getDownloadUrl()
+                    .addOnSuccessListener(file -> {
+                        String url = file.toString();
+                        StudentModel sm = new StudentModel(name, email, gender, contact, standard, city, state, description, url);
+                        String user = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+                        db.child(user).setValue(sm)
+                                .addOnCompleteListener(task -> Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show());
+
+                    }))
+                    .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error occurred", Toast.LENGTH_SHORT).show());
+        }
+        else {
+            uploader = mStorage.child("Photos/" + uri.getLastPathSegment());
+
+            uploader.putFile(uri).addOnSuccessListener(taskSnapshot -> uploader.getDownloadUrl()
+                    .addOnSuccessListener(uri -> {
+                        String url = uri.toString();
+
+                        StudentModel sm = new StudentModel(name, email, gender, contact, standard, city, state, description, url);
+
+                        String user = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+                        db.child(user).setValue(sm)
+                                .addOnCompleteListener(task -> Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show());
+
+                    }))
+                    .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error occurred", Toast.LENGTH_SHORT).show());
+        }
+     }
+
+
 
 
     private boolean checkContact(String contact)

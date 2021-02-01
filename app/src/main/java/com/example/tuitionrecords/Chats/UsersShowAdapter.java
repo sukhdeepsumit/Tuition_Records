@@ -1,7 +1,6 @@
-package com.example.tuitionrecords;
+package com.example.tuitionrecords.Chats;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.tuitionrecords.TeacherActivity.TeacherFee.FeeHistory;
+import com.example.tuitionrecords.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -34,16 +33,27 @@ public class UsersShowAdapter extends FirebaseRecyclerAdapter<UsersShowModel,Use
      * @param options
      */
     private final Context context;
-    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Students_Profile");
-    public UsersShowAdapter(@NonNull FirebaseRecyclerOptions<UsersShowModel> options, Context ctx) {
+    String role;
+    DatabaseReference reference;
+
+
+    public UsersShowAdapter(@NonNull FirebaseRecyclerOptions<UsersShowModel> options, Context ctx, String user) {
         super(options);
         context=ctx;
+        role=user;
     }
 
     @Override
     protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull UsersShowModel model) {
         String request_key=getRef(position).getKey();
         Log.i("REQUEST_REF", request_key);
+        if(role.equals("teacher")) {
+            reference = FirebaseDatabase.getInstance().getReference().child("Students_Profile");
+        }
+        else
+        {
+            reference = FirebaseDatabase.getInstance().getReference().child("Teacher_profile");
+        }
 
         assert request_key != null;
         reference.child(request_key).addValueEventListener(new ValueEventListener() {

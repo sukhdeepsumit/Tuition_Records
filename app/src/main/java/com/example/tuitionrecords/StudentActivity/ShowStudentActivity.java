@@ -31,6 +31,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.tuitionrecords.Chats.Chat;
 import com.example.tuitionrecords.Contact_us;
 import com.example.tuitionrecords.DayTimeTable;
 import com.example.tuitionrecords.R;
@@ -42,6 +43,7 @@ import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
 import com.example.tuitionrecords.StudentActivity.FeeStatus.FeeStatusStudent;
 import com.example.tuitionrecords.StudentActivity.MyTeacher.MyTeachers;
 import com.example.tuitionrecords.StudentActivity.Request.SendRequest;
+import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -105,6 +107,14 @@ public class ShowStudentActivity extends AppCompatActivity {
 
         myClass = findViewById(R.id.time_table);
         myChats = findViewById(R.id.chat);
+        myChats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ShowStudentActivity.this, Chat.class);
+                intent.putExtra("user","student");
+                startActivity(intent);
+            }
+        });
 
         sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);
 
@@ -241,7 +251,7 @@ public class ShowStudentActivity extends AppCompatActivity {
                assert studentModel != null;
                name.setText(studentModel.getName());
                email.setText(studentModel.getMyEmail());
-               Glide.with(getApplicationContext()).load(studentModel.getMyUri()).listener(new RequestListener<Drawable>() {
+               Glide.with(getApplicationContext()).load(studentModel.getMyUri()).placeholder(R.drawable.anonymous_user).listener(new RequestListener<Drawable>() {
                    @Override
                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                        progressDialog.dismiss();

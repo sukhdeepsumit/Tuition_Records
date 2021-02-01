@@ -1,4 +1,4 @@
-package com.example.tuitionrecords;
+package com.example.tuitionrecords.Chats;
 
 public class UsersShowModel {
     String name, myUri;
