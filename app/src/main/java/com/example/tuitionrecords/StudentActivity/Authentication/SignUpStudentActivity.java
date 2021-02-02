@@ -183,8 +183,6 @@ public class SignUpStudentActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
-
     //Saving the data to firebase
     private void saveStudentProfileDetails()
     {
@@ -212,11 +210,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
                     }))
                     .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error occurred", Toast.LENGTH_SHORT).show());
-
      }
-
-
-
 
     private boolean checkContact(String contact)
     {

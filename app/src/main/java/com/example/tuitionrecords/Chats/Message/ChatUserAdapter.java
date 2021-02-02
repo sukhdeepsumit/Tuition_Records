@@ -101,7 +101,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
         else {
             StudentModel studentModel = student_chat.get(position);
 
-            Log.i("ITEM_ONE", studentModel.getId());
+            //Log.i("ITEM_ONE", studentModel.getId());
 
             holder.name.setText(studentModel.getName());
             Glide.with(context).load(studentModel.getMyUri()).into(holder.profilePic);
@@ -111,6 +111,21 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
             }
             else {
                 holder.lastMessage.setVisibility(View.GONE);
+            }
+
+            if (isChat) {
+                if (studentModel.getStatus() != null && studentModel.getStatus().equals("online")) {
+                    holder.online.setVisibility(View.VISIBLE);
+                    holder.offline.setVisibility(View.GONE);
+                }
+                else {
+                    holder.offline.setVisibility(View.VISIBLE);
+                    holder.online.setVisibility(View.GONE);
+                }
+            }
+            else {
+                holder.online.setVisibility(View.GONE);
+                holder.offline.setVisibility(View.VISIBLE);
             }
 
             holder.itemView.setOnClickListener(view -> {
