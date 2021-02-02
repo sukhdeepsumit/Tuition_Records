@@ -276,7 +276,7 @@ public class MessageActivity extends AppCompatActivity {
                     {
                         messageChats.add(chats);
                     }
-                    adapter = new MessageAdapter(getApplicationContext(), messageChats, imageUrl);
+                    adapter = new MessageAdapter(MessageActivity.this, messageChats, imageUrl);
                     recyclerView.setAdapter(adapter);
                 }
             }

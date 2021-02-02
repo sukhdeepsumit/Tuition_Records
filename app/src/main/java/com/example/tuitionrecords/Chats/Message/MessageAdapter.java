@@ -1,10 +1,14 @@
 package com.example.tuitionrecords.Chats.Message;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +18,12 @@ import com.example.tuitionrecords.Chats.Model.ChatShowModel;
 import com.example.tuitionrecords.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -70,6 +80,61 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         else {
             holder.text_seen.setVisibility(View.GONE);
         }
+
+        holder.messageLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(myContext);
+                builder.setTitle("Delete?");
+                builder.setCancelable(false);
+                builder.setMessage("Unsend message?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteMessage(position);
+
+                    }
+                    
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+
+            }
+        });
+    }
+
+    private void deleteMessage(int position) {
+        String message=myChats.get(position).getMessage();
+        String myUid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference ref= FirebaseDatabase.getInstance().getReference("Chats");
+        Query query=ref.orderByChild("message").equalTo(message);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snap: snapshot.getChildren())
+                {
+                    if(snap.child("sender").getValue().equals(myUid))
+                    {
+                        snap.getRef().removeValue();
+                        Toast.makeText(myContext,"Message unsent",Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(myContext,"You can unsend only your message",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -82,6 +147,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         public TextView showMessage;
         public CircleImageView profileImage;
         public TextView text_seen;
+        public RelativeLayout messageLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +155,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             showMessage = itemView.findViewById(R.id.show_message);
             profileImage = itemView.findViewById(R.id.profileImage);
             text_seen=itemView.findViewById(R.id.textSeen);
+            messageLayout=itemView.findViewById(R.id.messageLayout);
+
         }
     }
 
