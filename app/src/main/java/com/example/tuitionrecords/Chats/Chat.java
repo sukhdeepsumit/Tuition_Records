@@ -21,26 +21,34 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Chat extends AppCompatActivity {
+
     TabLayout tabLayout;
     TabItem chat, users;
     ViewPager viewPager;
     PageAdapter pageAdapter;
+
     String who;
     CircleImageView dp;
     TextView user_name;
     DatabaseReference reference;
     String currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
         dp=findViewById(R.id.dpUpload);
         user_name=findViewById(R.id.userName);
+
         currentUser=FirebaseAuth.getInstance().getCurrentUser().getUid();
         who=getIntent().getStringExtra("user");
+
         if(who.equals("teacher")) {
             reference = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(currentUser);
         }
@@ -58,9 +66,7 @@ public class Chat extends AppCompatActivity {
                 Glide.with(getApplicationContext()).load(photoUrl).into(dp);
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {  }
         });
 
         tabLayout=findViewById(R.id.tabLayout);
@@ -77,28 +83,46 @@ public class Chat extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
 
-                if (tab.getPosition()==0 ||tab.getPosition()==1)
+                if (tab.getPosition() == 0 ||tab.getPosition() == 1)
                 {
                     pageAdapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabUnselected(TabLayout.Tab tab) {  }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) { }
         });
+
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    }
 
+    private void status(String status) {
+        if (who.equals("teacher")) {
+            reference = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(currentUser);
+        }
+        else {
+            reference = FirebaseDatabase.getInstance().getReference("Students_Profile").child(currentUser);
+        }
 
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
 
+        reference.updateChildren(hashMap);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
     }
 
     @Override

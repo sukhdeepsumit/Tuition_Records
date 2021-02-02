@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,7 +63,6 @@ public class MessageActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     String contact;
 
-    ValueEventListener seenListener;
     private static final int REQUEST_PHONE_CALL=1;
 
     @Override
@@ -76,12 +76,7 @@ public class MessageActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         call=findViewById(R.id.call);
-        call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                makePhoneCall();
-            }
-        });
+        call.setOnClickListener(view -> makePhoneCall());
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -159,36 +154,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
-        if(who.equals("teacher"))
-        {
-            seenMessage(userId);
-        }
-        else
-        {
-            seenMessage(firebaseUser.getUid());
-        }
 
-    }
-    private void seenMessage(String userId)
-    {
-        reference=FirebaseDatabase.getInstance().getReference("Chats");
-        seenListener=reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ChatShowModel chat=snapshot.getValue(ChatShowModel.class);
-                if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId))
-                {
-                    HashMap<String,Object> hashMap=new HashMap<>();
-                    hashMap.put("isSeen",true);
-                    snapshot.getRef().updateChildren(hashMap);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     private void makePhoneCall()
@@ -224,9 +190,6 @@ public class MessageActivity extends AppCompatActivity {
         }
     }
 
-
-
-
     private void sendMessage(String sender, String receiver, String message) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         
@@ -234,7 +197,6 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
-        hashMap.put("isSeen",false);
 
         reference.child("Chats").push().setValue(hashMap);
 
@@ -295,9 +257,37 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
+    private void currentUser(String userid) {
+        SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+        editor.putString("currentUser", userid);
+        editor.apply();
+    }
+
+    private void status(String status) {
+        if (who.equals("teacher")) {
+            reference = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(firebaseUser.getUid());
+        }
+        else {
+            reference = FirebaseDatabase.getInstance().getReference("Students_Profile").child(firebaseUser.getUid());
+        }
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+        currentUser(userId);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
-        reference.removeEventListener(seenListener);
+        status("offline");
+        currentUser("none");
     }
 }
