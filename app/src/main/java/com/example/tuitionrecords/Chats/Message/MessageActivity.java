@@ -62,6 +62,7 @@ public class MessageActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     String contact;
 
+    ValueEventListener seenListener;
     private static final int REQUEST_PHONE_CALL=1;
 
     @Override
@@ -158,7 +159,36 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
+        if(who.equals("teacher"))
+        {
+            seenMessage(userId);
+        }
+        else
+        {
+            seenMessage(firebaseUser.getUid());
+        }
 
+    }
+    private void seenMessage(String userId)
+    {
+        reference=FirebaseDatabase.getInstance().getReference("Chats");
+        seenListener=reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ChatShowModel chat=snapshot.getValue(ChatShowModel.class);
+                if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId))
+                {
+                    HashMap<String,Object> hashMap=new HashMap<>();
+                    hashMap.put("isSeen",true);
+                    snapshot.getRef().updateChildren(hashMap);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void makePhoneCall()
@@ -194,6 +224,9 @@ public class MessageActivity extends AppCompatActivity {
         }
     }
 
+
+
+
     private void sendMessage(String sender, String receiver, String message) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         
@@ -201,6 +234,7 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
+        hashMap.put("isSeen",false);
 
         reference.child("Chats").push().setValue(hashMap);
 
@@ -259,5 +293,11 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {  }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        reference.removeEventListener(seenListener);
     }
 }
