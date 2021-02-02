@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.tuitionrecords.Chats.Model.Chat_ID;
 import com.example.tuitionrecords.Chats.Users.UsersShowAdapter;
+import com.example.tuitionrecords.Notifications.Token;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
 import com.example.tuitionrecords.StudentActivity.Request.TeacherShowModel;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +47,8 @@ public class ChatFragment extends Fragment {
     ChatUserAdapter adapter;
     String who;
 
-    public ChatFragment() {
-    }
+    /*public ChatFragment() {
+    }*/
 
     public ChatFragment(String who) {
         this.who = who;
@@ -83,6 +85,8 @@ public class ChatFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {  }
         });
+
+        updateToken(FirebaseInstanceId.getInstance().getToken());
 
         return view;
     }
@@ -142,5 +146,11 @@ public class ChatFragment extends Fragment {
                 public void onCancelled(@NonNull DatabaseError error) {  }
             });
         }
+    }
+
+    private void updateToken(String token) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token tk = new Token(token);
+        reference.child(firebaseUser.getUid()).setValue(tk);
     }
 }

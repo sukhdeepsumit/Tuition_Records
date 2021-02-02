@@ -37,6 +37,7 @@ public class UsersShowAdapter extends FirebaseRecyclerAdapter<UsersShowModel,Use
      *
      * @param options
      */
+
     private final Context user_context;
     String role;
     DatabaseReference reference;
@@ -66,7 +67,9 @@ public class UsersShowAdapter extends FirebaseRecyclerAdapter<UsersShowModel,Use
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name  = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
                 String photoURL = Objects.requireNonNull(snapshot.child("myUri").getValue()).toString();
+
                 holder.name.setText(name);
+
                 Glide.with(user_context).load(photoURL).into(holder.profilePic);
             }
 

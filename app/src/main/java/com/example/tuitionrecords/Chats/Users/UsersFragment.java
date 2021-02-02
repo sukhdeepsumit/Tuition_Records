@@ -31,9 +31,9 @@ public class UsersFragment extends Fragment {
     String who;
 
 
-    public UsersFragment() {
+    /*public UsersFragment() {
         // Required empty public constructor
-    }
+    }*/
     public UsersFragment(String role)
     {
         who=role;

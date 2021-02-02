@@ -1,7 +1,11 @@
 package com.example.tuitionrecords.Chats;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -9,6 +13,10 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.tuitionrecords.Chats.Message.ChatFragment;
+import com.example.tuitionrecords.Chats.Model.ChatShowModel;
+import com.example.tuitionrecords.Chats.Users.UsersFragment;
+import com.example.tuitionrecords.Notifications.Token;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
@@ -20,7 +28,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -28,9 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Chat extends AppCompatActivity {
 
     TabLayout tabLayout;
-    TabItem chat, users;
     ViewPager viewPager;
-    PageAdapter pageAdapter;
 
     String who;
     CircleImageView dp;
@@ -70,33 +78,42 @@ public class Chat extends AppCompatActivity {
         });
 
         tabLayout=findViewById(R.id.tabLayout);
-        chat=findViewById(R.id.chatHere);
-        users=findViewById(R.id.users);
-
         viewPager=findViewById(R.id.viewPager);
-        pageAdapter=new PageAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),who);
-        viewPager.setAdapter(pageAdapter);
 
-
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+                int unread = 0;
 
-                if (tab.getPosition() == 0 ||tab.getPosition() == 1)
-                {
-                    pageAdapter.notifyDataSetChanged();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    ChatShowModel chats = dataSnapshot.getValue(ChatShowModel.class);
+
+                    if (chats.getReceiver().equals(currentUser) && !chats.isIsseen()) {
+                        unread++;
+                    }
                 }
+
+                if (unread == 0) {
+                    viewPagerAdapter.addFragments(new ChatFragment(who), "Chats");
+                }
+                else {
+                    viewPagerAdapter.addFragments(new ChatFragment(who), "Chats (" + unread + ")");
+                }
+
+                viewPagerAdapter.addFragments(new UsersFragment(who), "Users");
+
+                viewPager.setAdapter(viewPagerAdapter);
+                tabLayout.setupWithViewPager(viewPager);
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {  }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) { }
+            public void onCancelled(@NonNull DatabaseError error) {  }
         });
 
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        updateToken(FirebaseInstanceId.getInstance().getToken());
     }
 
     private void status(String status) {
@@ -111,6 +128,12 @@ public class Chat extends AppCompatActivity {
         hashMap.put("status", status);
 
         reference.updateChildren(hashMap);
+    }
+
+    private void updateToken(String token) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token tk = new Token(token);
+        reference.child(currentUser).setValue(tk);
     }
 
     @Override
@@ -135,5 +158,39 @@ public class Chat extends AppCompatActivity {
             startActivity(new Intent(Chat.this, ShowStudentActivity.class));
         }
         finish();
+    }
+
+    static class ViewPagerAdapter extends FragmentPagerAdapter {
+
+        private final ArrayList<Fragment> fragments;
+        private final ArrayList<String> titles;
+
+        ViewPagerAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+            this.fragments = new ArrayList<>();
+            this.titles = new ArrayList<>();
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles.get(position);
+        }
+
+        public void addFragments(Fragment fragment, String title) {
+            fragments.add(fragment);
+            titles.add(title);
+        }
     }
 }

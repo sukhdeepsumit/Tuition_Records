@@ -167,7 +167,7 @@ public class MessageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot snapshot1: snapshot.getChildren())
                 {
-                    ChatShowModel chat= snapshot1.getValue(ChatShowModel.class);
+                    ChatShowModel chat = snapshot1.getValue(ChatShowModel.class);
                     if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId))
                     {
                         HashMap<String,Object> hashMap=new HashMap<>();
@@ -188,11 +188,9 @@ public class MessageActivity extends AppCompatActivity {
     {
         if(contact.length()>0)
         {
-            if(ContextCompat.checkSelfPermission(MessageActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED)
+            if(ContextCompat.checkSelfPermission(MessageActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
             {
-                ActivityCompat.requestPermissions(MessageActivity.this
-                        ,new String[]{Manifest.permission.CALL_PHONE},REQUEST_PHONE_CALL);
-
+                ActivityCompat.requestPermissions(MessageActivity.this, new String[]{Manifest.permission.CALL_PHONE},REQUEST_PHONE_CALL);
             }
             else
             {

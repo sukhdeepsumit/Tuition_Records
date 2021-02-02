@@ -18,7 +18,7 @@ import com.example.tuitionrecords.Notifications.APIService;
 import com.example.tuitionrecords.Notifications.Client;
 import com.example.tuitionrecords.Notifications.Data;
 import com.example.tuitionrecords.Notifications.MyResponse;
-import com.example.tuitionrecords.Notifications.NotificationSender;
+import com.example.tuitionrecords.Notifications.Sender;
 import com.example.tuitionrecords.Notifications.Token;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.StudentActivity.MyTeacher.MyTeachers;
@@ -152,7 +152,7 @@ public class CheckTeacherProfile extends AppCompatActivity {
                 Token token = snapshot.getValue(Token.class);
                 Data data = new Data(sender, R.drawable.chat, username + ": " + message, "New Request", receiver);
 
-                NotificationSender sender = new NotificationSender(data, token.getToken());
+                Sender sender = new Sender(data, token.getToken());
 
                 apiService.sendNotification(sender).enqueue(new Callback<MyResponse>() {
                     @Override
