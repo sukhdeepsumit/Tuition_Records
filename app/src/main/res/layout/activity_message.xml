@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/call"
                 android:src="@drawable/ic_call_24"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="50dp"
                 />
 
         </androidx.appcompat.widget.Toolbar>

@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -75,12 +76,7 @@ public class MessageActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         call=findViewById(R.id.call);
-        call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                makePhoneCall();
-            }
-        });
+        call.setOnClickListener(view -> makePhoneCall());
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -259,5 +255,39 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {  }
         });
+    }
+
+    private void currentUser(String userid) {
+        SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+        editor.putString("currentUser", userid);
+        editor.apply();
+    }
+
+    private void status(String status) {
+        if (who.equals("teacher")) {
+            reference = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(firebaseUser.getUid());
+        }
+        else {
+            reference = FirebaseDatabase.getInstance().getReference("Students_Profile").child(firebaseUser.getUid());
+        }
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+        currentUser(userId);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
+        currentUser("none");
     }
 }

@@ -205,7 +205,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
                     .addOnSuccessListener(uri -> {
                         String url = uri.toString();
                         String user = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-                        StudentModel sm = new StudentModel(name,email,gender,contact,standard,city,state,description,url,user);
+                        StudentModel sm = new StudentModel(name,email,gender,contact,standard,city,state,description,url,user, "offline");
                         Log.i("USER",user);
                         db.child(user).setValue(sm)
                                 .addOnCompleteListener(task -> Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show());

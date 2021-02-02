@@ -4,13 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
     android:background="@drawable/layout_bg"
-    android:layout_margin="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
         android:src="@drawable/anonymous_user"/>
 
     <TextView
@@ -31,11 +34,37 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/username"
         android:layout_toEndOf="@+id/profile_image"
-        android:layout_marginTop="5dp"
-        android:paddingTop="5dp"
+        android:layout_marginTop="10dp"
+        android:paddingTop="10dp"
         android:id="@+id/last_msg"
         android:textColor="#758283"
         android:layout_marginStart="20dp"
         android:maxLines="1"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_on"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:visibility="gone"
+        app:civ_border_width="10dp"
+        app:civ_border_color="#05DF29"
+        android:src="@mipmap/ic_launcher"
+        android:layout_below="@+id/username"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="-15dp"
+        android:layout_toEndOf="@+id/profile_image"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_off"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:visibility="gone"
+        app:civ_border_width="10dp"
+        app:civ_border_color="#BFBFBF"
+        android:src="@mipmap/ic_launcher"
+        android:layout_below="@+id/username"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="-15dp"
+        android:layout_toEndOf="@+id/profile_image"/>
 
 </RelativeLayout>

@@ -238,7 +238,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
 
                         String user = Objects.requireNonNull(myAuth.getCurrentUser()).getUid();
 
-                        TeacherModel model = new TeacherModel(nm, em, cn,gn, ct, st, cnt, sn, ab, url, user);
+                        TeacherModel model = new TeacherModel(nm, em, cn,gn, ct, st, cnt, sn, ab, url, user, "offline");
                         reference.child(user).setValue(model)
                                 .addOnCompleteListener(task -> Toast.makeText(this, "Record Saved", Toast.LENGTH_SHORT).show());
                 }));

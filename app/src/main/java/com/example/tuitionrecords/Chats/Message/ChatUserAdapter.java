@@ -76,6 +76,21 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
                 holder.lastMessage.setVisibility(View.GONE);
             }
 
+            if (isChat) {
+                if (teacherModel.getStatus() != null && teacherModel.getStatus().equals("online")) {
+                    holder.online.setVisibility(View.VISIBLE);
+                    holder.offline.setVisibility(View.GONE);
+                }
+                else {
+                    holder.offline.setVisibility(View.VISIBLE);
+                    holder.online.setVisibility(View.GONE);
+                }
+            }
+            else {
+                holder.online.setVisibility(View.GONE);
+                holder.offline.setVisibility(View.VISIBLE);
+            }
+
             holder.itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(context, MessageActivity.class);
                 intent.putExtra("userId", teacherModel.getId());
@@ -151,7 +166,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        CircleImageView profilePic;
+        CircleImageView profilePic, online, offline;
         TextView name, lastMessage;
 
         public ViewHolder(@NonNull View itemView) {
@@ -159,6 +174,9 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
                 profilePic=itemView.findViewById(R.id.profile_image);
                 name=itemView.findViewById(R.id.username);
                 lastMessage = itemView.findViewById(R.id.last_msg);
+
+                online = itemView.findViewById(R.id.img_on);
+                offline = itemView.findViewById(R.id.img_off);
         }
     }
 }
