@@ -66,9 +66,7 @@ public class UsersShowAdapter extends FirebaseRecyclerAdapter<UsersShowModel,Use
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name  = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
                 String photoURL = Objects.requireNonNull(snapshot.child("myUri").getValue()).toString();
-
                 holder.name.setText(name);
-
                 Glide.with(user_context).load(photoURL).into(holder.profilePic);
             }
 
@@ -80,6 +78,7 @@ public class UsersShowAdapter extends FirebaseRecyclerAdapter<UsersShowModel,Use
             Intent intent = new Intent(user_context, MessageActivity.class);
             intent.putExtra("userId", request_key);
             intent.putExtra("user", role);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             user_context.startActivity(intent);
         });
 

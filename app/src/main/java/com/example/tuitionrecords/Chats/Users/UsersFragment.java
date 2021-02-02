@@ -1,5 +1,6 @@
 package com.example.tuitionrecords.Chats.Users;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+
 
 public class UsersFragment extends Fragment {
     RecyclerView recyclerView;
@@ -36,6 +39,7 @@ public class UsersFragment extends Fragment {
         who=role;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,8 +56,7 @@ public class UsersFragment extends Fragment {
                 new FirebaseRecyclerOptions.Builder<UsersShowModel>()
                         .setQuery(reference,UsersShowModel.class)
                         .build();
-
-        adapter=new UsersShowAdapter(options,getContext(),who);
+        adapter=new UsersShowAdapter(options,getApplicationContext(),who);
         recyclerView.setAdapter(adapter);
 
         return view;

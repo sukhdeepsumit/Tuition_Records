@@ -63,6 +63,8 @@ public class MessageActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     String contact;
 
+    ValueEventListener seenListener;
+
     private static final int REQUEST_PHONE_CALL=1;
 
     @Override
@@ -154,7 +156,32 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
+        seenMessage(userId);
+    }
 
+    private void seenMessage(String userId)
+    {
+        reference=FirebaseDatabase.getInstance().getReference("Chats");
+        seenListener= reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snapshot1: snapshot.getChildren())
+                {
+                    ChatShowModel chat= snapshot1.getValue(ChatShowModel.class);
+                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId))
+                    {
+                        HashMap<String,Object> hashMap=new HashMap<>();
+                        hashMap.put("isseen",true);
+                        snapshot1.getRef().updateChildren(hashMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void makePhoneCall()
@@ -197,6 +224,8 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
+        hashMap.put("isseen",false);
+
 
         reference.child("Chats").push().setValue(hashMap);
 
@@ -247,7 +276,7 @@ public class MessageActivity extends AppCompatActivity {
                     {
                         messageChats.add(chats);
                     }
-                    adapter = new MessageAdapter(MessageActivity.this, messageChats, imageUrl);
+                    adapter = new MessageAdapter(getApplicationContext(), messageChats, imageUrl);
                     recyclerView.setAdapter(adapter);
                 }
             }
@@ -287,6 +316,7 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        reference.removeEventListener(seenListener);
         status("offline");
         currentUser("none");
     }
