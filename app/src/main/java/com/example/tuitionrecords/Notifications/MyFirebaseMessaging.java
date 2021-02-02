@@ -24,6 +24,8 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessaging extends FirebaseMessagingService {
 
+    String who = MessageActivity.who;
+
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -32,7 +34,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         String user = remoteMessage.getData().get("user");
 
         SharedPreferences preferences = getSharedPreferences("PREFS", MODE_PRIVATE);
-        String currentUser = preferences.getString("currentuser", "none");
+        String currentUser = preferences.getString("currentUser", "none");
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -61,6 +63,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         Intent intent = new Intent(this, MessageActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("userId", user);
+        intent.putExtra("user", who);
         intent.putExtras(bundle);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -89,7 +92,8 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         int j = Integer.parseInt(user.replaceAll("[\\D]", ""));
         Intent intent = new Intent(this, RequestActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("userid", user);
+        bundle.putString("userId", user);
+        intent.putExtra("user", who);
         intent.putExtras(bundle);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         Context context = this;

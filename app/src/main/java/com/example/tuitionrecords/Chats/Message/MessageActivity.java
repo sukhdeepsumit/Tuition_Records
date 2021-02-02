@@ -25,6 +25,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.tuitionrecords.Chats.Chat;
 import com.example.tuitionrecords.Chats.Model.ChatShowModel;
+import com.example.tuitionrecords.Notifications.APIService;
+import com.example.tuitionrecords.Notifications.Client;
+import com.example.tuitionrecords.Notifications.Data;
+import com.example.tuitionrecords.Notifications.MyResponse;
+import com.example.tuitionrecords.Notifications.Sender;
+import com.example.tuitionrecords.Notifications.Token;
 import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
 import com.example.tuitionrecords.TeacherActivity.Authentication.TeacherModel;
@@ -34,6 +40,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -41,6 +48,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -55,7 +65,9 @@ public class MessageActivity extends AppCompatActivity {
     ImageView call;
 
     DatabaseReference reference;
-    String userId, who;
+    String userId;
+
+    public static String who;
 
     List<ChatShowModel> messageChats;
 
@@ -63,14 +75,20 @@ public class MessageActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     String contact;
 
+    boolean notify = false;
+
     ValueEventListener seenListener;
 
-    private static final int REQUEST_PHONE_CALL=1;
+    private static final int REQUEST_PHONE_CALL = 1;
+
+    APIService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -112,6 +130,7 @@ public class MessageActivity extends AppCompatActivity {
         }
 
         sendButton.setOnClickListener(view -> {
+            notify = true;
             String message = sendText.getText().toString();
             if (message.equals("")) {
                 Toast.makeText(this, "You cannot send an empty message", Toast.LENGTH_SHORT).show();
@@ -128,7 +147,7 @@ public class MessageActivity extends AppCompatActivity {
                 if (who.equals("student")) {
                     TeacherModel model = snapshot.getValue(TeacherModel.class);
 
-                    Log.i("TEACHER_KEY_ID", userId);
+                    //Log.i("TEACHER_KEY_ID", userId);
 
                     assert model != null;
                     username.setText(model.getName());
@@ -141,7 +160,7 @@ public class MessageActivity extends AppCompatActivity {
                 else {
                     StudentModel model = snapshot.getValue(StudentModel.class);
 
-                    Log.i("STUDENT_KEY_ID", userId);
+                    //Log.i("STUDENT_KEY_ID", userId);
 
                     assert model != null;
                     username.setText(model.getName());
@@ -156,6 +175,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
+
         seenMessage(userId);
     }
 
@@ -178,9 +198,7 @@ public class MessageActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
 
@@ -198,7 +216,6 @@ public class MessageActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
             }
         }
-
     }
 
     @Override
@@ -255,6 +272,77 @@ public class MessageActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
+        });
+
+        final String msg = message;
+
+        if (who.equals("teacher")) {
+            reference = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(firebaseUser.getUid());
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    TeacherModel model = snapshot.getValue(TeacherModel.class);
+
+                    if (notify) {
+                        sendNotification(receiver, model.getName(), msg);
+                    }
+                    notify = false;
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) { }
+            });
+        }
+        else {
+            reference = FirebaseDatabase.getInstance().getReference("Students_Profile").child(firebaseUser.getUid());
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    StudentModel model = snapshot.getValue(StudentModel.class);
+
+                    if (notify) {
+                        sendNotification(receiver, model.getName(), msg);
+                    }
+                    notify = false;
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {  }
+            });
+        }
+    }
+
+    private void sendNotification(String receiver, String name, String message) {
+        DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = tokens.orderByKey().equalTo(receiver);
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Token token = dataSnapshot.getValue(Token.class);
+                    Data data = new Data(firebaseUser.getUid(), R.drawable.chat, name + ": " + message, "New Message", userId);
+
+                    Sender sender = new Sender(data,  token.getToken());
+
+                    apiService.sendNotification(sender).enqueue(new Callback<MyResponse>() {
+                        @Override
+                        public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                            if (response.code() == 200) {
+                                if (response.body().success != 1) {
+                                    Toast.makeText(MessageActivity.this, "Failed !", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<MyResponse> call, Throwable t) { }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {  }
         });
     }
 
@@ -317,5 +405,12 @@ public class MessageActivity extends AppCompatActivity {
         reference.removeEventListener(seenListener);
         status("offline");
         currentUser("none");
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MessageActivity.this, Chat.class);
+        intent.putExtra("user", who);
+        startActivity(intent);
     }
 }

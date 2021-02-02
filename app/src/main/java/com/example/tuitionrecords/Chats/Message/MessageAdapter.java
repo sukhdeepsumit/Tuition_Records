@@ -81,30 +81,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             holder.text_seen.setVisibility(View.GONE);
         }
 
-        holder.messageLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(myContext);
-                builder.setTitle("Delete?");
-                builder.setCancelable(false);
-                builder.setMessage("Unsend message?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        deleteMessage(position);
-
-                    }
-                    
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.create().show();
-
-            }
+        holder.messageLayout.setOnClickListener(view -> {
+            AlertDialog.Builder builder=new AlertDialog.Builder(myContext);
+            builder.setTitle("Delete?");
+            builder.setCancelable(false);
+            builder.setMessage("Unsend message?");
+            builder.setPositiveButton("Yes", (dialog, which) -> deleteMessage(position));
+            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+            builder.create().show();
         });
     }
 
@@ -131,9 +115,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {  }
         });
     }
 
@@ -156,7 +138,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             profileImage = itemView.findViewById(R.id.profileImage);
             text_seen=itemView.findViewById(R.id.textSeen);
             messageLayout=itemView.findViewById(R.id.messageLayout);
-
         }
     }
 
