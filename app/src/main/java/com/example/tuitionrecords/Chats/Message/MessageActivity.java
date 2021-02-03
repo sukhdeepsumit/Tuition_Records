@@ -67,7 +67,7 @@ public class MessageActivity extends AppCompatActivity {
     DatabaseReference reference;
     String userId;
 
-    public static String who;
+    String who;
 
     List<ChatShowModel> messageChats;
 
@@ -166,7 +166,7 @@ public class MessageActivity extends AppCompatActivity {
                     username.setText(model.getName());
                     Glide.with(getApplicationContext()).load(model.getMyUri()).into(profileImage);
                     contact=model.getMyContact();
-                    Log.i("STUDENT_CONTACT",contact);
+                    //Log.i("STUDENT_CONTACT",contact);
 
                     displayMessage(firebaseUser.getUid(), userId, model.getMyUri());
                 }
@@ -378,7 +378,7 @@ public class MessageActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    private void status(String status) {
+    private void status(String status, String who) {
         if (who.equals("teacher")) {
             reference = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(firebaseUser.getUid());
         }
@@ -395,7 +395,12 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        status("online");
+        if (getIntent().getStringExtra("user").equals("teacher")) {
+            status("online", "teacher");
+        }
+        else {
+            status("online", "student");
+        }
         currentUser(userId);
     }
 
@@ -403,7 +408,13 @@ public class MessageActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         reference.removeEventListener(seenListener);
-        status("offline");
+        //status("offline");
+        if (getIntent().getStringExtra("user").equals("teacher")) {
+            status("offline", "teacher");
+        }
+        else {
+            status("offline", "student");
+        }
         currentUser("none");
     }
 

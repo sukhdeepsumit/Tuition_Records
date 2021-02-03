@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,6 @@ import java.util.List;
 import java.util.Objects;
 
 //commit check
-
 public class ChatFragment extends Fragment {
 
     RecyclerView recyclerView;
@@ -47,8 +47,8 @@ public class ChatFragment extends Fragment {
     ChatUserAdapter adapter;
     String who;
 
-    /*public ChatFragment() {
-    }*/
+    public ChatFragment() {
+    }
 
     public ChatFragment(String who) {
         this.who = who;
@@ -70,6 +70,9 @@ public class ChatFragment extends Fragment {
         userList = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("ChatList").child(firebaseUser.getUid());
+
+        Log.i("CURRENT_UID", firebaseUser.getUid());
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -105,7 +108,13 @@ public class ChatFragment extends Fragment {
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         StudentModel model = dataSnapshot.getValue(StudentModel.class);
+
+                        Log.i("MODEL_ID_CHECK", "" + model.getId());
+
                         for (Chat_ID id : userList) {
+
+                            Log.i("ID_CHECK", id.getId());
+
                             if (model.getId().equals(id.getId())) {
                                 Teacher.add(model);
                             }
@@ -131,7 +140,9 @@ public class ChatFragment extends Fragment {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         TeacherModel model = dataSnapshot.getValue(TeacherModel.class);
                         for (Chat_ID id : userList) {
-                            assert model != null;
+                            //assert model != null;
+                            //Log.i("MODEL_ID", model.getId());
+                            //Log.i("ID_ID", id.getId());
                             if (model.getId().equals(id.getId())) {
                                 Student.add(model);
                             }
