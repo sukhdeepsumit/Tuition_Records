@@ -58,11 +58,17 @@ public class MainActivity extends AppCompatActivity {
 
         teacher.setOnClickListener(view -> {
             startActivity(new Intent(MainActivity.this, LogInTeacherActivity.class));
+            SharedPreferences.Editor editor = getSharedPreferences("CHECK_USER", MODE_PRIVATE).edit();
+            editor.putString("who", "teacher");
+            editor.apply();
             finish();
         });
 
         student.setOnClickListener(view -> {
             startActivity(new Intent(MainActivity.this, LogInStudentActivity.class));
+            SharedPreferences.Editor editor = getSharedPreferences("CHECK_USER", MODE_PRIVATE).edit();
+            editor.putString("who", "student");
+            editor.apply();
             finish();
         });
     }

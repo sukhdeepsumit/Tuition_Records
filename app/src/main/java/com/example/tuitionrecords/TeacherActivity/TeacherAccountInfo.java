@@ -75,7 +75,7 @@ public class TeacherAccountInfo extends AppCompatActivity {
                 email.setText(model.getEmail());
                 gender.setText(model.getGender());
                 phone.setText(model.getContact());
-                String location = model.getCity() + ", " + model.getState();
+                String location = model.getCity() + "," + model.getState();
                 city_state.setText(location);
                 subject.setText(model.getContent());
                 standard.setText(model.getStandard());
