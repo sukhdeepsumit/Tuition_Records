@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
@@ -30,6 +31,15 @@ public class Contact_us extends AppCompatActivity {
         String email = "app.devs.feedback@gmail.com";
 
         email_contact.setOnClickListener(view -> sendEmail(Contact_us.this, email, subject, body));
+
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri= Uri.parse("https://tuitionrecordsfeedback.blogspot.com/");
+                startActivity(new Intent(Intent.ACTION_VIEW,uri));
+
+            }
+        });
     }
 
     private void sendEmail(Context context, String email, String subject, String body) {
@@ -42,6 +52,7 @@ public class Contact_us extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
+
 
     @Override
     public void onBackPressed() {

@@ -38,6 +38,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private final List<ChatShowModel> myChats;
     private final String imageUrl;
 
+
     FirebaseUser firebaseUser;
 
     public MessageAdapter(Context myContext, List<ChatShowModel> myChats, String imageUrl) {
@@ -52,9 +53,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         View view;
         if (viewType == MSG_TYPE_LEFT) {
             view = LayoutInflater.from(myContext).inflate(R.layout.chat_item_left, parent, false);
+
         }
         else {
             view = LayoutInflater.from(myContext).inflate(R.layout.chat_item_right, parent, false);
+
         }
 
         return new ViewHolder(view);
@@ -82,13 +85,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
 
         holder.messageLayout.setOnClickListener(view -> {
-            AlertDialog.Builder builder=new AlertDialog.Builder(myContext);
-            builder.setTitle("Delete?");
-            builder.setCancelable(false);
-            builder.setMessage("Unsend message?");
-            builder.setPositiveButton("Yes", (dialog, which) -> deleteMessage(position));
-            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
-            builder.create().show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(myContext);
+                builder.setTitle("Delete?");
+                builder.setCancelable(false);
+                builder.setMessage("Unsend message?");
+                builder.setPositiveButton("Yes", (dialog, which) -> deleteMessage(position));
+                builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+                builder.create().show();
+
         });
     }
 

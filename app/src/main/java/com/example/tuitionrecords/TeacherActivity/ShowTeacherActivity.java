@@ -86,6 +86,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
 
     CircleImageView notificationStatus;
 
+
     String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
     //DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Time_Table").child(user);
 

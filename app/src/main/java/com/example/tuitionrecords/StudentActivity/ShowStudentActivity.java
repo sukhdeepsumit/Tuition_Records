@@ -83,7 +83,6 @@ public class ShowStudentActivity extends AppCompatActivity {
     ScheduleAdapter adapter;
 
     FloatingActionButton add;
-
     SharedPreferences sharedPreferences;
 
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Accepted_Students");
