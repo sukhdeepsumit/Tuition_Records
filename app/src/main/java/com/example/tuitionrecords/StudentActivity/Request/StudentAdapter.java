@@ -43,7 +43,12 @@ public class StudentAdapter extends FirebaseRecyclerAdapter<TeacherShowModel, St
         holder.name.setText(model.getName());
         holder.about.setText(model.getAbout());
 
-        Glide.with(holder.profilePic.getContext()).load(model.getMyUri()).into(holder.profilePic);
+        if (model.getMyUri().equals("default")) {
+            holder.profilePic.setImageResource(R.drawable.anonymous_user);
+        }
+        else {
+            Glide.with(holder.profilePic.getContext()).load(model.getMyUri()).into(holder.profilePic);
+        }
 
         /*requests = FirebaseDatabase.getInstance().getReference("Requests");
         sender = FirebaseAuth.getInstance().getCurrentUser().getUid();*/

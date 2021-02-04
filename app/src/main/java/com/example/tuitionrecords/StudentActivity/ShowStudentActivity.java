@@ -86,8 +86,9 @@ public class ShowStudentActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Accepted_Students");
-    DatabaseReference batchRef = FirebaseDatabase.getInstance().getReference("Allot_Batches");
-    DatabaseReference timetable = FirebaseDatabase.getInstance().getReference("Time_Table");
+    /*DatabaseReference batchRef = FirebaseDatabase.getInstance().getReference("Allot_Batches");
+    DatabaseReference timetable = FirebaseDatabase.getInstance().getReference("Time_Table");*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -248,19 +249,25 @@ public class ShowStudentActivity extends AppCompatActivity {
                assert studentModel != null;
                name.setText(studentModel.getName());
                email.setText(studentModel.getMyEmail());
-               Glide.with(getApplicationContext()).load(studentModel.getMyUri()).placeholder(R.drawable.anonymous_user).listener(new RequestListener<Drawable>() {
-                   @Override
-                   public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                       progressDialog.dismiss();
-                       return false;
-                   }
 
-                   @Override
-                   public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                       progressDialog.dismiss();
-                       return false;
-                   }
-               }).into(imageView);
+               if (studentModel.getMyUri().equals("default")) {
+                   imageView.setImageResource(R.drawable.anonymous_user);
+                   progressDialog.dismiss();
+               } else {
+                   Glide.with(getApplicationContext()).load(studentModel.getMyUri()).placeholder(R.drawable.anonymous_user).listener(new RequestListener<Drawable>() {
+                       @Override
+                       public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                           progressDialog.dismiss();
+                           return false;
+                       }
+
+                       @Override
+                       public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                           progressDialog.dismiss();
+                           return false;
+                       }
+                   }).into(imageView);
+               }
            }
 
            @Override
@@ -305,6 +312,7 @@ public class ShowStudentActivity extends AppCompatActivity {
             }
         });
     }
+
     public void showInternetWarning() {
         checkInternet.setVisibility(View.VISIBLE);
         close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));

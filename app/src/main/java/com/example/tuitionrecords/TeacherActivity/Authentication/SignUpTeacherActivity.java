@@ -59,6 +59,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
     private Uri imageUri;
 
     Bitmap bitmap;
+    boolean flag = false;
 
     RelativeLayout checkInternet;
     ImageView close;
@@ -196,6 +197,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
     }
 
     private void openImage() {
+        //flag = true;
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, GALLERY);
@@ -210,7 +212,9 @@ public class SignUpTeacherActivity extends AppCompatActivity {
                 InputStream inputStream = getContentResolver().openInputStream(imageUri);
                 bitmap = BitmapFactory.decodeStream(inputStream);
                 profileImage.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
+                flag = true;
+            }
+            catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
@@ -229,19 +233,27 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         String sn = Objects.requireNonNull(standard.getText()).toString();
         String ab = Objects.requireNonNull(about.getText()).toString();
 
+        if (!flag) {
+            insertDetails(nm, em, cn, gn, ct, st, cnt, sn, ab, "default", myAuth.getCurrentUser().getUid());
+        }
+        else {
+            StorageReference ref = storageReference.child("Photos/" + imageUri.getLastPathSegment());
 
-        StorageReference ref = storageReference.child("Photos/" + imageUri.getLastPathSegment());
-
-        ref.putFile(imageUri).addOnSuccessListener(taskSnapshot -> ref.getDownloadUrl()
-                .addOnSuccessListener(uri -> {
+            ref.putFile(imageUri).addOnSuccessListener(taskSnapshot -> ref.getDownloadUrl()
+                    .addOnSuccessListener(uri -> {
                         String url = uri.toString();
 
                         String user = Objects.requireNonNull(myAuth.getCurrentUser()).getUid();
 
-                        TeacherModel model = new TeacherModel(nm, em, cn,gn, ct, st, cnt, sn, ab, url, user, "offline");
-                        reference.child(user).setValue(model)
-                                .addOnCompleteListener(task -> Toast.makeText(this, "Record Saved", Toast.LENGTH_SHORT).show());
-                }));
+                        insertDetails(nm, em, cn, gn, ct, st, cnt, sn, ab, url, user);
+                    }));
+        }
+    }
+
+    private void insertDetails(String nm, String em, String cn, String gn, String ct, String st, String cnt, String sn, String ab, String url, String user) {
+        TeacherModel model = new TeacherModel(nm, em, cn,gn, ct, st, cnt, sn, ab, url, user, "offline");
+        reference.child(user).setValue(model)
+                .addOnCompleteListener(task -> Toast.makeText(this, "Record Saved", Toast.LENGTH_SHORT).show());
     }
 
     private void showErrorBox(String message) {
@@ -261,6 +273,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         startActivity(new Intent(SignUpTeacherActivity.this, LogInTeacherActivity.class));
+        finish();
     }
 
     public void checkInternet()
@@ -287,6 +300,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
             }
         });
     }
+
     public void showInternetWarning() {
         checkInternet.setVisibility(View.VISIBLE);
         close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));

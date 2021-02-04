@@ -42,10 +42,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SignUpStudentActivity extends AppCompatActivity {
     Button signUpStudentBtn;
     private FirebaseAuth mAuth;
+
     EditText mName, mEmail,mContact,mPwd,mCnfPwd, mStandard,mCity,mState,mDescription;
     ProgressBar progressBar;
+
     CircleImageView dp;
-    Uri uri, file;
+    Uri uri;
     RadioGroup mGender;
 
     StorageReference mStorage;
@@ -53,6 +55,8 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
     private static final int GALLERY=5;
     Bitmap bitmap;
+
+    boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +83,6 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
         mDescription.setScroller(new Scroller(getApplicationContext()));
         mDescription.setVerticalScrollBarEnabled(true);
-
 
         dp.setOnClickListener(v -> {
            openImage();
@@ -175,6 +178,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
                 InputStream inputStream=getContentResolver().openInputStream(uri);
                 bitmap= BitmapFactory.decodeStream(inputStream);
                 dp.setImageBitmap(bitmap);
+                flag = true;
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -197,20 +201,30 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
         StorageReference uploader;
 
+        if (!flag) {
+            insertDetails(name, email, gender, contact, standard, city, state, description, "default", mAuth.getCurrentUser().getUid());
+        }
+        else {
             uploader = mStorage.child("Photos/" + uri.getLastPathSegment());
 
             uploader.putFile(uri).addOnSuccessListener(taskSnapshot -> uploader.getDownloadUrl()
                     .addOnSuccessListener(uri -> {
                         String url = uri.toString();
                         String user = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-                        StudentModel sm = new StudentModel(name,email,gender,contact,standard,city,state,description,url,user, "offline");
-                        Log.i("USER",user);
-                        db.child(user).setValue(sm)
-                                .addOnCompleteListener(task -> Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show());
+
+                        insertDetails(name, email, gender, contact, standard, city, state, description, url, user);
 
                     }))
                     .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error occurred", Toast.LENGTH_SHORT).show());
+        }
      }
+
+    private void insertDetails(String name, String email, String gender, String contact, String standard, String city, String state, String description, String url, String user) {
+        StudentModel sm = new StudentModel(name, email, gender, contact, standard, city, state, description, url, user, "offline");
+        Log.i("USER", user);
+
+        db.child(user).setValue(sm).addOnCompleteListener(task -> Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show());
+    }
 
     private boolean checkContact(String contact)
     {

@@ -113,7 +113,7 @@ public class CheckStudentProfile extends AppCompatActivity {
             finish();
         });
 
-        updateToken(FirebaseInstanceId.getInstance().getToken());
+        //updateToken(FirebaseInstanceId.getInstance().getToken());
     }
 
     private void allotBatch() {
@@ -128,11 +128,11 @@ public class CheckStudentProfile extends AppCompatActivity {
         });
     }
 
-    private void updateToken(String token) {
+    /*private void updateToken(String token) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
         Token token1 = new Token(token);
         reference.child(currentUser).setValue(token1);
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

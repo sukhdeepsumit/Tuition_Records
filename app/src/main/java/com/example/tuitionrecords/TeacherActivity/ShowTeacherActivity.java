@@ -265,27 +265,32 @@ public class ShowTeacherActivity extends AppCompatActivity  {
                 assert teacherModel != null;
                 name.setText(teacherModel.getName());
                 email.setText(teacherModel.getEmail());
-                Glide.with(getApplicationContext()).load(teacherModel.getMyUri()).listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        progressDialog.dismiss();
-                        return false;
-                    }
 
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        progressDialog.dismiss();
-                        return false;
-                    }
-                }).into(imageView);
+                if (teacherModel.getMyUri().equals("default")){
+                    imageView.setImageResource(R.drawable.anonymous_user);
+                    progressDialog.dismiss();
+                }
+                else{
+                    Glide.with(getApplicationContext()).load(teacherModel.getMyUri()).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            progressDialog.dismiss();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressDialog.dismiss();
+                            return false;
+                        }
+                    }).into(imageView);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
-
-
 
     @Override
     public void onBackPressed() {

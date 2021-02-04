@@ -109,12 +109,13 @@ public class ChatFragment extends Fragment {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         StudentModel model = dataSnapshot.getValue(StudentModel.class);
 
-                        Log.i("MODEL_ID_CHECK", "" + model.getId());
+                        //Log.i("MODEL_ID_CHECK", "" + model.getId());
 
                         for (Chat_ID id : userList) {
 
-                            Log.i("ID_CHECK", id.getId());
+                            //Log.i("ID_CHECK", id.getId());
 
+                            assert model != null;
                             if (model.getId().equals(id.getId())) {
                                 Teacher.add(model);
                             }
@@ -140,7 +141,7 @@ public class ChatFragment extends Fragment {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         TeacherModel model = dataSnapshot.getValue(TeacherModel.class);
                         for (Chat_ID id : userList) {
-                            //assert model != null;
+                            assert model != null;
                             //Log.i("MODEL_ID", model.getId());
                             //Log.i("ID_ID", id.getId());
                             if (model.getId().equals(id.getId())) {

@@ -204,7 +204,7 @@ public class MessageActivity extends AppCompatActivity {
 
     private void makePhoneCall()
     {
-        if(contact.length()>0)
+        if(contact.length() > 0)
         {
             if(ContextCompat.checkSelfPermission(MessageActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
             {
@@ -342,7 +342,7 @@ public class MessageActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {  }
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
 
@@ -381,15 +381,21 @@ public class MessageActivity extends AppCompatActivity {
     private void status(String status, String who) {
         if (who.equals("teacher")) {
             reference = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(firebaseUser.getUid());
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("status", status);
+            reference.updateChildren(hashMap);
         }
         else {
             reference = FirebaseDatabase.getInstance().getReference("Students_Profile").child(firebaseUser.getUid());
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("status", status);
+            reference.updateChildren(hashMap);
         }
 
-        HashMap<String, Object> hashMap = new HashMap<>();
+        /*HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("status", status);
-
-        reference.updateChildren(hashMap);
+        reference.updateChildren(hashMap);*/
+        
     }
 
     @Override

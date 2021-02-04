@@ -48,14 +48,14 @@ public class RequestActivity extends AppCompatActivity {
         adapter = new StudentRequestAdapter(options, getApplicationContext());
         recyclerView.setAdapter(adapter);
 
-        updateToken(FirebaseInstanceId.getInstance().getToken());
+        //updateToken(FirebaseInstanceId.getInstance().getToken());
     }
 
-    public void updateToken(String token) {
+    /*public void updateToken(String token) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
         Token token1 = new Token(token);
         reference.child(currentUser).setValue(token1);
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

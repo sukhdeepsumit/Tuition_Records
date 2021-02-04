@@ -1,11 +1,18 @@
 package com.example.tuitionrecords.TeacherActivity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -23,9 +30,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -35,16 +47,29 @@ public class TeacherAccountInfo extends AppCompatActivity {
     CircleImageView profile_picture;
     TextView name, email, gender, phone, city_state, subject, standard, about;
 
+    private static final int GALLERY = 5;
+    ProgressDialog progressDialog;
+
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
     ImageView nameEdit, emailEdit, genderEdit, phoneEdit, locationEdit, subjectEdit, standardEdit, aboutEdit;
+    private Uri imageUri;
+    Bitmap bitmap;
+
+    String userId;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_account_info);
+
+        progressDialog = new ProgressDialog(this);
+
+        progressDialog.setTitle("Slow Internet Connection !!!");
+        progressDialog.setMessage("Uploading...");
 
         name = findViewById(R.id.name_get);
         email = findViewById(R.id.email_get);
@@ -57,10 +82,12 @@ public class TeacherAccountInfo extends AppCompatActivity {
 
         profile_picture = findViewById(R.id.dp_upload);
 
+        storageReference = FirebaseStorage.getInstance().getReference();
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         assert firebaseUser != null;
-        String userId = firebaseUser.getUid();
+        userId = firebaseUser.getUid();
         reference = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(userId);
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -69,7 +96,13 @@ public class TeacherAccountInfo extends AppCompatActivity {
                 TeacherModel model = snapshot.getValue(TeacherModel.class);
 
                 assert model != null;
-                Glide.with(getApplicationContext()).load(model.getMyUri()).into(profile_picture);
+
+                if (model.getMyUri().equals("default")) {
+                    profile_picture.setImageResource(R.drawable.anonymous_user);
+                }
+                else {
+                    Glide.with(getApplicationContext()).load(model.getMyUri()).into(profile_picture);
+                }
 
                 name.setText(model.getName());
                 email.setText(model.getEmail());
@@ -95,6 +128,10 @@ public class TeacherAccountInfo extends AppCompatActivity {
         standardEdit = findViewById(R.id.standard_edit);
         aboutEdit = findViewById(R.id.about_edit);
 
+        profile_picture.setOnClickListener(view -> {
+            openImage();
+        });
+
         nameEdit.setOnClickListener(view -> updateProfileData("name"));
         emailEdit.setOnClickListener(view -> updateProfileData("email"));
         genderEdit.setOnClickListener(view -> updateProfileData("gender"));
@@ -103,7 +140,6 @@ public class TeacherAccountInfo extends AppCompatActivity {
         subjectEdit.setOnClickListener(view -> updateProfileData("content"));
         standardEdit.setOnClickListener(view -> updateProfileData("standard"));
         aboutEdit.setOnClickListener(view -> updateProfileData("about"));
-
     }
 
     private void updateProfileData(String check) {
@@ -148,38 +184,70 @@ public class TeacherAccountInfo extends AppCompatActivity {
         update.setOnClickListener(view -> {
             String result = Objects.requireNonNull(editText.getText()).toString();
 
-            //Map<String,Object> map=new HashMap<>();
-
             if (check.equals("location")) {
 
-                //DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Teacher_profile");
-
                 String[] loc = result.split(",");
-                String city = loc[0];
-                String state = loc[1];
+                String city = loc[0].trim();
+                String state = loc[1].trim();
 
                 FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child("city").setValue(city);
                FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child("state").setValue(state);
-
-//                map.put("city",city);
-//                map.put("state",state);
-
             }
             else {
                 FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child(check).setValue(result).addOnCompleteListener(task -> {
                     Toast.makeText(getApplicationContext(),"Record Updated",Toast.LENGTH_SHORT).show();
-                        //map.put(check,result);
                 });
-
             }
          dialogPlus.dismiss();
-            //Toast.makeText(this, "Record Updated", Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private void openImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, GALLERY);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == GALLERY && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            imageUri = data.getData();
+
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(imageUri);
+                bitmap = BitmapFactory.decodeStream(inputStream);
+                profile_picture.setImageBitmap(bitmap);
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        StorageReference ref = storageReference.child("Photos/" + imageUri.getLastPathSegment());
+        progressDialog.show();
+        String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+        ref.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+            ref.getDownloadUrl().addOnSuccessListener(uri -> {
+                String url = uri.toString();
+
+                FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child("myUri").setValue(url).addOnCompleteListener(task -> {
+                    Toast.makeText(this, "Profile Picture Updated", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }).addOnFailureListener(e -> Toast.makeText(this, "Could not be updated", Toast.LENGTH_SHORT).show());
+            });
+        });
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void onBackPressed() {
         startActivity(new Intent(TeacherAccountInfo.this, ShowTeacherActivity.class));
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

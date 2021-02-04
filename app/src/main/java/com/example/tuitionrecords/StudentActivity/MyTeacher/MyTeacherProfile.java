@@ -61,7 +61,13 @@ public class MyTeacherProfile extends AppCompatActivity {
                 subject.setText(model.getContent());
                 standard.setText(model.getStandard());
                 about.setText(model.getAbout());
-                Glide.with(getApplicationContext()).load(model.getMyUri()).into(dp);
+
+                if (model.getMyUri().equals("default")) {
+                    dp.setImageResource(R.drawable.anonymous_user);
+                }
+                else {
+                    Glide.with(getApplicationContext()).load(model.getMyUri()).into(dp);
+                }
             }
 
             @Override

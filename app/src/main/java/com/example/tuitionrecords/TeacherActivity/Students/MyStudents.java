@@ -105,6 +105,8 @@ public class  MyStudents extends AppCompatActivity {
                 .addOnCompleteListener(task -> accepted.child(student_key).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).removeValue()
                         .addOnCompleteListener(task1 -> {
                             Toast.makeText(getApplicationContext(), "Removed from your student list", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(MyStudents.this, My_Registered_Students.class));
+                            finish();
                         })
                 )
         );

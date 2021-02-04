@@ -54,7 +54,7 @@ public class CheckTeacherProfile extends AppCompatActivity {
     String sender, receiver;
     String username;
 
-    APIService apiService;
+    //APIService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,7 @@ public class CheckTeacherProfile extends AppCompatActivity {
 
         CURRENT_STATE = "Not Teacher";
 
-        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+        //apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
         receiver = getIntent().getStringExtra("userId");
@@ -113,7 +113,12 @@ public class CheckTeacherProfile extends AppCompatActivity {
                 standard.setText(teacherModel.getStandard());
                 about.setText(teacherModel.getAbout());
 
-                Glide.with(getApplicationContext()).load(teacherModel.getMyUri()).into(dp);
+                if (teacherModel.getMyUri().equals("default")) {
+                    dp.setImageResource(R.drawable.anonymous_user);
+                }
+                else {
+                    Glide.with(getApplicationContext()).load(teacherModel.getMyUri()).into(dp);
+                }
 
                 changeButtonState();
             }
@@ -135,16 +140,16 @@ public class CheckTeacherProfile extends AppCompatActivity {
             send.setEnabled(true);
         });
 
-        updateToken();
+        //updateToken();
     }
 
-    private void updateToken() {
+    /*private void updateToken() {
         String refreshToken = FirebaseInstanceId.getInstance().getToken();
         Token token = new Token(refreshToken);
         FirebaseDatabase.getInstance().getReference("Tokens").child(sender).setValue(token);
-    }
+    }*/
 
-    public void sendNotifications(String receiver, String username, String message) {
+/*    public void sendNotifications(String receiver, String username, String message) {
         Query query = requestNotify.orderByKey().equalTo(receiver);
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -172,7 +177,7 @@ public class CheckTeacherProfile extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {   }
         });
-    }
+    }*/
 
     private void changeButtonState() {
         requestRef.child(sender).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -251,7 +256,7 @@ public class CheckTeacherProfile extends AppCompatActivity {
             }
         });
 
-        sent.addValueEventListener(new ValueEventListener() {
+        /*sent.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 StudentModel studentModel = snapshot.getValue(StudentModel.class);
@@ -260,7 +265,7 @@ public class CheckTeacherProfile extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
-        });
+        });*/
     }
 
     @Override
