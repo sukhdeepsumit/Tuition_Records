@@ -203,7 +203,7 @@
                     android:layout_height="95dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/chat" />
+                    android:src="@drawable/chat_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
