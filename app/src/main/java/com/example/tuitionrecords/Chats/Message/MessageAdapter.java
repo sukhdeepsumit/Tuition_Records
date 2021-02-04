@@ -68,7 +68,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         ChatShowModel chatModel = myChats.get(position);
 
         holder.showMessage.setText(chatModel.getMessage());
-        Glide.with(myContext).load(imageUrl).into(holder.profileImage);
+        if (imageUrl.equals("default")) {
+            holder.profileImage.setImageResource(R.drawable.anonymous_user);
+        }
+        else {
+            Glide.with(myContext).load(imageUrl).into(holder.profileImage);
+        }
+
 
         if(position==myChats.size()-1)
         {

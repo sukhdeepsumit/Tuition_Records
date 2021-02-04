@@ -77,7 +77,12 @@ public class CheckStudentProfile extends AppCompatActivity {
                 standard.setText(studentModel.getMyStandard());
                 about.setText(studentModel.getMyDescription());
 
-                Glide.with(getApplicationContext()).load(studentModel.getMyUri()).into(dp);
+                if (studentModel.getMyUri().equals("default")) {
+                    dp.setImageResource(R.drawable.anonymous_user);
+                }
+                else {
+                    Glide.with(getApplicationContext()).load(studentModel.getMyUri()).into(dp);
+                }
             }
 
             @Override
@@ -121,7 +126,7 @@ public class CheckStudentProfile extends AppCompatActivity {
             if (task.isSuccessful()) {
                 batchRef.child(requestUser).child(currentUser).child("batch").setValue("Allot Batch No.").addOnCompleteListener(task1 -> {
                     if (task1.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "Batch Number Allotted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Student is added to your list", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

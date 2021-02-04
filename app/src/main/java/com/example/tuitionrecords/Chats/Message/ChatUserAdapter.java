@@ -67,7 +67,12 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
             TeacherModel teacherModel = teacher_chat.get(position);
 
             holder.name.setText(teacherModel.getName());
-            Glide.with(context).load(teacherModel.getMyUri()).into(holder.profilePic);
+            if (teacherModel.getMyUri().equals("default")) {
+                holder.profilePic.setImageResource(R.drawable.anonymous_user);
+            }
+            else {
+                Glide.with(context).load(teacherModel.getMyUri()).into(holder.profilePic);
+            }
 
             if (isChat) {
                 lastMessage(teacherModel.getId(), holder.lastMessage);
@@ -104,7 +109,12 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
             //Log.i("ITEM_ONE", studentModel.getId());
 
             holder.name.setText(studentModel.getName());
-            Glide.with(context).load(studentModel.getMyUri()).into(holder.profilePic);
+            if (studentModel.getMyUri().equals("default")) {
+                holder.profilePic.setImageResource(R.drawable.anonymous_user);
+            }
+            else {
+                Glide.with(context).load(studentModel.getMyUri()).into(holder.profilePic);
+            }
 
             if (isChat) {
                 lastMessage(studentModel.getId(), holder.lastMessage);

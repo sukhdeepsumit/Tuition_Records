@@ -43,7 +43,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:id="@+id/call"
-                    android:src="@drawable/ic_call_24"
+                    android:src="@drawable/ic_baseline_call_24"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="20dp"
                     android:layout_centerVertical="true"

@@ -60,7 +60,12 @@ public class StudentRequestAdapter extends FirebaseRecyclerAdapter<StudentReques
                 holder.name.setText(name);
                 holder.about.setText(about);
 
-                Glide.with(context).load(photoURL).into(holder.profilePic);
+                if (photoURL.equals("default")) {
+                    holder.profilePic.setImageResource(R.drawable.anonymous_user);
+                }
+                else {
+                    Glide.with(context).load(photoURL).into(holder.profilePic);
+                }
             }
 
             @Override

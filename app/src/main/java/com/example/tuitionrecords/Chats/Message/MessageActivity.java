@@ -151,7 +151,13 @@ public class MessageActivity extends AppCompatActivity {
 
                     assert model != null;
                     username.setText(model.getName());
-                    Glide.with(getApplicationContext()).load(model.getMyUri()).into(profileImage);
+                    if (model.getMyUri().equals("default")) {
+                        profileImage.setImageResource(R.drawable.anonymous_user);
+                    }
+                    else {
+                        Glide.with(getApplicationContext()).load(model.getMyUri()).into(profileImage);
+                    }
+
                     contact=model.getContact();
                     Log.i("TEACHER_CONTACT",contact);
 
@@ -164,7 +170,13 @@ public class MessageActivity extends AppCompatActivity {
 
                     assert model != null;
                     username.setText(model.getName());
-                    Glide.with(getApplicationContext()).load(model.getMyUri()).into(profileImage);
+                    if (model.getMyUri().equals("default")) {
+                        profileImage.setImageResource(R.drawable.anonymous_user);
+                    }
+                    else {
+                        Glide.with(getApplicationContext()).load(model.getMyUri()).into(profileImage);
+                    }
+
                     contact=model.getMyContact();
                     //Log.i("STUDENT_CONTACT",contact);
 

@@ -70,7 +70,13 @@ public class UsersShowAdapter extends FirebaseRecyclerAdapter<UsersShowModel,Use
 
                 holder.name.setText(name);
 
-                Glide.with(user_context).load(photoURL).into(holder.profilePic);
+                if (photoURL.equals("default")) {
+                    holder.profilePic.setImageResource(R.drawable.anonymous_user);
+                }
+                else {
+                    Glide.with(user_context).load(photoURL).into(holder.profilePic);
+                }
+
             }
 
             @Override

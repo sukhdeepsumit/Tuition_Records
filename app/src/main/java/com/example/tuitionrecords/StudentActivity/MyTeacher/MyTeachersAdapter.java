@@ -59,7 +59,12 @@ public class MyTeachersAdapter extends FirebaseRecyclerAdapter<TeacherShowModel,
 
                 holder.name.setText(name);
                 holder.about.setText(about);
-                Glide.with(mContext).load(photoURL).into(holder.dp);
+                if (photoURL.equals("default")) {
+                    holder.dp.setImageResource(R.drawable.anonymous_user);
+                }
+                else {
+                    Glide.with(mContext).load(photoURL).into(holder.dp);
+                }
 
                 holder.itemView.setOnClickListener(view -> {
                     Intent intent = new Intent(mContext, MyTeacherProfile.class);

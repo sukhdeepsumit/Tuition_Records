@@ -75,7 +75,12 @@ public class  MyStudents extends AppCompatActivity {
                 standard.setText(model.getMyStandard());
                 about.setText(model.getMyDescription());
 
-                Glide.with(getApplicationContext()).load(model.getMyUri()).into(profile_picture);
+                if(model.getMyUri().equals("default")) {
+                    profile_picture.setImageResource(R.drawable.anonymous_user);
+                }
+                else {
+                    Glide.with(getApplicationContext()).load(model.getMyUri()).into(profile_picture);
+                }
 
                 batchRef.child(teacher).child(student_key).addValueEventListener(new ValueEventListener() {
                     @Override

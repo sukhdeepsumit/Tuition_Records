@@ -250,10 +250,7 @@ public class StudentAccountInfo extends AppCompatActivity {
 
             }
             dialogPlus.dismiss();
-
-
         });
-
     }
 
     @Override

@@ -57,7 +57,12 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
                 holder.name.setText(name);
                 holder.standard.setText(standard);
 
-                Glide.with(mContext).load(photoURL).into(holder.dp);
+                if (photoURL.equals("default")) {
+                    holder.dp.setImageResource(R.drawable.anonymous_user);
+                }
+                else {
+                    Glide.with(mContext).load(photoURL).into(holder.dp);
+                }
             }
 
             @Override
