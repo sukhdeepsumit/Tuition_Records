@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
-import com.example.tuitionrecords.TeacherActivity.TeacherBatches.MyClasses;
+import com.example.tuitionrecords.TeacherActivity.ClassesAndBatches.MyClasses;
 
 public class DayTimeTable extends AppCompatActivity {
 

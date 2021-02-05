@@ -185,9 +185,6 @@ public class SignUpTeacherActivity extends AppCompatActivity {
                 Log.i("TAG", "createUserWithEmail:success");
                 Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show();
                 saveProfileDetails();
-                Intent intent = new Intent(SignUpTeacherActivity.this, LogInTeacherActivity.class);
-                finish();
-                startActivity(intent);
             }
             else {
                 showErrorBox("Registration Failed !! Try Again");
@@ -253,7 +250,12 @@ public class SignUpTeacherActivity extends AppCompatActivity {
     private void insertDetails(String nm, String em, String cn, String gn, String ct, String st, String cnt, String sn, String ab, String url, String user) {
         TeacherModel model = new TeacherModel(nm, em, cn,gn, ct, st, cnt, sn, ab, url, user, "offline");
         reference.child(user).setValue(model)
-                .addOnCompleteListener(task -> Toast.makeText(this, "Record Saved", Toast.LENGTH_SHORT).show());
+                .addOnCompleteListener(task -> {
+                    Toast.makeText(this, "Record Saved", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignUpTeacherActivity.this, LogInTeacherActivity.class);
+                    finish();
+                    startActivity(intent);
+                });
     }
 
     private void showErrorBox(String message) {

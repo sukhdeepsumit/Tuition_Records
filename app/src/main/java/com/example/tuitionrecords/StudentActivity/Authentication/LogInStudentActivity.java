@@ -70,14 +70,14 @@ public class LogInStudentActivity extends AppCompatActivity {
         myAuth=FirebaseAuth.getInstance();
 
         sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);
-        /*int pref = sharedPreferences.getInt("key_student", 0);
 
+        /*int pref = sharedPreferences.getInt("key_student", 0);
 
         if (pref > 0) {
             startActivity(new Intent(getApplicationContext(), ShowStudentActivity.class));
-        }*/
+        }
 
-        /*if (myAuth.getCurrentUser() != null) {
+        if (myAuth.getCurrentUser() != null) {
             Log.i("CHECK_USER", myAuth.getCurrentUser().toString());
             startActivity(new Intent(LogInStudentActivity.this, ShowStudentActivity.class));
             finish();
@@ -91,7 +91,7 @@ public class LogInStudentActivity extends AppCompatActivity {
         });
 
         reset.setOnClickListener(view -> {
-            startActivity(new Intent(LogInStudentActivity.this, ResetActivity.class));
+            startActivity(new Intent(LogInStudentActivity.this, ResetActivity.class).putExtra("email", myEmail.getText().toString()).putExtra("user", "teacher"));
             finish();
         });
     }
@@ -144,13 +144,6 @@ public class LogInStudentActivity extends AppCompatActivity {
                 .show();
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(LogInStudentActivity.this, MainActivity.class);
-        finish();
-        startActivity(intent);
-    }
-
     public void checkInternet()
     {
         final Handler handler = new Handler();
@@ -184,5 +177,12 @@ public class LogInStudentActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(LogInStudentActivity.this, MainActivity.class);
+        finish();
+        startActivity(intent);
     }
 }

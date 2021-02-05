@@ -19,7 +19,7 @@
         <activity android:name=".TeacherActivity.TeacherFee.FeeHistory" />
         <activity android:name=".TeacherActivity.TeacherFee.FeeAdd" />
         <activity android:name=".StudentActivity.MyTeacher.MyTeachers" />
-        <activity android:name=".TeacherActivity.TeacherBatches.MyClasses" />
+        <activity android:name=".TeacherActivity.ClassesAndBatches.MyClasses" />
         <activity android:name=".TeacherActivity.Requests.CheckStudentProfile" />
         <activity android:name=".StudentActivity.Request.CheckTeacherProfile" />
         <activity android:name=".TeacherActivity.Students.MyStudents" />

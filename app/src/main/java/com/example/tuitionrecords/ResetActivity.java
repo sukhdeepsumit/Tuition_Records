@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.example.tuitionrecords.StudentActivity.Authentication.LogInStudentActivity;
 import com.example.tuitionrecords.TeacherActivity.Authentication.LogInTeacherActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,7 @@ public class ResetActivity extends AppCompatActivity {
     AppCompatButton reset;
 
     FirebaseAuth firebaseAuth;
+    String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,10 @@ public class ResetActivity extends AppCompatActivity {
         reset = findViewById(R.id.reset);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        String intentEmail = getIntent().getStringExtra("email");
+        user = getIntent().getStringExtra("user");
+        email.setText(intentEmail);
 
         reset.setOnClickListener(view -> {
 
@@ -45,7 +51,13 @@ public class ResetActivity extends AppCompatActivity {
                 firebaseAuth.sendPasswordResetEmail(sendEmail).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(ResetActivity.this, "Please Check Your Email", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ResetActivity.this, LogInTeacherActivity.class));
+                        if (user.equals("teacher")) {
+                            startActivity(new Intent(ResetActivity.this, LogInTeacherActivity.class));
+                        }
+                        else {
+                            startActivity(new Intent(ResetActivity.this, LogInStudentActivity.class));
+                        }
+                        finish();
                     }
                     else {
                         String error = Objects.requireNonNull(task.getException()).getMessage();
@@ -54,5 +66,16 @@ public class ResetActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (user.equals("teacher")) {
+            startActivity(new Intent(getApplicationContext(), LogInTeacherActivity.class));
+        }
+        else {
+            startActivity(new Intent(getApplicationContext(), LogInStudentActivity.class));
+        }
+        finish();
     }
 }

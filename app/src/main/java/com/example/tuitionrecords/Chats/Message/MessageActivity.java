@@ -425,7 +425,9 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        reference.removeEventListener(seenListener);
+        if(seenListener != null && reference != null) {
+            reference.removeEventListener(seenListener);
+        }
         //status("offline");
         if (getIntent().getStringExtra("user").equals("teacher")) {
             status("offline", "teacher");

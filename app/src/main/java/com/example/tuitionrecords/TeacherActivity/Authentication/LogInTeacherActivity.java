@@ -72,13 +72,14 @@ public class LogInTeacherActivity extends AppCompatActivity {
         password = findViewById(R.id.password_text);
 
         sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_teacher", Context.MODE_PRIVATE);
+
         /*int pref = sharedPreferences.getInt("key_teacher", 0);
 
         if (pref > 0) {
             startActivity(new Intent(getApplicationContext(), ShowTeacherActivity.class));
-        }*/
+        }
 
-       /* if (myAuth.getCurrentUser() != null) {
+       if (myAuth.getCurrentUser() != null) {
             startActivity(new Intent(LogInTeacherActivity.this, ShowTeacherActivity.class));
             finish();
         }*/
@@ -91,7 +92,10 @@ public class LogInTeacherActivity extends AppCompatActivity {
         });
 
         reset.setOnClickListener(view -> {
-            startActivity(new Intent(LogInTeacherActivity.this, ResetActivity.class));
+            Intent intent = new Intent(LogInTeacherActivity.this, ResetActivity.class);
+            intent.putExtra("email", Objects.requireNonNull(email.getText()).toString());
+            intent.putExtra("user", "teacher");
+            startActivity(intent);
             finish();
         });
     }
@@ -178,6 +182,7 @@ public class LogInTeacherActivity extends AppCompatActivity {
             }
         });
     }
+
     public void showInternetWarning() {
         checkInternet.setVisibility(View.VISIBLE);
         close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));

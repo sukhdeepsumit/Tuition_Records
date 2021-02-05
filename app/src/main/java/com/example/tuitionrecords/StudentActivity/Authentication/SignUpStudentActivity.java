@@ -148,7 +148,6 @@ public class SignUpStudentActivity extends AppCompatActivity {
                                 Log.i("TAG", "createUserWithEmail:success");
                                 Toast.makeText(SignUpStudentActivity.this, "Registration Success", Toast.LENGTH_SHORT).show();
                                 saveStudentProfileDetails();
-                                startActivity(new Intent(SignUpStudentActivity.this, LogInStudentActivity.class));
                             }
                             else {
                                 // If sign in fails, display a message to the user.
@@ -223,7 +222,11 @@ public class SignUpStudentActivity extends AppCompatActivity {
         StudentModel sm = new StudentModel(name, email, gender, contact, standard, city, state, description, url, user, "offline");
         Log.i("USER", user);
 
-        db.child(user).setValue(sm).addOnCompleteListener(task -> Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show());
+        db.child(user).setValue(sm).addOnCompleteListener(task -> {
+            Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(SignUpStudentActivity.this, LogInStudentActivity.class));
+            finish();
+        });
     }
 
     private boolean checkContact(String contact)

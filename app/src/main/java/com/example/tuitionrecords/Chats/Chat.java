@@ -46,7 +46,7 @@ public class Chat extends AppCompatActivity {
     CircleImageView dp;
     TextView user_name;
     DatabaseReference reference;
-    String currentUser;
+    String currentUser=FirebaseAuth.getInstance().getCurrentUser().getUid();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,6 @@ public class Chat extends AppCompatActivity {
         dp=findViewById(R.id.dpUpload);
         user_name=findViewById(R.id.userName);
 
-        currentUser=FirebaseAuth.getInstance().getCurrentUser().getUid();
         who=getIntent().getStringExtra("user");
 
         if(who.equals("teacher")) {

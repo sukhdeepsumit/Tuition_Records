@@ -1,4 +1,4 @@
-package com.example.tuitionrecords.TeacherActivity.TeacherBatches;
+package com.example.tuitionrecords.TeacherActivity.ClassesAndBatches;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,7 +42,7 @@ public class MyClasses extends AppCompatActivity {
                         .setQuery(reference.orderByChild("order"),ScheduleModel.class)
                         .build();
 
-        batchAdapter=new BatchAdapter(options);
+        batchAdapter=new BatchAdapter(options, day);
         recyclerView.setAdapter(batchAdapter);
 
     }

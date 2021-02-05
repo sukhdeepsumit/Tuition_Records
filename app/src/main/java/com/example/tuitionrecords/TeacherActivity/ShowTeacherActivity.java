@@ -224,7 +224,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
                 }
                 case  R.id.howto :
                 {
-                    Toast.makeText(getApplicationContext(), "How to use opened", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Feature coming soon !!", Toast.LENGTH_SHORT).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 }
