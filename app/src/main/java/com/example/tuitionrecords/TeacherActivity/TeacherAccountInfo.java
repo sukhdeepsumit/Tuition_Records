@@ -135,7 +135,7 @@ public class TeacherAccountInfo extends AppCompatActivity {
         nameEdit.setOnClickListener(view -> updateProfileData("name"));
         emailEdit.setOnClickListener(view -> updateProfileData("email"));
         genderEdit.setOnClickListener(view -> updateProfileData("gender"));
-        phoneEdit.setOnClickListener(view -> updateProfileData("phone"));
+        phoneEdit.setOnClickListener(view -> updateProfileData("contact"));
         locationEdit.setOnClickListener(view -> updateProfileData("location"));
         subjectEdit.setOnClickListener(view -> updateProfileData("content"));
         standardEdit.setOnClickListener(view -> updateProfileData("standard"));
@@ -162,7 +162,7 @@ public class TeacherAccountInfo extends AppCompatActivity {
             case "gender" : editText.setText(gender.getText().toString());
                 break;
 
-            case "phone" : editText.setText(phone.getText().toString());
+            case "contact" : editText.setText(phone.getText().toString());
                 break;
 
             case "location" : editText.setText(city_state.getText().toString());

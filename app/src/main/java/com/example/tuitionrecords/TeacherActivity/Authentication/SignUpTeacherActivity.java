@@ -118,6 +118,11 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         String myEmail = Objects.requireNonNull(email.getText()).toString();
         String myPassword = Objects.requireNonNull(password.getText()).toString();
         String myContact = Objects.requireNonNull(contact.getText()).toString();
+        String myState= Objects.requireNonNull(state.getText()).toString().trim();
+        String myCity=Objects.requireNonNull(state.getText()).toString().trim();
+        String mySubject=Objects.requireNonNull(content.getText()).toString().trim();
+        String myStandard=Objects.requireNonNull(standard.getText()).toString().trim();
+
 
         boolean cancel =false;
         View focusView = null;
@@ -135,6 +140,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
             focusView = password;
             cancel = true;
         }
+
         else if(!checkPassword(myPassword)) {
             password.setError("Your password does not match");
             focusView = confirmPassword;
@@ -151,6 +157,36 @@ public class SignUpTeacherActivity extends AppCompatActivity {
             contact.setError("Your contact is invalid");
             focusView = contact;
             cancel = true;
+        }
+        if(TextUtils.isEmpty(myState))
+        {
+            state.setError("Enter your state");
+            focusView=state;
+            cancel=true;
+        }
+        if(!myEmail.contains("@")||!myEmail.contains("@yahoo.com")||!myEmail.contains("@hotmail.com") ||!myEmail.contains("@rediffmail.com") || !myEmail.contains("@outlook.com"))
+        {
+            email.setError("Have you entered it correctly? ");
+           focusView=email;
+           cancel=true;
+        }
+        if(TextUtils.isEmpty(myCity))
+        {
+            city.setError("City can't be empty");
+            focusView=city;
+            cancel=true;
+        }
+        if(TextUtils.isEmpty(mySubject))
+        {
+            content.setError("City can't be empty");
+            focusView=content;
+            cancel=true;
+        }
+        if(TextUtils.isEmpty(myStandard))
+        {
+            standard.setError("City can't be empty");
+            focusView=standard;
+            cancel=true;
         }
 
         if (cancel) {
@@ -232,6 +268,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
 
         if (!flag) {
             insertDetails(nm, em, cn, gn, ct, st, cnt, sn, ab, "default", myAuth.getCurrentUser().getUid());
+
         }
         else {
             StorageReference ref = storageReference.child("Photos/" + imageUri.getLastPathSegment());
@@ -243,6 +280,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
                         String user = Objects.requireNonNull(myAuth.getCurrentUser()).getUid();
 
                         insertDetails(nm, em, cn, gn, ct, st, cnt, sn, ab, url, user);
+
                     }));
         }
     }

@@ -36,7 +36,7 @@ public class FeeStatusStudent extends AppCompatActivity {
                 .setQuery(reference,FeeStatusModel.class)
                 .build();
 
-        adapter=new FeeStatusStudentAdapter(options,FeeStatusStudent.this);
+        adapter=new FeeStatusStudentAdapter(options,getApplicationContext());
         recyclerView.setAdapter(adapter);
 
     }

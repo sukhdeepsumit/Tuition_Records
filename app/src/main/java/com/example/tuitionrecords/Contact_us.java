@@ -67,5 +67,6 @@ public class Contact_us extends AppCompatActivity {
             startActivity(new Intent(Contact_us.this, ShowStudentActivity.class));
 
         }
+        finish();
     }
 }

@@ -104,10 +104,23 @@ public class LogInStudentActivity extends AppCompatActivity {
         String email = myEmail.getText().toString();
         String password = myPassword.getText().toString();
 
-        if(email.equals("") || password.equals("")) {
-            Toast.makeText(getApplicationContext(), "Field is Empty", Toast.LENGTH_SHORT).show();
+        if (email.equals("")) {
+            myEmail.setError("Empty");
+            myEmail.requestFocus();
             return;
         }
+        if (password.equals("")) {
+            myPassword.setError("");
+            myPassword.requestFocus();
+            return;
+        }
+        if(!email.contains("@" )||!email.contains("@yahoo.com")||!email.contains("@hotmail.com") ||!email.contains("@rediffmail.com") || !email.contains("@outlook.com"))
+        {
+            myEmail.setError("Have you entered it correctly? ");
+            myEmail.requestFocus();
+            return;
+        }
+
         progressBar.setVisibility(View.VISIBLE);
 
         Toast.makeText(getApplicationContext(), "Logging you in...", Toast.LENGTH_SHORT).show();
@@ -138,7 +151,7 @@ public class LogInStudentActivity extends AppCompatActivity {
     private void showErrorBox() {
         new AlertDialog.Builder(this)
                 .setTitle("Ooooops!!")
-                .setMessage("There was a problem logging in")
+                .setMessage("You entered the wrong email ID or password")
                 .setPositiveButton(android.R.string.ok, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();

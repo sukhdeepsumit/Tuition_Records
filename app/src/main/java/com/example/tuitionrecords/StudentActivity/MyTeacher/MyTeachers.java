@@ -37,7 +37,7 @@ public class MyTeachers extends AppCompatActivity {
                 new FirebaseRecyclerOptions.Builder<TeacherShowModel>()
                         .setQuery(reference, TeacherShowModel.class)
                         .build();
-        myTeachersAdapter=new MyTeachersAdapter(options,MyTeachers.this);
+        myTeachersAdapter=new MyTeachersAdapter(options,getApplicationContext());
         recyclerView.setAdapter(myTeachersAdapter);
 
 

@@ -104,12 +104,26 @@ public class LogInTeacherActivity extends AppCompatActivity {
 
         String myEmail = Objects.requireNonNull(email.getText()).toString();
         String myPassword = Objects.requireNonNull(password.getText()).toString();
+//        if(myEmail.equals("") || myPassword.equals("")) {
+//            Toast.makeText(getApplicationContext(), "Field is Empty", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
 
         if (myEmail.equals("")) {
             email.setError("Empty");
+            email.requestFocus();
+            return;
         }
         if (myPassword.equals("")) {
             password.setError("");
+            password.requestFocus();
+            return;
+        }
+        if(!myEmail.contains("@") ||!myEmail.contains("@yahoo.com")||!myEmail.contains("@hotmail.com") ||!myEmail.contains("@rediffmail.com") || !myEmail.contains("@outlook.com"))
+        {
+            email.setError("Have you entered it correctly? ");
+            email.requestFocus();
+            return;
         }
 
         Toast.makeText(getApplicationContext(),  "Logging you in...", Toast.LENGTH_SHORT).show();

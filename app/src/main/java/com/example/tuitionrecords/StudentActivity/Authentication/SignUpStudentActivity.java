@@ -4,21 +4,28 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Scroller;
 import android.widget.Toast;
 
@@ -58,10 +65,19 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
     boolean flag = false;
 
+    RelativeLayout checkInternet;
+    ImageView close;
+    ScrollView layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_student);
+        checkInternet = findViewById(R.id.check_internet);
+        close = findViewById(R.id.close);
+        layout = findViewById(R.id.layout);
+
+        checkInternet();
 
         mName=findViewById(R.id.name_text);
         mEmail=findViewById(R.id.email_text);
@@ -96,9 +112,16 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
             final  String myEmail=mEmail.getText().toString().trim();
             final String mobNum=mContact.getText().toString().trim();
-
             final String password= mPwd.getText().toString().trim();
             final String cnfPassword=mCnfPwd.getText().toString().trim();
+            final String myStandard= mStandard.getText().toString().trim();
+            final String myName= mName.getText().toString().trim();
+            final String myCity= mCity.getText().toString().trim();
+            final String myState=mState.getText().toString().trim();
+
+
+
+
 
             if(TextUtils.isEmpty(myEmail))
             {
@@ -106,6 +129,31 @@ public class SignUpStudentActivity extends AppCompatActivity {
                 mEmail.requestFocus();
             }
 
+            else if(TextUtils.isEmpty(myName))
+            {
+                mName.setError("Name cannot be empty");
+                mName.requestFocus();
+            }
+            else if(!myEmail.contains("@gmail.com") ||!myEmail.contains("@yahoo.com")||!myEmail.contains("@hotmail.com") ||!myEmail.contains("@rediffmail.com") || !myEmail.contains("@outlook.com"))
+            {
+                mEmail.setError("Have you entered it correctly? ");
+                mEmail.requestFocus();
+            }
+            else if(TextUtils.isEmpty(myCity))
+            {
+                mCity.setError("Name cannot be empty");
+                mCity.requestFocus();
+            }
+            else if(TextUtils.isEmpty(myState))
+            {
+                mState.setError("Name cannot be empty");
+                mState.requestFocus();
+            }
+            else if(TextUtils.isEmpty(myStandard))
+            {
+                mStandard.setError("Enter your class");
+                mStandard.requestFocus();
+            }
             else if(TextUtils.isEmpty(mobNum))
             {
                 mContact.setError("Enter contact !");
@@ -202,6 +250,8 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
         if (!flag) {
             insertDetails(name, email, gender, contact, standard, city, state, description, "default", mAuth.getCurrentUser().getUid());
+
+
         }
         else {
             uploader = mStorage.child("Photos/" + uri.getLastPathSegment());
@@ -212,6 +262,9 @@ public class SignUpStudentActivity extends AppCompatActivity {
                         String user = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
                         insertDetails(name, email, gender, contact, standard, city, state, description, url, user);
+
+
+
 
                     }))
                     .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error occurred", Toast.LENGTH_SHORT).show());
@@ -246,5 +299,35 @@ public class SignUpStudentActivity extends AppCompatActivity {
     public void onBackPressed() {
         startActivity(new Intent(SignUpStudentActivity.this, LogInStudentActivity.class));
         finish();
+    }
+
+    public void checkInternet()
+    {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                ConnectivityManager cm =
+                        (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+                if(!isConnected)
+                {
+                    layout.setVisibility(View.GONE);
+                    showInternetWarning();
+                }
+                else {
+                    layout.setVisibility(View.VISIBLE);
+                }
+                handler.postDelayed(this,3000);
+            }
+        });
+    }
+
+    public void showInternetWarning() {
+        checkInternet.setVisibility(View.VISIBLE);
+        close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
     }
 }
