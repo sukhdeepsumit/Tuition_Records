@@ -115,7 +115,7 @@ public class StudentAccountInfo extends AppCompatActivity {
         });
 
         nameEdit = findViewById(R.id.name_edit);
-        emailEdit = findViewById(R.id.email_edit);
+       // emailEdit = findViewById(R.id.email_edit);
         genderEdit = findViewById(R.id.gender_edit);
         phoneEdit = findViewById(R.id.phone_edit);
         locationEdit = findViewById(R.id.city_state_edit);
