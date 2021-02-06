@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 public class WelcomeScreen extends AppCompatActivity {
+    //comitt check
     private static final int SPLASH_TIME_OUT=1500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
