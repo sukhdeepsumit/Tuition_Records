@@ -183,7 +183,6 @@ public class SignUpStudentActivity extends AppCompatActivity {
                 mCnfPwd.setError("Incorrect password! ");
                 mCnfPwd.requestFocus();
             }
-
             else {
                 progressBar.setVisibility(View.VISIBLE);
                 progressBar.requestFocus();
@@ -283,6 +282,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
         db.child(user).setValue(sm).addOnCompleteListener(task -> {
             Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(View.GONE);
+
             startActivity(new Intent(SignUpStudentActivity.this, LogInStudentActivity.class));
             finish();
         });

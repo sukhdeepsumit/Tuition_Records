@@ -175,6 +175,7 @@ public class ShowStudentActivity extends AppCompatActivity {
         drawerLayout=findViewById(R.id.drawer);
 
         toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();

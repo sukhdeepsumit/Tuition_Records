@@ -309,6 +309,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     Toast.makeText(this, "Record Saved", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
+
                     Intent intent = new Intent(SignUpTeacherActivity.this, LogInTeacherActivity.class);
                     finish();
                     startActivity(intent);
