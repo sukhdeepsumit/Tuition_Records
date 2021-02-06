@@ -1,5 +1,6 @@
 package com.example.tuitionrecords.TeacherActivity.Authentication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -27,6 +28,11 @@ import com.example.tuitionrecords.ResetActivity;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -117,14 +123,11 @@ public class LogInTeacherActivity extends AppCompatActivity {
             return;
         }
 
-
         if (myPassword.equals("")) {
             password.setError("");
             password.requestFocus();
             return;
         }
-
-
 
         Toast.makeText(getApplicationContext(),  "Logging you in...", Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.VISIBLE);
@@ -134,7 +137,34 @@ public class LogInTeacherActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
 
-                        //AUTO_SAVE = 1;
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(myAuth.getCurrentUser().getUid());
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt("key_teacher", 1);
+                                    editor.apply();
+
+                                    Intent intent = new Intent(LogInTeacherActivity.this, ShowTeacherActivity.class);
+                                    finish();
+                                    startActivity(intent);
+                                }
+                                else {
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt("key_teacher", 0);
+                                    editor.apply();
+                                    myAuth.signOut();
+                                    Toast.makeText(LogInTeacherActivity.this, "User does not exists", Toast.LENGTH_SHORT).show();
+                                }
+                                progressBar.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {  }
+                        });
+
+                        /*AUTO_SAVE = 1;
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("key_teacher", 1);
                         editor.apply();
@@ -142,7 +172,7 @@ public class LogInTeacherActivity extends AppCompatActivity {
                         Intent intent = new Intent(LogInTeacherActivity.this, ShowTeacherActivity.class);
                         finish();
                         startActivity(intent);
-                        progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);*/
                     }
                     else {
                         showErrorBox();

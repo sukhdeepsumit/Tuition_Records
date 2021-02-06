@@ -33,6 +33,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Pattern;
 
@@ -41,7 +46,7 @@ public class LogInStudentActivity extends AppCompatActivity {
     TextView signUp, reset;
     Button login;
     EditText myEmail, myPassword;
-    private FirebaseAuth myAuth;
+    FirebaseAuth myAuth;
     ProgressBar progressBar;
 
     public static SharedPreferences sharedPreferences;
@@ -126,25 +131,43 @@ public class LogInStudentActivity extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), "Logging you in...", Toast.LENGTH_SHORT).show();
 
-        myAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.i("LOGIN", "Was user logged in : " + task.isSuccessful());
-                if (!task.isSuccessful()) {
-                    showErrorBox();
-                    progressBar.setVisibility(View.GONE);
-                    Log.i("FINDCODE", "Message : " + task.getException());
-                }
-                else {
-                    //AUTO_SAVE = 1;
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("key_student", 1);
-                    editor.apply();
+        myAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            Log.i("LOGIN", "Was user logged in : " + task.isSuccessful());
+            if (!task.isSuccessful()) {
+                showErrorBox();
+                progressBar.setVisibility(View.GONE);
+                Log.i("FINDCODE", "Message : " + task.getException());
+            }
+            else {
+                //AUTO_SAVE = 1;
 
-                    Toast.makeText(getApplicationContext(),"Logged in",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LogInStudentActivity.this, ShowStudentActivity.class));
-                    progressBar.setVisibility(View.GONE);
-                }
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Students_Profile").child(myAuth.getCurrentUser().getUid());
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt("key_student", 1);
+                            editor.apply();
+
+                            Toast.makeText(getApplicationContext(),"Logged in",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), ShowStudentActivity.class);
+                            finish();
+                            startActivity(intent);
+                        }
+                        else {
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt("key_student", 0);
+                            editor.apply();
+                            myAuth.signOut();
+                            Toast.makeText(LogInStudentActivity.this, "User does not exists", Toast.LENGTH_SHORT).show();
+                        }
+                        progressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) { }
+                });
             }
         });
     }

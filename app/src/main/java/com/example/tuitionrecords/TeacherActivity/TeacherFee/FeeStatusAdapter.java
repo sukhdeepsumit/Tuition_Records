@@ -62,8 +62,12 @@ public class FeeStatusAdapter extends FirebaseRecyclerAdapter<FeeStatusModel,Fee
                 holder.name.setText(name);
                 holder.email.setText(email);
 
-
-                Glide.with(context).load(photoURL).into(holder.profilePic);
+                if (photoURL.equals("default")) {
+                    holder.profilePic.setImageResource(R.drawable.anonymous_user);
+                }
+                else {
+                    Glide.with(context).load(photoURL).into(holder.profilePic);
+                }
             }
 
             @Override
