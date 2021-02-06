@@ -133,7 +133,7 @@ public class TeacherAccountInfo extends AppCompatActivity {
         });
 
         nameEdit.setOnClickListener(view -> updateProfileData("name"));
-        emailEdit.setOnClickListener(view -> updateProfileData("email"));
+       // emailEdit.setOnClickListener(view -> updateProfileData("email"));
         genderEdit.setOnClickListener(view -> updateProfileData("gender"));
         phoneEdit.setOnClickListener(view -> updateProfileData("contact"));
         locationEdit.setOnClickListener(view -> updateProfileData("location"));

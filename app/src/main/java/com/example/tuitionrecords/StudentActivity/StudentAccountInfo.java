@@ -127,7 +127,7 @@ public class StudentAccountInfo extends AppCompatActivity {
         });
 
         nameEdit.setOnClickListener(view -> updateProfileData("name"));
-        emailEdit.setOnClickListener(view -> updateProfileData("myEmail"));
+//        emailEdit.setOnClickListener(view -> updateProfileData("myEmail"));
         genderEdit.setOnClickListener(view -> updateProfileData("myGender"));
         phoneEdit.setOnClickListener(view -> updateProfileData("myContact"));
         locationEdit.setOnClickListener(view -> updateProfileData("location"));

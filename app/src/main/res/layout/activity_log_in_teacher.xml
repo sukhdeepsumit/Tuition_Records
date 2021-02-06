@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter Your Email"
                 android:importantForAutofill="no"
-                android:inputType="textNoSuggestions"
+                android:inputType="textEmailAddress"
                 android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 

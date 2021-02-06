@@ -122,15 +122,29 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         String myCity=Objects.requireNonNull(state.getText()).toString().trim();
         String mySubject=Objects.requireNonNull(content.getText()).toString().trim();
         String myStandard=Objects.requireNonNull(standard.getText()).toString().trim();
+        final String myName= Objects.requireNonNull(name.getText()).toString().trim();
 
         boolean cancel =false;
         View focusView = null;
 
+        if(TextUtils.isEmpty(myName))
+        {
+            name.setError("Name can't be empty");
+            focusView=name;
+            cancel=true;
+        }
         //check email
         if (TextUtils.isEmpty(myEmail)) {
             email.setError("Your Email is empty");
             focusView = email;
             cancel = true;
+        }
+        else if(!isValidEmail(myEmail))
+        {
+            email.setError("Wrong email");
+            focusView=email;
+            cancel=true;
+
         }
 
         //check password
@@ -152,22 +166,16 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         }
 
         //check contact
-        if (!checkContact(myContact)) {
+         if (!checkContact(myContact)) {
             contact.setError("Your contact is invalid");
             focusView = contact;
             cancel = true;
         }
-        if(TextUtils.isEmpty(myState))
+         if(TextUtils.isEmpty(myState))
         {
             state.setError("Enter your state");
             focusView=state;
             cancel=true;
-        }
-        if(!myEmail.contains("@")||!myEmail.contains("@yahoo.com")||!myEmail.contains("@hotmail.com") ||!myEmail.contains("@rediffmail.com") || !myEmail.contains("@outlook.com"))
-        {
-            email.setError("Have you entered it correctly? ");
-           focusView=email;
-           cancel=true;
         }
         if(TextUtils.isEmpty(myCity))
         {
@@ -177,13 +185,13 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         }
         if(TextUtils.isEmpty(mySubject))
         {
-            content.setError("City can't be empty");
+            content.setError("Subject can't be empty");
             focusView=content;
             cancel=true;
         }
         if(TextUtils.isEmpty(myStandard))
         {
-            standard.setError("City can't be empty");
+            standard.setError("Standard can't be empty");
             focusView=standard;
             cancel=true;
         }
@@ -195,6 +203,19 @@ public class SignUpTeacherActivity extends AppCompatActivity {
             signInWithFirebase();
         }
     }
+    private boolean isValidEmail(String target)
+    {
+        return EMAIL_ADDRESS_PATTERN.matcher(target).matches();
+    }
+    public static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    );
 
     private boolean checkPassword(String password) {
         String confPassword = Objects.requireNonNull(confirmPassword.getText()).toString();
@@ -202,7 +223,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
     }
 
     private boolean checkContact(String contact) {
-        Pattern p = Pattern.compile("^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[789]\\d{9}$");
+        Pattern p = Pattern.compile("^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[6789]\\d{9}$");
 
         Matcher m =p.matcher(contact);
         return m.find() && m.group().equals(contact);

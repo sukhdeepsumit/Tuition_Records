@@ -11,7 +11,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -31,6 +33,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.regex.Pattern;
 
 public class LogInStudentActivity extends AppCompatActivity {
 
@@ -104,8 +108,9 @@ public class LogInStudentActivity extends AppCompatActivity {
         String email = myEmail.getText().toString();
         String password = myPassword.getText().toString();
 
-        if (email.equals("")) {
-            myEmail.setError("Empty");
+        if(!isValidEmail(email))
+        {
+            myEmail.setError("Wrong email");
             myEmail.requestFocus();
             return;
         }
@@ -114,12 +119,7 @@ public class LogInStudentActivity extends AppCompatActivity {
             myPassword.requestFocus();
             return;
         }
-        if(!email.contains("@" )||!email.contains("@yahoo.com")||!email.contains("@hotmail.com") ||!email.contains("@rediffmail.com") || !email.contains("@outlook.com"))
-        {
-            myEmail.setError("Have you entered it correctly? ");
-            myEmail.requestFocus();
-            return;
-        }
+
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -148,6 +148,19 @@ public class LogInStudentActivity extends AppCompatActivity {
         });
 
     }
+    private boolean isValidEmail(String target)
+    {
+        return EMAIL_ADDRESS_PATTERN.matcher(target).matches();
+    }
+    public static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    );
     private void showErrorBox() {
         new AlertDialog.Builder(this)
                 .setTitle("Ooooops!!")

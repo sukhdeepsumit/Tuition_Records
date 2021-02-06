@@ -119,49 +119,51 @@ public class SignUpStudentActivity extends AppCompatActivity {
             final String myCity= mCity.getText().toString().trim();
             final String myState=mState.getText().toString().trim();
 
+            if(TextUtils.isEmpty(myName))
+            {
+                mName.setError("Name cannot be empty");
+                mName.requestFocus();
+            }
+
             if(TextUtils.isEmpty(myEmail))
             {
                 mEmail.setError("Enter email !");
                 mEmail.requestFocus();
             }
 
-            else if(TextUtils.isEmpty(myName))
+            else if(!isValidEmail(myEmail))
             {
-                mName.setError("Name cannot be empty");
-                mName.requestFocus();
-            }
-            else if(!myEmail.contains("@gmail.com") ||!myEmail.contains("@yahoo.com")||!myEmail.contains("@hotmail.com") ||!myEmail.contains("@rediffmail.com") || !myEmail.contains("@outlook.com"))
-            {
-                mEmail.setError("Have you entered it correctly? ");
+                mEmail.setError("Wrong email");
                 mEmail.requestFocus();
+
             }
-            else if(TextUtils.isEmpty(myCity))
+            if(TextUtils.isEmpty(myCity))
             {
-                mCity.setError("Name cannot be empty");
+                mCity.setError("City cannot be empty");
                 mCity.requestFocus();
             }
-            else if(TextUtils.isEmpty(myState))
+            if(TextUtils.isEmpty(myState))
             {
-                mState.setError("Name cannot be empty");
+                mState.setError("State cannot be empty");
                 mState.requestFocus();
             }
-            else if(TextUtils.isEmpty(myStandard))
+             if(TextUtils.isEmpty(myStandard))
             {
                 mStandard.setError("Enter your class");
                 mStandard.requestFocus();
             }
-            else if(TextUtils.isEmpty(mobNum))
+             if(TextUtils.isEmpty(mobNum))
             {
                 mContact.setError("Enter contact !");
                 mContact.requestFocus();
             }
-            else if(!checkContact(mobNum))
+             if(!checkContact(mobNum))
             {
                 mContact.setError("Your contact is invalid");
                 mContact.requestFocus();
             }
 
-            else if(TextUtils.isEmpty(password) )
+            if(TextUtils.isEmpty(password) )
             {
                 mPwd.setError("Enter password !");
                 mPwd.requestFocus();
@@ -201,6 +203,19 @@ public class SignUpStudentActivity extends AppCompatActivity {
             }
         });
     }
+    private boolean isValidEmail(String target)
+    {
+        return EMAIL_ADDRESS_PATTERN.matcher(target).matches();
+    }
+    public static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    );
 
     private void openImage() {
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -274,7 +289,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
     private boolean checkContact(String contact)
     {
-        Pattern p = Pattern.compile("^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[789]\\d{9}$");
+        Pattern p = Pattern.compile("^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[6789]\\d{9}$");
 
         Matcher m = p.matcher(contact);
         return (m.find() && m.group().equals(contact));

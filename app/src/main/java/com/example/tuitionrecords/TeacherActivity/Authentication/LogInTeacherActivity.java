@@ -29,6 +29,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class LogInTeacherActivity extends AppCompatActivity {
 
@@ -109,22 +110,21 @@ public class LogInTeacherActivity extends AppCompatActivity {
 //            return;
 //        }
 
-        if (myEmail.equals("")) {
-            email.setError("Empty");
+        if(!isValidEmail(myEmail))
+        {
+            email.setError("Wrong email");
             email.requestFocus();
             return;
         }
+
+
         if (myPassword.equals("")) {
             password.setError("");
             password.requestFocus();
             return;
         }
-        if(!myEmail.contains("@") ||!myEmail.contains("@yahoo.com")||!myEmail.contains("@hotmail.com") ||!myEmail.contains("@rediffmail.com") || !myEmail.contains("@outlook.com"))
-        {
-            email.setError("Have you entered it correctly? ");
-            email.requestFocus();
-            return;
-        }
+
+
 
         Toast.makeText(getApplicationContext(),  "Logging you in...", Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.VISIBLE);
@@ -150,6 +150,19 @@ public class LogInTeacherActivity extends AppCompatActivity {
                     }
                 });
     }
+    private boolean isValidEmail(String target)
+    {
+        return EMAIL_ADDRESS_PATTERN.matcher(target).matches();
+    }
+    public static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    );
 
     private void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
