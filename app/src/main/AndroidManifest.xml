@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tuitionrecords">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".Chats.Message.MessageActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Chats.Message.MessageActivity" />
         <activity android:name=".Chats.Chat" />
         <activity android:name=".DayTimeTable" />
         <activity android:name=".StudentActivity.FeeStatus.FeeHistoryStudent" />
@@ -43,7 +50,7 @@
         <activity android:name=".TeacherActivity.Authentication.SignUpTeacherActivity" />
         <activity android:name=".TeacherActivity.Authentication.LogInTeacherActivity" />
         <activity android:name=".StudentActivity.Authentication.LogInStudentActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".WelcomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,11 +75,5 @@
             </intent-filter>
         </service>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
