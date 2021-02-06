@@ -85,9 +85,10 @@
 
             <ImageView
                 android:id="@+id/name_edit"
-                android:layout_width="85dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_baseline_edit_24" />
 
         </RelativeLayout>
@@ -116,13 +117,6 @@
                 android:text="Email"
                 android:textSize="18sp" />
 
-            <ImageView
-                android:id="@+id/email_edit"
-                android:layout_width="85dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_baseline_edit_24" />
-
         </RelativeLayout>
 
         <RelativeLayout
@@ -149,9 +143,10 @@
 
             <ImageView
                 android:id="@+id/gender_edit"
-                android:layout_width="85dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_baseline_edit_24" />
 
         </RelativeLayout>
@@ -179,9 +174,10 @@
 
             <ImageView
                 android:id="@+id/phone_edit"
-                android:layout_width="85dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_baseline_edit_24" />
 
         </RelativeLayout>
@@ -209,9 +205,10 @@
 
             <ImageView
                 android:id="@+id/city_state_edit"
-                android:layout_width="85dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_baseline_edit_24" />
 
         </RelativeLayout>
@@ -239,9 +236,10 @@
 
             <ImageView
                 android:id="@+id/standard_edit"
-                android:layout_width="85dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_baseline_edit_24" />
 
         </RelativeLayout>
@@ -270,10 +268,11 @@
 
             <ImageView
                 android:id="@+id/about_edit"
-                android:layout_width="85dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_baseline_edit_24" />
 
         </RelativeLayout>

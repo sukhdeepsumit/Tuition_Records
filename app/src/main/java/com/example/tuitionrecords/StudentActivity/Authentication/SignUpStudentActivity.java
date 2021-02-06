@@ -119,10 +119,6 @@ public class SignUpStudentActivity extends AppCompatActivity {
             final String myCity= mCity.getText().toString().trim();
             final String myState=mState.getText().toString().trim();
 
-
-
-
-
             if(TextUtils.isEmpty(myEmail))
             {
                 mEmail.setError("Enter email !");
@@ -201,7 +197,6 @@ public class SignUpStudentActivity extends AppCompatActivity {
                                 // If sign in fails, display a message to the user.
                                 Toast.makeText(SignUpStudentActivity.this, "Failure" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                            progressBar.setVisibility(View.GONE);
                         });
             }
         });
@@ -250,8 +245,6 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
         if (!flag) {
             insertDetails(name, email, gender, contact, standard, city, state, description, "default", mAuth.getCurrentUser().getUid());
-
-
         }
         else {
             uploader = mStorage.child("Photos/" + uri.getLastPathSegment());
@@ -262,10 +255,6 @@ public class SignUpStudentActivity extends AppCompatActivity {
                         String user = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
                         insertDetails(name, email, gender, contact, standard, city, state, description, url, user);
-
-
-
-
                     }))
                     .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error occurred", Toast.LENGTH_SHORT).show());
         }
@@ -277,6 +266,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
         db.child(user).setValue(sm).addOnCompleteListener(task -> {
             Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
             startActivity(new Intent(SignUpStudentActivity.this, LogInStudentActivity.class));
             finish();
         });

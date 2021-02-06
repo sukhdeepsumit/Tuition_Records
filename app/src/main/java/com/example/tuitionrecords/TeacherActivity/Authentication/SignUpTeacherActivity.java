@@ -123,7 +123,6 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         String mySubject=Objects.requireNonNull(content.getText()).toString().trim();
         String myStandard=Objects.requireNonNull(standard.getText()).toString().trim();
 
-
         boolean cancel =false;
         View focusView = null;
 
@@ -225,7 +224,6 @@ public class SignUpTeacherActivity extends AppCompatActivity {
             else {
                 showErrorBox("Registration Failed !! Try Again");
             }
-            progressBar.setVisibility(View.GONE);
         });
     }
 
@@ -268,7 +266,6 @@ public class SignUpTeacherActivity extends AppCompatActivity {
 
         if (!flag) {
             insertDetails(nm, em, cn, gn, ct, st, cnt, sn, ab, "default", myAuth.getCurrentUser().getUid());
-
         }
         else {
             StorageReference ref = storageReference.child("Photos/" + imageUri.getLastPathSegment());
@@ -280,7 +277,6 @@ public class SignUpTeacherActivity extends AppCompatActivity {
                         String user = Objects.requireNonNull(myAuth.getCurrentUser()).getUid();
 
                         insertDetails(nm, em, cn, gn, ct, st, cnt, sn, ab, url, user);
-
                     }));
         }
     }
@@ -290,6 +286,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         reference.child(user).setValue(model)
                 .addOnCompleteListener(task -> {
                     Toast.makeText(this, "Record Saved", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     Intent intent = new Intent(SignUpTeacherActivity.this, LogInTeacherActivity.class);
                     finish();
                     startActivity(intent);
