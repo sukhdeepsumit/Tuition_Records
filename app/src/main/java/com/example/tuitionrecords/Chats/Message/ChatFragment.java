@@ -19,6 +19,7 @@ import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
 import com.example.tuitionrecords.StudentActivity.Request.TeacherShowModel;
 import com.example.tuitionrecords.TeacherActivity.Authentication.TeacherModel;
+import com.google.android.gms.common.util.CollectionUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +31,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.LinkedList;
 
 //commit check
 public class ChatFragment extends Fragment {
@@ -115,7 +116,6 @@ public class ChatFragment extends Fragment {
 
                             //Log.i("ID_CHECK", id.getId());
 
-                            assert model != null;
                             if (model.getId().equals(id.getId())) {
                                 Teacher.add(model);
                             }

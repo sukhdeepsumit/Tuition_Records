@@ -122,6 +122,7 @@ public class LogInStudentActivity extends AppCompatActivity {
 
 
         progressBar.setVisibility(View.VISIBLE);
+        progressBar.requestFocus();
 
         Toast.makeText(getApplicationContext(), "Logging you in...", Toast.LENGTH_SHORT).show();
 

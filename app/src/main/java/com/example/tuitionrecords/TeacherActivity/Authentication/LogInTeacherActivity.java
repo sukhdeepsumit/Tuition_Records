@@ -128,6 +128,7 @@ public class LogInTeacherActivity extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(),  "Logging you in...", Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.VISIBLE);
+        progressBar.requestFocus();
 
         myAuth.signInWithEmailAndPassword(myEmail, myPassword)
                 .addOnCompleteListener(task -> {

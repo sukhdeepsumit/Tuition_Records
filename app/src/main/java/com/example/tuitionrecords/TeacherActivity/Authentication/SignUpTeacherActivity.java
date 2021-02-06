@@ -235,6 +235,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         String myPassword = Objects.requireNonNull(password.getText()).toString();
 
         progressBar.setVisibility(View.VISIBLE);
+        progressBar.requestFocus();
 
         myAuth.createUserWithEmailAndPassword(myEmail, myPassword).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

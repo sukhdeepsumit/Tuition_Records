@@ -186,6 +186,7 @@ public class SignUpStudentActivity extends AppCompatActivity {
 
             else {
                 progressBar.setVisibility(View.VISIBLE);
+                progressBar.requestFocus();
 
                 mAuth.createUserWithEmailAndPassword(myEmail, password)
                         .addOnCompleteListener(task -> {
