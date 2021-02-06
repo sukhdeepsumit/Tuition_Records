@@ -147,8 +147,8 @@ public class LogInStudentActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
+
     private boolean isValidEmail(String target)
     {
         return EMAIL_ADDRESS_PATTERN.matcher(target).matches();

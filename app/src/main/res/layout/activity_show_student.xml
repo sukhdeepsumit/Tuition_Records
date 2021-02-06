@@ -220,14 +220,15 @@
 
         </LinearLayout>
 
-
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add"
             android:layout_width="61dp"
             android:layout_height="58dp"
             android:layout_marginBottom="28dp"
-            android:src="@drawable/add"
+            android:src="@drawable/ic_add_teacher"
+            app:tint="#FFF"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.921"
