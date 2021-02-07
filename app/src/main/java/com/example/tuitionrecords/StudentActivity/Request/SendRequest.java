@@ -8,15 +8,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -42,6 +48,10 @@ public class  SendRequest extends AppCompatActivity {
 
     Toolbar toolbar;
 
+    RelativeLayout checkInternet;
+
+    ImageView close;
+
     String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Students_Profile").child(user);
 
@@ -49,6 +59,10 @@ public class  SendRequest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_request);
+        checkInternet = findViewById(R.id.check_internet);
+
+        close = findViewById(R.id.close);
+        checkInternet();
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,6 +85,31 @@ public class  SendRequest extends AppCompatActivity {
 
         sort.setOnClickListener(view -> sortTeachers());
         filter.setOnClickListener(view -> filterTeachers());
+    }
+    public void checkInternet()
+    {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                ConnectivityManager cm =
+                        (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+                if(!isConnected)
+                {
+                    showInternetWarning();
+
+                }
+                handler.postDelayed(this,3000);
+            }
+        });
+    }
+    public void showInternetWarning() {
+        checkInternet.setVisibility(View.VISIBLE);
+        close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
     }
 
     private void filterTeachers() {

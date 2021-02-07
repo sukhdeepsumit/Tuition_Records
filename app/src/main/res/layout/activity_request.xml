@@ -15,6 +15,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Message Requests" />
+    <include
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        layout="@layout/connectivity_layout" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

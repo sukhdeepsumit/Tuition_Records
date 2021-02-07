@@ -16,6 +16,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Fee History"
         app:titleTextColor="#fff" />
+    <include
+        layout="@layout/connectivity_layout" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

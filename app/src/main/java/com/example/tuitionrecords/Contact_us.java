@@ -5,9 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.tuitionrecords.StudentActivity.ShowStudentActivity;
@@ -16,12 +21,22 @@ import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 public class Contact_us extends AppCompatActivity {
 
     RelativeLayout email_contact, feedback;
+    RelativeLayout checkInternet;
+
+    ImageView close;
+
 
     @SuppressLint("QueryPermissionsNeeded")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_us);
+
+        checkInternet = findViewById(R.id.check_internet);
+
+        close = findViewById(R.id.close);
+        checkInternet();
+
 
         email_contact = findViewById(R.id.contact_email);
         feedback = findViewById(R.id.feedback_contact);
@@ -40,6 +55,31 @@ public class Contact_us extends AppCompatActivity {
 
             }
         });
+    }
+    public void checkInternet()
+    {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                ConnectivityManager cm =
+                        (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+                if(!isConnected)
+                {
+                    showInternetWarning();
+
+                }
+                handler.postDelayed(this,3000);
+            }
+        });
+    }
+    public void showInternetWarning() {
+        checkInternet.setVisibility(View.VISIBLE);
+        close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
     }
 
     private void sendEmail(Context context, String email, String subject, String body) {
