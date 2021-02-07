@@ -14,14 +14,11 @@ public class WelcomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
         setContentView(R.layout.activity_welcome_screen);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent homeIntent=new Intent(WelcomeScreen.this,MainActivity.class);
-                startActivity(homeIntent);
-                finish();
+        new Handler().postDelayed(() -> {
+            Intent homeIntent=new Intent(WelcomeScreen.this,MainActivity.class);
+            startActivity(homeIntent);
+            finish();
 
-            }
         },SPLASH_TIME_OUT);
     }
 }

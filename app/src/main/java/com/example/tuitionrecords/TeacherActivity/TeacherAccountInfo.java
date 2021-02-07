@@ -245,9 +245,4 @@ public class TeacherAccountInfo extends AppCompatActivity {
         startActivity(new Intent(TeacherAccountInfo.this, ShowTeacherActivity.class));
         finish();
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 }

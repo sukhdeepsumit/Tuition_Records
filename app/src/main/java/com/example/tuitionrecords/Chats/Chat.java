@@ -46,12 +46,14 @@ public class Chat extends AppCompatActivity {
     CircleImageView dp;
     TextView user_name;
     DatabaseReference reference;
-    String currentUser=FirebaseAuth.getInstance().getCurrentUser().getUid();;
+    String currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         dp=findViewById(R.id.dpUpload);
         user_name=findViewById(R.id.userName);

@@ -78,7 +78,7 @@ public class LogInTeacherActivity extends AppCompatActivity {
         email = findViewById(R.id.email_text);
         password = findViewById(R.id.password_text);
 
-        sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_teacher", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("auto_login_teacher", Context.MODE_PRIVATE);
 
         /*int pref = sharedPreferences.getInt("key_teacher", 0);
 
@@ -129,7 +129,7 @@ public class LogInTeacherActivity extends AppCompatActivity {
             return;
         }
 
-        Toast.makeText(getApplicationContext(),  "Logging you in...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LogInTeacherActivity.this,  "Logging you in...", Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.VISIBLE);
         progressBar.requestFocus();
 
@@ -142,19 +142,25 @@ public class LogInTeacherActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.exists()) {
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                    /*SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putInt("key_teacher", 1);
-                                    editor.apply();
+                                    editor.apply();*/
+
+                                    changePreferences(1);
 
                                     Intent intent = new Intent(LogInTeacherActivity.this, ShowTeacherActivity.class);
                                     finish();
                                     startActivity(intent);
                                 }
                                 else {
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                    /*SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putInt("key_teacher", 0);
-                                    editor.apply();
+                                    editor.apply();*/
+
                                     myAuth.signOut();
+                                    changePreferences(0);
                                     Toast.makeText(LogInTeacherActivity.this, "User does not exists", Toast.LENGTH_SHORT).show();
                                 }
                                 progressBar.setVisibility(View.GONE);
@@ -181,6 +187,13 @@ public class LogInTeacherActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void changePreferences(int i) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("key_teacher", i);
+        editor.apply();
+    }
+
     private boolean isValidEmail(String target)
     {
         return EMAIL_ADDRESS_PATTERN.matcher(target).matches();

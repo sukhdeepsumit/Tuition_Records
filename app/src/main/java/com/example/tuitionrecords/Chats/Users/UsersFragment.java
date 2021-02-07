@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tuitionrecords.Chats.Chat;
 import com.example.tuitionrecords.Chats.Users.UsersShowAdapter;
 import com.example.tuitionrecords.Chats.Users.UsersShowModel;
 import com.example.tuitionrecords.R;
@@ -31,9 +32,10 @@ public class UsersFragment extends Fragment {
     String who;
 
 
-    /*public UsersFragment() {
+    public UsersFragment() {
         // Required empty public constructor
-    }*/
+    }
+
     public UsersFragment(String role)
     {
         who=role;
@@ -56,7 +58,8 @@ public class UsersFragment extends Fragment {
                 new FirebaseRecyclerOptions.Builder<UsersShowModel>()
                         .setQuery(reference,UsersShowModel.class)
                         .build();
-        adapter=new UsersShowAdapter(options,getApplicationContext(),who);
+
+        adapter=new UsersShowAdapter(options, getApplicationContext(), who);
         recyclerView.setAdapter(adapter);
 
         return view;

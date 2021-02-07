@@ -19,7 +19,7 @@ import com.example.tuitionrecords.R;
 import com.example.tuitionrecords.StudentActivity.Authentication.StudentModel;
 import com.example.tuitionrecords.StudentActivity.Request.TeacherShowModel;
 import com.example.tuitionrecords.TeacherActivity.Authentication.TeacherModel;
-import com.google.android.gms.common.util.CollectionUtils;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,13 +118,17 @@ public class ChatFragment extends Fragment {
 
                             //Log.i("ID_CHECK", id.getId());
 
-                            if (model.getId().equals(id.getId())) {
-                                Teacher.add(model);
+                            List<String> list = new LinkedList<>();
+                            CollectionUtils.addIgnoreNull(list, model.getId());
+                            if (!list.isEmpty()) {
+                                if (model.getId().equals(id.getId())) {
+                                    Teacher.add(model);
+                                }
                             }
                         }
                     }
 
-                    adapter = new ChatUserAdapter(Teacher, getContext(), who, true);
+                    adapter = new ChatUserAdapter(Teacher, ChatFragment.this, who, true);
                     recyclerView.setAdapter(adapter);
                 }
 
@@ -141,16 +147,21 @@ public class ChatFragment extends Fragment {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         TeacherModel model = dataSnapshot.getValue(TeacherModel.class);
                         for (Chat_ID id : userList) {
-                            assert model != null;
+
                             //Log.i("MODEL_ID", model.getId());
                             //Log.i("ID_ID", id.getId());
-                            if (model.getId().equals(id.getId())) {
-                                Student.add(model);
+                            List<String> list = new LinkedList<>();
+                            CollectionUtils.addIgnoreNull(list, model.getId());
+                            if (!list.isEmpty()) {
+                                Log.i("FIRST_ITEM", list.get(0));
+                                if (model.getId().equals(id.getId())) {
+                                    Student.add(model);
+                                }
                             }
                         }
                     }
 
-                    adapter = new ChatUserAdapter(getContext(), Student, who, true);
+                    adapter = new ChatUserAdapter(ChatFragment.this, Student, who, true);
                     recyclerView.setAdapter(adapter);
                 }
 

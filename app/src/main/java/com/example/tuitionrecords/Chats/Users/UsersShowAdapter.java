@@ -84,11 +84,11 @@ public class UsersShowAdapter extends FirebaseRecyclerAdapter<UsersShowModel,Use
         });
 
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(user_context, MessageActivity.class);
+            Intent intent = new Intent(holder.name.getContext(), MessageActivity.class);
             intent.putExtra("userId", request_key);
             intent.putExtra("user", role);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            user_context.startActivity(intent);
+            holder.profilePic.getContext().startActivity(intent);
         });
 
     }

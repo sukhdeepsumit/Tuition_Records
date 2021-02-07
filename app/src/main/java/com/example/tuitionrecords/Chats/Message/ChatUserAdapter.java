@@ -30,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHolder> {
 
-    private final Context context;
+    private final ChatFragment context;
 
     List<TeacherModel> teacher_chat;
     List<StudentModel> student_chat;
@@ -40,14 +40,14 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
 
     String theLastMessage;
 
-    public ChatUserAdapter(List<StudentModel> student_chat, Context context, String who, boolean isChat) {
+    public ChatUserAdapter(List<StudentModel> student_chat, ChatFragment context, String who, boolean isChat) {
         this.context = context;
         this.student_chat = student_chat;
         this.who = who;
         this.isChat = isChat;
     }
 
-    public ChatUserAdapter(Context context, List<TeacherModel> teacher_chat, String who, boolean isChat) {
+    public ChatUserAdapter(ChatFragment context, List<TeacherModel> teacher_chat, String who, boolean isChat) {
         this.context = context;
         this.teacher_chat = teacher_chat;
         this.who = who;
@@ -97,7 +97,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
             }
 
             holder.itemView.setOnClickListener(view -> {
-                Intent intent = new Intent(context, MessageActivity.class);
+                Intent intent = new Intent(holder.name.getContext(), MessageActivity.class);
                 intent.putExtra("userId", teacherModel.getId());
                 intent.putExtra("user", who);
                 context.startActivity(intent);
@@ -139,7 +139,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
             }
 
             holder.itemView.setOnClickListener(view -> {
-                Intent intent = new Intent(context, MessageActivity.class);
+                Intent intent = new Intent(holder.name.getContext(), MessageActivity.class);
                 intent.putExtra("userId", studentModel.getId());
                 intent.putExtra("user", who);
                 context.startActivity(intent);

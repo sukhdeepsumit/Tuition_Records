@@ -45,6 +45,7 @@ import com.example.tuitionrecords.StudentActivity.MyTeacher.MyTeachers;
 import com.example.tuitionrecords.StudentActivity.Request.SendRequest;
 import com.example.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -93,6 +94,8 @@ public class ShowStudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_student);
+
+        //Task<Void> reff = FirebaseDatabase.getInstance().getReference("Teacher_profile").child("RI4ufm7x3cgP4WuWAbRgcyo7TsL2").child("check").setValue("value");
 
         progressDialog=new ProgressDialog(this);
 
