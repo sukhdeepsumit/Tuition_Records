@@ -1,5 +1,6 @@
 package com.example.tuitionrecords.Chats.Message;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -66,7 +67,9 @@ public class ChatFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()).setStackFromEnd(true));
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 

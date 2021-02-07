@@ -63,6 +63,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         if (who.equals("student")) {
             TeacherModel teacherModel = teacher_chat.get(position);
 
@@ -75,7 +76,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
             }
 
             if (isChat) {
-                lastMessage(teacherModel.getId(), holder.lastMessage);
+                lastMessage(teacherModel.getId(), holder.lastMessage, holder.indicator);
             }
             else {
                 holder.lastMessage.setVisibility(View.GONE);
@@ -117,7 +118,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
             }
 
             if (isChat) {
-                lastMessage(studentModel.getId(), holder.lastMessage);
+                lastMessage(studentModel.getId(), holder.lastMessage, holder.indicator);
             }
             else {
                 holder.lastMessage.setVisibility(View.GONE);
@@ -155,7 +156,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
         return student_chat.size();
     }
 
-    private void lastMessage(String id, TextView lastMessage) {
+    private void lastMessage(String id, TextView lastMessage, CircleImageView indicator) {
         theLastMessage = "default";
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -171,6 +172,12 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
                          chats.getReceiver().equals(id) && chats.getSender().equals(firebaseUser.getUid()))
                     {
                         theLastMessage = chats.getMessage();
+                        if (!chats.isIsseen()) {
+                            indicator.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            indicator.setVisibility(View.GONE);
+                        }
                     }
                 }
 
@@ -191,7 +198,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        CircleImageView profilePic, online, offline;
+        CircleImageView profilePic, online, offline, indicator;
         TextView name, lastMessage;
 
         public ViewHolder(@NonNull View itemView) {
@@ -202,6 +209,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
 
                 online = itemView.findViewById(R.id.img_on);
                 offline = itemView.findViewById(R.id.img_off);
+                indicator = itemView.findViewById(R.id.msg_indicator);
         }
     }
 }
