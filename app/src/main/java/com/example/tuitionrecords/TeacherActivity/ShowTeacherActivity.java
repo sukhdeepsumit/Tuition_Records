@@ -250,6 +250,7 @@ public class ShowTeacherActivity extends AppCompatActivity  {
         });
 
         navigationHeaderDetails();
+
     }
 
     private void navigationHeaderDetails() {

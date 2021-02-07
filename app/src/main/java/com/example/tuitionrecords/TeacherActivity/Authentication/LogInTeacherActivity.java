@@ -138,7 +138,7 @@ public class LogInTeacherActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
 
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Teacher_profile").child(myAuth.getCurrentUser().getUid());
-                        reference.addValueEventListener(new ValueEventListener() {
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.exists()) {

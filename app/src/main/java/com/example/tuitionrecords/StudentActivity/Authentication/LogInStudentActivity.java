@@ -1,3 +1,4 @@
+
 package com.example.tuitionrecords.StudentActivity.Authentication;
 
 import androidx.annotation.NonNull;
@@ -78,7 +79,7 @@ public class LogInStudentActivity extends AppCompatActivity {
 
         myAuth=FirebaseAuth.getInstance();
 
-        sharedPreferences = getApplicationContext().getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("auto_login_student", Context.MODE_PRIVATE);
 
         /*int pref = sharedPreferences.getInt("key_student", 0);
 
@@ -142,7 +143,7 @@ public class LogInStudentActivity extends AppCompatActivity {
                 //AUTO_SAVE = 1;
 
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Students_Profile").child(myAuth.getCurrentUser().getUid());
-                reference.addValueEventListener(new ValueEventListener() {
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
@@ -151,7 +152,7 @@ public class LogInStudentActivity extends AppCompatActivity {
                             editor.apply();
 
                             Toast.makeText(getApplicationContext(),"Logged in",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), ShowStudentActivity.class);
+                            Intent intent = new Intent(LogInStudentActivity.this, ShowStudentActivity.class);
                             finish();
                             startActivity(intent);
                         }

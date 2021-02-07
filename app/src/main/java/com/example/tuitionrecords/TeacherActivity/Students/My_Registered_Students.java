@@ -39,7 +39,7 @@ public class My_Registered_Students extends AppCompatActivity {
                         .setQuery(studentRef, StudentModel.class)
                         .build();
 
-        adapter = new MyStudentsAdapter(options,My_Registered_Students.this);
+        adapter = new MyStudentsAdapter(options,getApplicationContext());
         recyclerView.setAdapter(adapter);
     }
 

@@ -72,6 +72,7 @@ public class MyStudentsAdapter extends FirebaseRecyclerAdapter<StudentModel, MyS
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(mContext, MyStudents.class);
             intent.putExtra("student_key", student_key);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);
         });
     }
