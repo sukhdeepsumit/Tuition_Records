@@ -19,7 +19,7 @@
     <item
         android:icon="@drawable/ic_howto"
         android:id="@+id/howto"
-        android:title="Feature coming soon"/>
+        android:title="How to use Tuition Records"/>
     <item
         android:icon="@drawable/ic_logout"
         android:id="@+id/logout"

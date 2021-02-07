@@ -214,7 +214,7 @@ public class ShowStudentActivity extends AppCompatActivity {
                 }
                 case  R.id.howto:
                 {
-                    Toast.makeText(getApplicationContext(), "Feature coming soon !!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Feature coming soon !!", Toast.LENGTH_LONG).show();
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 }

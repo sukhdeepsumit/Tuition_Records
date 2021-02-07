@@ -172,10 +172,11 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ViewHo
                          chats.getReceiver().equals(id) && chats.getSender().equals(firebaseUser.getUid()))
                     {
                         theLastMessage = chats.getMessage();
-                        if (!chats.isIsseen()) {
+                        if (!chats.isIsseen() && chats.getReceiver().equals(firebaseUser.getUid())) {
                             indicator.setVisibility(View.VISIBLE);
                         }
-                        else {
+                        else
+                        {
                             indicator.setVisibility(View.GONE);
                         }
                     }
