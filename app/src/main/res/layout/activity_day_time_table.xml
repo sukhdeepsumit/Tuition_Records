@@ -13,6 +13,9 @@
         app:title="Time Table"
         android:background="@color/blue_sweet"
         app:titleTextColor="#FFF" />
+    <include
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        layout="@layout/connectivity_layout" />
 
     <LinearLayout
         android:id="@+id/first"

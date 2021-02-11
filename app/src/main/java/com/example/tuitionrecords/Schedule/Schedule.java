@@ -4,14 +4,21 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -41,6 +48,9 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemSel
     String user, check_user;
     DatabaseReference reference;
     String day;
+    RelativeLayout checkInternet;
+
+    ImageView close;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -55,6 +65,10 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemSel
 
         add = findViewById(R.id.add);
         spinner = findViewById(R.id.day_spinner);
+        checkInternet = findViewById(R.id.check_internet);
+
+        close = findViewById(R.id.close);
+        checkInternet();
 
         /*batchNo = batch.getText().toString().trim();
         batchNo = batchNo.replace(" ", "_");*/
@@ -164,6 +178,31 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemSel
             }
             finish();
         });
+    }
+    public void checkInternet()
+    {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                ConnectivityManager cm =
+                        (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+                if(!isConnected)
+                {
+                    showInternetWarning();
+
+                }
+                handler.postDelayed(this,3000);
+            }
+        });
+    }
+    public void showInternetWarning() {
+        checkInternet.setVisibility(View.VISIBLE);
+        close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
     }
 
     @Override

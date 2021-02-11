@@ -4,12 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.tuitionrecords.FeeHistoryModel;
@@ -28,12 +34,19 @@ public class FeeAdd extends AppCompatActivity implements DatePickerDialog.OnDate
     ImageView calendar;
     DatabaseReference reference;
     String user;
+    RelativeLayout checkInternet;
+    LinearLayout layout;
+    ImageView close;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fee_add);
+        checkInternet = findViewById(R.id.check_internet);
+        layout = findViewById(R.id.main_layout);
+        close = findViewById(R.id.close);
+        checkInternet();
 
         button=findViewById(R.id.addButton);
         amount=findViewById(R.id.amount_text);
@@ -73,6 +86,34 @@ public class FeeAdd extends AppCompatActivity implements DatePickerDialog.OnDate
         });
 
 
+    }
+    public void checkInternet()
+    {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                ConnectivityManager cm =
+                        (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+                if(!isConnected)
+                {
+                    layout.setVisibility(View.GONE);
+                    showInternetWarning();
+                }
+                else {
+                    layout.setVisibility(View.VISIBLE);
+                }
+                handler.postDelayed(this,3000);
+            }
+        });
+    }
+    public void showInternetWarning() {
+        checkInternet.setVisibility(View.VISIBLE);
+        close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
     }
 
     @Override

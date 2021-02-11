@@ -10,12 +10,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,10 +66,19 @@ public class TeacherAccountInfo extends AppCompatActivity {
     String userId;
     StorageReference storageReference;
 
+    RelativeLayout checkInternet;
+    LinearLayout layout;
+    ImageView close;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_account_info);
+
+        checkInternet = findViewById(R.id.check_internet);
+        layout = findViewById(R.id.main_layout);
+        close = findViewById(R.id.close);
+        checkInternet();
 
         progressDialog = new ProgressDialog(this);
 
@@ -142,6 +156,34 @@ public class TeacherAccountInfo extends AppCompatActivity {
         subjectEdit.setOnClickListener(view -> updateProfileData("content"));
         standardEdit.setOnClickListener(view -> updateProfileData("standard"));
         aboutEdit.setOnClickListener(view -> updateProfileData("about"));
+    }
+    public void checkInternet()
+    {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                ConnectivityManager cm =
+                        (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+                if(!isConnected)
+                {
+                    layout.setVisibility(View.GONE);
+                    showInternetWarning();
+                }
+                else {
+                    layout.setVisibility(View.VISIBLE);
+                }
+                handler.postDelayed(this,3000);
+            }
+        });
+    }
+    public void showInternetWarning() {
+        checkInternet.setVisibility(View.VISIBLE);
+        close.setOnClickListener(view -> checkInternet.setVisibility(View.GONE));
     }
 
     private void updateProfileData(String check) {

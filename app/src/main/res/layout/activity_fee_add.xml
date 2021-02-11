@@ -14,8 +14,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Add Record"
         app:titleTextColor="#FFF" />
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        layout="@layout/connectivity_layout" />
 
     <LinearLayout
+        android:id="@+id/main_layout"
         android:background="@drawable/layout_bg"
         android:layout_width="match_parent"
         android:layout_height="290dp"

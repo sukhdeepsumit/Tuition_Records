@@ -15,42 +15,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Chats.Message.MessageActivity" />
-        <activity android:name=".Chats.Chat" />
-        <activity android:name=".DayTimeTable" />
-        <activity android:name=".StudentActivity.FeeStatus.FeeHistoryStudent" />
-        <activity android:name=".StudentActivity.FeeStatus.FeeStatusStudent" />
-        <activity android:name=".StudentActivity.MyTeacher.MyTeacherProfile" />
-        <activity android:name=".TeacherActivity.Students.My_Registered_Students" />
-        <activity android:name=".TeacherActivity.TeacherFee.FeeHistory" />
-        <activity android:name=".TeacherActivity.TeacherFee.FeeAdd" />
-        <activity android:name=".StudentActivity.MyTeacher.MyTeachers" />
-        <activity android:name=".TeacherActivity.ClassesAndBatches.MyClasses" />
-        <activity android:name=".TeacherActivity.Requests.CheckStudentProfile" />
-        <activity android:name=".StudentActivity.Request.CheckTeacherProfile" />
-        <activity android:name=".TeacherActivity.Students.MyStudents" />
-        <activity android:name=".TeacherActivity.TeacherFee.FeeStatus" />
-        <activity android:name=".Schedule.Schedule" />
-        <activity android:name=".StudentActivity.Request.SendRequest" />
-        <activity android:name=".ResetActivity" />
-        <activity android:name=".Contact_us">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Chats.Message.MessageActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Chats.Chat" android:screenOrientation="portrait"/>
+        <activity android:name=".DayTimeTable" android:screenOrientation="portrait"/>
+        <activity android:name=".StudentActivity.FeeStatus.FeeHistoryStudent" android:screenOrientation="portrait" />
+        <activity android:name=".StudentActivity.FeeStatus.FeeStatusStudent" android:screenOrientation="portrait" />
+        <activity android:name=".StudentActivity.MyTeacher.MyTeacherProfile" android:screenOrientation="portrait"/>
+        <activity android:name=".TeacherActivity.Students.My_Registered_Students" android:screenOrientation="portrait" />
+        <activity android:name=".TeacherActivity.TeacherFee.FeeHistory" android:screenOrientation="portrait"/>
+        <activity android:name=".TeacherActivity.TeacherFee.FeeAdd" android:screenOrientation="portrait"/>
+        <activity android:name=".StudentActivity.MyTeacher.MyTeachers" android:screenOrientation="portrait"/>
+        <activity android:name=".TeacherActivity.ClassesAndBatches.MyClasses" android:screenOrientation="portrait" />
+        <activity android:name=".TeacherActivity.Requests.CheckStudentProfile" android:screenOrientation="portrait"/>
+        <activity android:name=".StudentActivity.Request.CheckTeacherProfile" android:screenOrientation="portrait"/>
+        <activity android:name=".TeacherActivity.Students.MyStudents" android:screenOrientation="portrait"/>
+        <activity android:name=".TeacherActivity.TeacherFee.FeeStatus" android:screenOrientation="portrait"/>
+        <activity android:name=".Schedule.Schedule" android:screenOrientation="portrait"/>
+        <activity android:name=".StudentActivity.Request.SendRequest" android:screenOrientation="portrait"/>
+        <activity android:name=".ResetActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Contact_us" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SENDTO" />
 
                 <data android:scheme="mailto" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".StudentActivity.StudentAccountInfo" />
-        <activity android:name=".TeacherActivity.TeacherAccountInfo" />
-        <activity android:name=".TeacherActivity.Requests.RequestActivity" />
-        <activity android:name=".StudentActivity.ShowStudentActivity" />
-        <activity android:name=".TeacherActivity.ShowTeacherActivity" />
-        <activity android:name=".StudentActivity.Authentication.SignUpStudentActivity" />
-        <activity android:name=".TeacherActivity.Authentication.SignUpTeacherActivity" />
-        <activity android:name=".TeacherActivity.Authentication.LogInTeacherActivity" />
-        <activity android:name=".StudentActivity.Authentication.LogInStudentActivity" />
-        <activity android:name=".WelcomeScreen">
+        <activity android:name=".StudentActivity.StudentAccountInfo" android:screenOrientation="portrait"/>
+        <activity android:name=".TeacherActivity.TeacherAccountInfo" android:screenOrientation="portrait"/>
+        <activity android:name=".TeacherActivity.Requests.RequestActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".StudentActivity.ShowStudentActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".TeacherActivity.ShowTeacherActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".StudentActivity.Authentication.SignUpStudentActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".TeacherActivity.Authentication.SignUpTeacherActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".TeacherActivity.Authentication.LogInTeacherActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".StudentActivity.Authentication.LogInStudentActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".WelcomeScreen" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
