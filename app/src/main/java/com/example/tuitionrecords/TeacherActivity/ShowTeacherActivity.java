@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -225,7 +226,9 @@ public class ShowTeacherActivity extends AppCompatActivity  {
                 }
                 case  R.id.howto :
                 {
-                    Toast.makeText(getApplicationContext(), "Feature coming soon !!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Feature coming soon !!", Toast.LENGTH_SHORT).show();
+                    Uri uri= Uri.parse("https://youtu.be/9TcjDQhuS5s");
+                    startActivity(new Intent(Intent.ACTION_VIEW,uri));
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 }
