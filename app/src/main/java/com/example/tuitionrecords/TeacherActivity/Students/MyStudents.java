@@ -99,7 +99,10 @@ public class  MyStudents extends AppCompatActivity {
                 batchRef.child(teacher).child(student_key).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        batch.setText(Objects.requireNonNull(snapshot.child("batch").getValue()).toString());
+                        String batchNumber = snapshot.child("batch").getValue().toString();
+                        if (!batchNumber.equals("Allot Batch No.")) {
+                            batch.setText(Objects.requireNonNull(snapshot.child("batch").getValue()).toString());
+                        }
                     }
 
                     @Override

@@ -72,7 +72,9 @@ public class MyTeacherProfile extends AppCompatActivity {
                 email.setText(model.getEmail());
                 gender.setText(model.getGender());
                 location.setText(model.getCity() + ", " + model.getState());
-                subject.setText(model.getContent());
+                String sub = model.getContent();
+                sub = sub.substring(0,1).toUpperCase() + sub.substring(1);
+                subject.setText(sub);
                 standard.setText(model.getStandard());
                 about.setText(model.getAbout());
 
@@ -95,7 +97,7 @@ public class MyTeacherProfile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String batchNumber = snapshot.child("batch").getValue().toString();
                 if (batchNumber.equals("Allot Batch No.")) {
-                    batch.setText("Batch number not alloted");
+                    batch.setText("Batch number not allotted");
                 }
                 else {
                     batch.setText("Batch No. " + Objects.requireNonNull(snapshot.child("batch").getValue()).toString());
