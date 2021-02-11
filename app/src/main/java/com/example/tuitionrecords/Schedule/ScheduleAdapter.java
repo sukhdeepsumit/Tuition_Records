@@ -85,7 +85,7 @@ public class ScheduleAdapter extends FirebaseRecyclerAdapter<ScheduleModel, Sche
             }
             else if (last < current) {
                 holder.status.setText("Completed");
-                holder.status.setTextColor(Color.parseColor("#E03B8B"));
+                holder.status.setTextColor(Color.parseColor("#758283"));
             }
             else {
                 holder.status.setText("Ongoing");

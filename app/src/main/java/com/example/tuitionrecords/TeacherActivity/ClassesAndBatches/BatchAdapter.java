@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,23 +48,26 @@ public class BatchAdapter extends FirebaseRecyclerAdapter<ScheduleModel,BatchAda
         holder.time.setText(model.getTiming());
         holder.subject.setText(model.getSubject());
         holder.batch.setText(model.getBatch());
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = holder.batch.getContext();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Delete");
+                builder.setMessage("Do you want to remove it from your timetable ?");
+                builder.setCancelable(false);
 
-        holder.itemView.setOnClickListener(view -> {
-            Context context = holder.batch.getContext();
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("Delete");
-            builder.setMessage("Do you want to remove it from your timetable ?");
-            builder.setCancelable(false);
+                builder.setPositiveButton("YES", ((dialogInterface, i) -> {
+                    reference.child(day).child(refKey).removeValue().addOnCompleteListener(task -> {
+                        Toast.makeText(context, "Record Deleted Successfully", Toast.LENGTH_SHORT).show();
+                    });
+                }));
 
-            builder.setPositiveButton("YES", ((dialogInterface, i) -> {
-                reference.child(day).child(refKey).removeValue().addOnCompleteListener(task -> {
-                    Toast.makeText(context, "Record Deleted Successfully", Toast.LENGTH_SHORT).show();
-                });
-            }));
-
-            builder.setNegativeButton("NO", ((dialogInterface, i) -> dialogInterface.cancel()));
-            builder.create().show();
+                builder.setNegativeButton("NO", ((dialogInterface, i) -> dialogInterface.cancel()));
+                builder.create().show();
+            }
         });
+
     }
 
     @NonNull
@@ -76,12 +80,14 @@ public class BatchAdapter extends FirebaseRecyclerAdapter<ScheduleModel,BatchAda
     static class MyViewHolder extends RecyclerView.ViewHolder
     {
         TextView batch,subject, time;
+        ImageView delete;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             batch=itemView.findViewById(R.id.batchNum);
             subject=itemView.findViewById(R.id.subjectGet);
             time = itemView.findViewById(R.id.timeGet);
+            delete=itemView.findViewById(R.id.delete);
         }
     }
 }
