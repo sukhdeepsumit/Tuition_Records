@@ -93,7 +93,13 @@ public class MyTeacherProfile extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                batch.setText("Batch No. " + Objects.requireNonNull(snapshot.child("batch").getValue()).toString());
+                String batchNumber = snapshot.child("batch").getValue().toString();
+                if (batchNumber.equals("Allot Batch No.")) {
+                    batch.setText("Batch number not alloted");
+                }
+                else {
+                    batch.setText("Batch No. " + Objects.requireNonNull(snapshot.child("batch").getValue()).toString());
+                }
             }
 
             @Override

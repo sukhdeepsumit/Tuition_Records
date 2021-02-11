@@ -20,8 +20,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/batchNumText"
                 android:layout_width="wrap_content"
@@ -32,6 +32,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginStart="6dp"
                 />
+
             <TextView
                 android:id="@+id/batchNum"
                 android:layout_toRightOf="@+id/batchNumText"
@@ -43,6 +44,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginStart="6dp"
                 />
+
             <TextView
                 android:id="@+id/subjectText"
                 android:layout_below="@+id/batchNumText"
@@ -51,9 +53,10 @@
                 android:text="Subject: "
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginStart="6dp"
                 />
+
             <TextView
                 android:id="@+id/subjectGet"
                 android:layout_below="@+id/batchNum"
@@ -61,9 +64,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Subject"
-
                 android:textSize="20sp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginStart="6dp"
                 />
 
@@ -75,32 +77,32 @@
                 android:text="Timing: "
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginStart="6dp"
                 />
+
             <TextView
                 android:id="@+id/timeGet"
                 android:layout_below="@+id/subjectGet"
-                android:layout_toRightOf="@+id/subjectText"
+                android:layout_toEndOf="@+id/subjectText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Time"
                 android:textSize="20sp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginStart="6dp"
                 />
+
             <ImageView
                 android:id="@+id/delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/delete_batch"
                 android:layout_alignParentEnd="true"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="10dp"
                 />
-
-
-
         </RelativeLayout>
     </LinearLayout>
-
 
 </androidx.cardview.widget.CardView>
