@@ -65,7 +65,7 @@ import java.util.Objects;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ShowStudentActivity extends AppCompatActivity {
-    //commit check2
+    //commit check again
 
     NavigationView nav;
     DrawerLayout drawerLayout;
@@ -94,12 +94,6 @@ public class ShowStudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_student);
-
-        Date dt=java.util.Calendar.getInstance().getTime();
-        Log.i("DAY_CHECK", String.valueOf(dt));
-        String sub = String.valueOf(dt);
-        int hr = Integer.parseInt(sub.substring(11,13));
-        Log.i("TIME_CHECK", String.valueOf(hr));
 
         //Task<Void> reff = FirebaseDatabase.getInstance().getReference("Teacher_profile").child("RI4ufm7x3cgP4WuWAbRgcyo7TsL2").child("check").setValue("value");
 
