@@ -109,7 +109,9 @@ public class CheckTeacherProfile extends AppCompatActivity {
                 email.setText(teacherModel.getEmail());
                 gender.setText(teacherModel.getGender());
                 location.setText(teacherModel.getCity() + ", " + teacherModel.getState());
-                subject.setText(teacherModel.getContent());
+                String sbj = teacherModel.getContent();
+                sbj = sbj.substring(0,1).toUpperCase() + sbj.substring(1);
+                subject.setText(sbj);
                 standard.setText(teacherModel.getStandard());
                 about.setText(teacherModel.getAbout());
 

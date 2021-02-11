@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -97,6 +98,8 @@ public class Chat extends AppCompatActivity {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     ChatShowModel chats = dataSnapshot.getValue(ChatShowModel.class);
+
+                    Log.i("ERROR_CHECK_WHICH", "" + chats.getReceiver());
 
                     if (chats.getReceiver().equals(currentUser) && !chats.isIsseen()) {
                         unread++;

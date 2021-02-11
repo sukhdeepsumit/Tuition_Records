@@ -110,7 +110,9 @@ public class TeacherAccountInfo extends AppCompatActivity {
                 phone.setText(model.getContact());
                 String location = model.getCity() + "," + model.getState();
                 city_state.setText(location);
-                subject.setText(model.getContent());
+                String sbj = model.getContent();
+                sbj = sbj.substring(0,1).toUpperCase() + sbj.substring(1);
+                subject.setText(sbj);
                 standard.setText(model.getStandard());
                 about.setText(model.getAbout());
             }
@@ -191,7 +193,15 @@ public class TeacherAccountInfo extends AppCompatActivity {
                 String state = loc[1].trim();
 
                 FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child("city").setValue(city);
-               FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child("state").setValue(state);
+               FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child("state").setValue(state).addOnCompleteListener(task -> {
+                   Toast.makeText(this, "Record Updated", Toast.LENGTH_SHORT).show();
+               });
+            }
+            else if(check.equals("content")) {
+                result = result.substring(0,1).toUpperCase() + result.substring(1);
+                FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child(check).setValue(result).addOnCompleteListener(task -> {
+                    Toast.makeText(getApplicationContext(),"Record Updated",Toast.LENGTH_SHORT).show();
+                });
             }
             else {
                 FirebaseDatabase.getInstance().getReference("Teacher_profile").child(uid).child(check).setValue(result).addOnCompleteListener(task -> {

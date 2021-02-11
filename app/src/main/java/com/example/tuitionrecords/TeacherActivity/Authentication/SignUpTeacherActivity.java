@@ -240,7 +240,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         myAuth.createUserWithEmailAndPassword(myEmail, myPassword).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Log.i("TAG", "createUserWithEmail:success");
-                Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show();
                 saveProfileDetails();
             }
             else {
@@ -282,7 +282,7 @@ public class SignUpTeacherActivity extends AppCompatActivity {
         String gn = ((RadioButton)findViewById(gender.getCheckedRadioButtonId())).getText().toString();
         String ct = Objects.requireNonNull(city.getText()).toString();
         String st = Objects.requireNonNull(state.getText()).toString();
-        String cnt = Objects.requireNonNull(content.getText()).toString();
+        String cnt = Objects.requireNonNull(content.getText()).toString().toLowerCase();
         String sn = Objects.requireNonNull(standard.getText()).toString();
         String ab = Objects.requireNonNull(about.getText()).toString();
 

@@ -87,12 +87,12 @@ public class  SendRequest extends AppCompatActivity {
         dialogPlus.show();
 
         filter.setOnClickListener(view -> {
-            String subjectText = subjectFilter.getText().toString();
-            subjectText = subjectText.substring(0,1).toUpperCase() + subjectText.substring(1).toLowerCase();
+            String subjectText = subjectFilter.getText().toString().toLowerCase();
+            //subjectText = subjectText.substring(0,1).toUpperCase() + subjectText.substring(1).toLowerCase();
 
             FirebaseRecyclerOptions<TeacherShowModel> options =
                     new FirebaseRecyclerOptions.Builder<TeacherShowModel>()
-                            .setQuery(FirebaseDatabase.getInstance().getReference().child("Teacher_profile").orderByChild("content").equalTo(subjectText), TeacherShowModel.class)
+                            .setQuery(FirebaseDatabase.getInstance().getReference("Teacher_profile").orderByChild("content").equalTo(subjectText), TeacherShowModel.class)
                             .build();
 
             dialogPlus.dismiss();

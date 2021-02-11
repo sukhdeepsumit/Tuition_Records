@@ -89,7 +89,7 @@
         <TextView
             android:id="@+id/about_get"
             android:layout_width="180dp"
-            android:layout_height="58dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:text="About"
