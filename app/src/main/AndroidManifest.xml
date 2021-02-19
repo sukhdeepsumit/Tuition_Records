@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tuitionrecords">
+    package="com.app_devs.tuitionrecords">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,26 +15,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TuitionRecords">
-        <activity android:name=".MainActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Chats.Message.MessageActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Chats.Chat" android:screenOrientation="portrait"/>
-        <activity android:name=".DayTimeTable" android:screenOrientation="portrait"/>
-        <activity android:name=".StudentActivity.FeeStatus.FeeHistoryStudent" android:screenOrientation="portrait" />
-        <activity android:name=".StudentActivity.FeeStatus.FeeStatusStudent" android:screenOrientation="portrait" />
-        <activity android:name=".StudentActivity.MyTeacher.MyTeacherProfile" android:screenOrientation="portrait"/>
-        <activity android:name=".TeacherActivity.Students.My_Registered_Students" android:screenOrientation="portrait" />
-        <activity android:name=".TeacherActivity.TeacherFee.FeeHistory" android:screenOrientation="portrait"/>
-        <activity android:name=".TeacherActivity.TeacherFee.FeeAdd" android:screenOrientation="portrait"/>
-        <activity android:name=".StudentActivity.MyTeacher.MyTeachers" android:screenOrientation="portrait"/>
-        <activity android:name=".TeacherActivity.ClassesAndBatches.MyClasses" android:screenOrientation="portrait" />
-        <activity android:name=".TeacherActivity.Requests.CheckStudentProfile" android:screenOrientation="portrait"/>
-        <activity android:name=".StudentActivity.Request.CheckTeacherProfile" android:screenOrientation="portrait"/>
-        <activity android:name=".TeacherActivity.Students.MyStudents" android:screenOrientation="portrait"/>
-        <activity android:name=".TeacherActivity.TeacherFee.FeeStatus" android:screenOrientation="portrait"/>
-        <activity android:name=".Schedule.Schedule" android:screenOrientation="portrait"/>
-        <activity android:name=".StudentActivity.Request.SendRequest" android:screenOrientation="portrait"/>
-        <activity android:name=".ResetActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".Contact_us" android:screenOrientation="portrait">
+        <activity android:name="com.app_devs.tuitionrecords.MainActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.app_devs.tuitionrecords.Chats.Message.MessageActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.app_devs.tuitionrecords.Chats.Chat" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.DayTimeTable" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.StudentActivity.FeeStatus.FeeHistoryStudent" android:screenOrientation="portrait" />
+        <activity android:name="com.app_devs.tuitionrecords.StudentActivity.FeeStatus.FeeStatusStudent" android:screenOrientation="portrait" />
+        <activity android:name="com.app_devs.tuitionrecords.StudentActivity.MyTeacher.MyTeacherProfile" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.TeacherActivity.Students.My_Registered_Students" android:screenOrientation="portrait" />
+        <activity android:name="com.app_devs.tuitionrecords.TeacherActivity.TeacherFee.FeeHistory" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.TeacherActivity.TeacherFee.FeeAdd" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.StudentActivity.MyTeacher.MyTeachers" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.TeacherActivity.ClassesAndBatches.MyClasses" android:screenOrientation="portrait" />
+        <activity android:name="com.app_devs.tuitionrecords.TeacherActivity.Requests.CheckStudentProfile" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.StudentActivity.Request.CheckTeacherProfile" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.TeacherActivity.Students.MyStudents" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.TeacherActivity.TeacherFee.FeeStatus" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.Schedule.Schedule" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.StudentActivity.Request.SendRequest" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.ResetActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.Contact_us" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SENDTO" />
 
@@ -42,16 +42,16 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".StudentActivity.StudentAccountInfo" android:screenOrientation="portrait"/>
-        <activity android:name=".TeacherActivity.TeacherAccountInfo" android:screenOrientation="portrait"/>
-        <activity android:name=".TeacherActivity.Requests.RequestActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".StudentActivity.ShowStudentActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".TeacherActivity.ShowTeacherActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".StudentActivity.Authentication.SignUpStudentActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".TeacherActivity.Authentication.SignUpTeacherActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".TeacherActivity.Authentication.LogInTeacherActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".StudentActivity.Authentication.LogInStudentActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".WelcomeScreen" android:screenOrientation="portrait">
+        <activity android:name="com.app_devs.tuitionrecords.StudentActivity.StudentAccountInfo" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.TeacherActivity.TeacherAccountInfo" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.TeacherActivity.Requests.RequestActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.StudentActivity.ShowStudentActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.TeacherActivity.ShowTeacherActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.StudentActivity.Authentication.SignUpStudentActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.TeacherActivity.Authentication.SignUpTeacherActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.TeacherActivity.Authentication.LogInTeacherActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.StudentActivity.Authentication.LogInStudentActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.app_devs.tuitionrecords.WelcomeScreen" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,7 +60,7 @@
         </activity>
 
         <service
-            android:name=".Notifications.FirebaseService"
+            android:name="com.app_devs.tuitionrecords.Notifications.FirebaseService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -68,7 +68,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".Notifications.MyFirebaseMessaging"
+            android:name="com.app_devs.tuitionrecords.Notifications.MyFirebaseMessaging"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
