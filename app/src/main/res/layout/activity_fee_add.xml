@@ -20,6 +20,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         layout="@layout/connectivity_layout" />
 
+
     <LinearLayout
         android:id="@+id/main_layout"
         android:background="@drawable/layout_bg"
@@ -35,12 +36,24 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.386" >
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300sp"
             android:layout_gravity="left"
             android:layout_height="wrap_content"
-
             android:layout_margin="10sp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -80,15 +93,17 @@
                 android:src="@drawable/ic_calendar"
                 android:layout_gravity="center"/>
 
-
         </LinearLayout>
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addButton"
-            android:layout_width="200sp"
+            android:layout_width="match_parent"
             android:layout_height="62sp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20sp"
+            android:layout_marginStart="20sp"
+            android:layout_marginEnd="20sp"
             android:text="Add to records"
             android:textStyle="bold"
             android:layout_marginBottom="3sp"
@@ -96,8 +111,8 @@
             android:shadowRadius="@android:integer/config_longAnimTime"
             android:textColor="#fff"
             android:textSize="20sp" />
-
-
+        </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 
