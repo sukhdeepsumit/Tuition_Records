@@ -20,18 +20,22 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         layout="@layout/connectivity_layout" />
 
+
     <RelativeLayout
         android:id="@+id/contact_email"
         android:layout_width="match_parent"
         android:layout_height="77sp"
-        android:layout_marginTop="176sp"
         android:layout_marginStart="15sp"
+        android:layout_marginTop="176sp"
         android:layout_marginEnd="15sp"
         android:background="@drawable/layout_bg"
         android:elevation="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/contact_us_here"
@@ -53,19 +57,20 @@
             android:textSize="21sp" />
     </RelativeLayout>
 
-
     <RelativeLayout
         android:id="@+id/feedback_contact"
         android:layout_width="match_parent"
         android:layout_height="77sp"
-        android:layout_marginBottom="324sp"
         android:layout_marginStart="15sp"
         android:layout_marginEnd="15sp"
         android:background="@drawable/layout_bg"
         android:elevation="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contact_email"
+        app:layout_constraintVertical_bias="0.052">
 
         <ImageView
             android:id="@+id/feedback"
