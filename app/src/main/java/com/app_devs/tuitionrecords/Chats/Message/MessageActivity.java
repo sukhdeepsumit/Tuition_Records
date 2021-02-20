@@ -481,5 +481,6 @@ public class MessageActivity extends AppCompatActivity {
         Intent intent = new Intent(MessageActivity.this, Chat.class);
         intent.putExtra("user", who);
         startActivity(intent);
+        finish();
     }
 }
