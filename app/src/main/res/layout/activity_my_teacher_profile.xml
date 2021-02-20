@@ -39,18 +39,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
-
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/dp_upload"
             android:layout_width="100sp"
@@ -238,8 +226,6 @@
             android:textAlignment="center"
             android:textColor="@color/blue_sweet"
             android:textSize="20sp" />
-        </LinearLayout>
-        </ScrollView>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
