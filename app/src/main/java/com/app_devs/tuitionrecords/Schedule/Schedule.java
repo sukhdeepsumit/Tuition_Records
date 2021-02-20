@@ -171,9 +171,11 @@ public class Schedule extends AppCompatActivity implements AdapterView.OnItemSel
 
             if (check_user.equals("teacher")) {
                 startActivity(new Intent(Schedule.this, ShowTeacherActivity.class));
+                finish();
             }
             else {
                 startActivity(new Intent(Schedule.this, ShowStudentActivity.class));
+                finish();
             }
             finish();
         });

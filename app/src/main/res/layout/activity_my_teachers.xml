@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="My Teachers"
         app:titleTextColor="#FFF" />
+
     <include
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         layout="@layout/connectivity_layout" />
@@ -28,6 +29,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="56sp"
         app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/teachers_show_card"
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

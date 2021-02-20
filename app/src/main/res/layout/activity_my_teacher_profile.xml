@@ -21,212 +21,220 @@
         app:layout_constraintVertical_bias="0.0"
         app:title="Profile"
         app:titleTextColor="#fff" />
+
     <include
         android:layout_width="match_parent"
         android:layout_height="300sp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         layout="@layout/connectivity_layout" />
 
-    <LinearLayout
-        android:id="@+id/main_layout"
-        android:layout_width="367sp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="142sp"
-        android:background="@drawable/layout_bg"
-        android:elevation="25sp"
+    <ScrollView
+        android:layout_width="0sp"
+        android:layout_height="0sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/dp_upload"
-            android:layout_width="100sp"
-            android:layout_height="100sp"
-            android:layout_gravity="center"
-            android:layout_marginTop="25sp"
-            android:src="@drawable/anonymous_user" />
-
-        <RelativeLayout
-            android:id="@+id/name_layout"
+        <LinearLayout
+            android:id="@+id/main_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30sp">
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/layout_bg"
+            android:elevation="25sp"
+            android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_name"
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:src="@drawable/name"
-                android:layout_marginStart="10sp"
-                android:layout_centerVertical="true"
-                />
+                android:id="@+id/dp_upload"
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="25sp"
+                android:src="@drawable/anonymous_user" />
+
+            <RelativeLayout
+                android:id="@+id/name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp">
+
+                <TextView
+                    android:id="@+id/name_get"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_toEndOf="@+id/image_name"
+                    android:text="Name"
+                    android:textSize="18sp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_name"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10sp"
+                    android:src="@drawable/name" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/email_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp">
+
+                <TextView
+                    android:id="@+id/email_get"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_toEndOf="@+id/image_email"
+                    android:text="Email"
+                    android:textSize="18sp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_email"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10sp"
+                    android:src="@drawable/email" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/gender_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp">
+
+                <TextView
+                    android:id="@+id/gender_get"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_toEndOf="@+id/image_gender"
+                    android:text="Gender"
+                    android:textSize="18sp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_gender"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_marginStart="10sp"
+                    android:src="@drawable/gender" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp">
+
+                <TextView
+                    android:id="@+id/city_state_get"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_toEndOf="@+id/image_location"
+                    android:text="Location"
+                    android:textSize="18sp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_location"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_marginStart="10sp"
+                    android:src="@drawable/location" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp">
+
+                <TextView
+                    android:id="@+id/subject_get"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_toEndOf="@+id/image_subject"
+                    android:text="Subject"
+                    android:textSize="18sp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_subject"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_marginStart="10sp"
+                    android:src="@drawable/subject" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp">
+
+                <TextView
+                    android:id="@+id/standard_get"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_toEndOf="@+id/image_standard"
+                    android:text="Standard"
+                    android:textSize="18sp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_standard"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_marginStart="10sp"
+                    android:src="@drawable/standard" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:layout_marginBottom="30sp">
+
+                <TextView
+                    android:id="@+id/about_get"
+                    android:layout_width="180sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_toEndOf="@+id/image_about"
+                    android:text="About"
+                    android:textSize="18sp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_about"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_marginStart="10sp"
+                    android:src="@drawable/about" />
+
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/name_get"
+                android:id="@+id/batch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/image_name"
-                android:text="Name"
-                android:layout_marginStart="10sp"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/email_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15sp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_email"
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:src="@drawable/email"
-                android:layout_marginStart="10sp"
-                android:layout_centerVertical="true"
-                />
-
-            <TextView
-                android:id="@+id/email_get"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/image_email"
-                android:layout_marginStart="10sp"
-                android:text="Email"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/gender_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15sp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_gender"
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:layout_marginStart="10sp"
-                android:src="@drawable/gender"/>
-
-            <TextView
-                android:id="@+id/gender_get"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:layout_toEndOf="@+id/image_gender"
-                android:text="Gender"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15sp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_location"
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:layout_marginStart="10sp"
-                android:src="@drawable/location"/>
-
-            <TextView
-                android:id="@+id/city_state_get"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:layout_toEndOf="@+id/image_location"
-                android:text="Location"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15sp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_subject"
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:layout_marginStart="10sp"
-                android:src="@drawable/subject"/>
-
-            <TextView
-                android:id="@+id/subject_get"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:layout_toEndOf="@+id/image_subject"
-                android:text="Subject"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15sp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_standard"
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:layout_marginStart="10sp"
-                android:src="@drawable/standard"/>
-
-            <TextView
-                android:id="@+id/standard_get"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:layout_toEndOf="@+id/image_standard"
-                android:text="Standard"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30sp"
-            android:layout_marginTop="15sp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_about"
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:layout_marginStart="10sp"
-                android:src="@drawable/about"/>
-
-            <TextView
-                android:id="@+id/about_get"
-                android:layout_width="180sp"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/image_about"
-                android:layout_marginStart="10sp"
-                android:text="About"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/batch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="25sp"
-            android:text="Batch No."
-            android:textAlignment="center"
-            android:textColor="@color/blue_sweet"
-            android:textSize="20sp" />
-    </LinearLayout>
+                android:layout_gravity="center"
+                android:layout_marginBottom="25sp"
+                android:text="Batch No."
+                android:textAlignment="center"
+                android:textColor="@color/blue_sweet"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
