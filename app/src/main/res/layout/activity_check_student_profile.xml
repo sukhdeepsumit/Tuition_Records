@@ -23,15 +23,15 @@
         app:titleTextColor="#fff" />
     <include
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="300sp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         layout="@layout/connectivity_layout" />
 
     <LinearLayout
         android:id="@+id/main_layout"
-        android:layout_width="367dp"
+        android:layout_width="367sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="122dp"
+        android:layout_marginTop="122sp"
         android:background="@drawable/layout_bg"
         android:elevation="25sp"
         android:orientation="vertical"
@@ -41,10 +41,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/dp_upload"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
             android:layout_gravity="center"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="25sp"
             android:src="@drawable/anonymous_user" />
 
         <TextView
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="25sp"
             android:text="Name"
             android:textSize="20sp" />
 
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="10sp"
             android:text="Email"
             android:textSize="20sp" />
 
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="10sp"
             android:text="Gender"
             android:textSize="20sp" />
 
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="10sp"
             android:text="Location"
             android:textSize="20sp" />
 
@@ -88,16 +88,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="10sp"
             android:text="Standard"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/about_get"
-            android:layout_width="180dp"
+            android:layout_width="180sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="10sp"
             android:text="About"
             android:textAlignment="center"
             android:textSize="20sp" />
@@ -105,17 +105,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_margin="15sp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/reject"
-                android:layout_width="150dp"
+                android:layout_width="150sp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="10sp"
                 android:background="@drawable/reject_button_bg"
-                android:elevation="8dp"
+                android:elevation="8sp"
                 android:text="REJECT"
                 android:textColor="#FFF"
                 android:textSize="18sp"
@@ -123,11 +123,11 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/accept"
-                android:layout_width="150dp"
+                android:layout_width="150sp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/accept_button_bg"
-                android:elevation="8dp"
+                android:elevation="8sp"
                 android:text="ACCEPT"
                 android:textColor="#FFF"
                 android:textSize="18sp"
@@ -140,7 +140,7 @@
         android:id="@+id/progress_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -22,19 +22,21 @@
 
     <RelativeLayout
         android:id="@+id/contact_email"
-        android:layout_width="322dp"
-        android:layout_height="77dp"
-        android:layout_marginTop="176dp"
+        android:layout_width="match_parent"
+        android:layout_height="77sp"
+        android:layout_marginTop="176sp"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp"
         android:background="@drawable/layout_bg"
-        android:elevation="20dp"
+        android:elevation="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <ImageView
             android:id="@+id/contact_us_here"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20sp"
             app:srcCompat="@drawable/ic_mail" />
@@ -44,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="15sp"
             android:layout_toEndOf="@+id/contact_us_here"
             android:text="Email us here !"
             android:textColor="#000"
@@ -54,19 +56,21 @@
 
     <RelativeLayout
         android:id="@+id/feedback_contact"
-        android:layout_width="322dp"
-        android:layout_height="77dp"
-        android:layout_marginBottom="284dp"
+        android:layout_width="match_parent"
+        android:layout_height="77sp"
+        android:layout_marginBottom="324sp"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp"
         android:background="@drawable/layout_bg"
-        android:elevation="20dp"
+        android:elevation="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/feedback"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20sp"
             app:srcCompat="@drawable/ic_feedback" />
@@ -76,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="15sp"
             android:layout_toEndOf="@+id/feedback"
             android:text="Write Feedback !"
             android:textColor="#000"

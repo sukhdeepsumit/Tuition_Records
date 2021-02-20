@@ -4,15 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="20dp"
-    android:paddingTop="10dp"
+    android:paddingBottom="20sp"
+    android:paddingTop="10sp"
     android:orientation="vertical">
 
     <RadioGroup
         android:id="@+id/sort"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp"
+        android:layout_margin="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
 
@@ -21,7 +21,7 @@
             android:background="@drawable/layout_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="15sp"
             android:text="A - Z" />
 
         <RadioButton
@@ -29,7 +29,7 @@
             android:background="@drawable/layout_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="15sp"
             android:text="Your City" />
 
         <RadioButton
@@ -37,7 +37,7 @@
             android:background="@drawable/layout_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="15sp"
             android:text="Your State" />
 
     </RadioGroup>

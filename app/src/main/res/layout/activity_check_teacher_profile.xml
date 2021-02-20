@@ -23,14 +23,14 @@
         app:titleTextColor="#fff" />
     <include
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="300sp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         layout="@layout/connectivity_layout" />
     <LinearLayout
         android:id="@+id/main_layout"
-        android:layout_width="367dp"
+        android:layout_width="367sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="142dp"
+        android:layout_marginTop="142sp"
         android:background="@drawable/layout_bg"
         android:elevation="25sp"
         android:orientation="vertical"
@@ -40,10 +40,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/dp_upload"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
             android:layout_gravity="center"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="25sp"
             android:src="@drawable/anonymous_user" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="25sp"
             android:text="Name"
             android:textSize="20sp" />
 
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Email"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="10sp"
             android:textSize="20sp" />
 
         <TextView
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Gender"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="10sp"
             android:textSize="20sp" />
 
         <TextView
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Location"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="10sp"
             android:textSize="20sp" />
 
         <TextView
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Subject"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="10sp"
             android:textSize="20sp" />
 
         <TextView
@@ -97,23 +97,23 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Standard"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="10sp"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/about_get"
-            android:layout_width="180dp"
+            android:layout_width="180sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="20sp"
             android:text="About"
             android:textAlignment="center"
             android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/send_request"
-            android:layout_width="150dp"
+            android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:text="Send Request"
             android:background="@drawable/accept_button_bg"
@@ -121,7 +121,7 @@
             android:textStyle="bold"
             android:enabled="true"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20sp" />
 
     </LinearLayout>
 
@@ -129,7 +129,7 @@
         android:id="@+id/progress_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

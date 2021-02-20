@@ -7,7 +7,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/heading"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="50sp"
         android:text="Update Control Panel"
         android:background="@color/blue_sweet"
         android:textSize="25sp"
@@ -19,10 +19,10 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_below="@id/heading"
         android:layout_width="match_parent"
-        android:elevation="20dp"
+        android:elevation="20sp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_margin="10sp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text"
@@ -35,16 +35,16 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/update"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="50sp"
         android:text="UPDATE"
         android:layout_below="@+id/edit_text"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginStart="25sp"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="15sp"
         android:textColor="#FFF"
         android:textStyle="bold"
         android:textSize="18sp"
         android:background="@drawable/accept_button_bg"
-        android:layout_marginEnd="25dp" />
+        android:layout_marginEnd="25sp" />
 
 </RelativeLayout>

@@ -17,17 +17,17 @@
 
     <include
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="300sp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         layout="@layout/connectivity_layout" />
 
     <LinearLayout
         android:id="@+id/main_layout"
-        android:layout_width="349dp"
+        android:layout_width="349sp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="180sp"
-        android:elevation="25dp"
+        android:elevation="25sp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50sp"
         android:background="@drawable/layout_bg"
@@ -39,19 +39,19 @@
         app:layout_constraintVertical_bias="0.746">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="80sp"
+            android:layout_height="80sp"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="15sp"
             android:src="@drawable/forgot_reset"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/username"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="300dp"
+            android:layout_width="300sp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_margin="10sp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email_reset"
@@ -65,11 +65,11 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/reset"
-            android:layout_width="272dp"
-            android:layout_height="62dp"
+            android:layout_width="272sp"
+            android:layout_height="62sp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginTop="20sp"
+            android:layout_marginBottom="25sp"
             android:text="RESET"
             android:textStyle="bold"
             android:background="@drawable/button_bg"
@@ -80,9 +80,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginStart="25sp"
+            android:layout_marginEnd="25sp"
+            android:layout_marginBottom="25sp"
             android:textColor="#758283"
             android:text="By clicking RESET, you will receive a link in your email to reset your password" />
 

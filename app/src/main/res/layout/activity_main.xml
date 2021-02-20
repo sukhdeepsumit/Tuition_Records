@@ -14,21 +14,22 @@
         android:id="@+id/teacher_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="304dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:padding="10dp"
-        android:elevation="10dp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginStart="20sp"
+        android:padding="10sp"
+        android:elevation="10sp"
         android:background="@drawable/main_activity_bg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/teacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="10sp"
             android:layout_toEndOf="@+id/profile_teacher"
             android:text="Teacher"
             android:textColor="#000"
@@ -37,8 +38,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_teacher"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
             android:src="@drawable/teacher" />
     </RelativeLayout>
 
@@ -46,21 +47,24 @@
         android:id="@+id/student_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="394dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:padding="10dp"
-        android:elevation="10dp"
+        android:layout_marginTop="154sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginStart="20sp"
+        android:padding="10sp"
+        android:elevation="10sp"
         android:background="@drawable/main_activity_bg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
 
         <TextView
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="10sp"
             android:layout_toEndOf="@+id/profile_student"
             android:text="Student"
             android:textColor="#000"
@@ -69,8 +73,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_student"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
             android:src="@drawable/student" />
     </RelativeLayout>
 

@@ -27,8 +27,8 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:elevation="20dp"
+        android:layout_margin="20sp"
+        android:elevation="20sp"
         xmlns:tools="http://schemas.android.com/tools"
         tools:context=".Schedule.Schedule"
         android:background="@drawable/layout_bg">
@@ -36,7 +36,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="24sp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
@@ -46,10 +46,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/batchInput"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="300dp"
+                android:layout_width="300sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:hint="Batch Number: "
                 android:gravity="center">
 
@@ -65,19 +65,19 @@
 
             <Spinner
                 android:id="@+id/day_spinner"
-                android:layout_width="300dp"
+                android:layout_width="300sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:background="@android:drawable/btn_dropdown"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/subjectInput"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="300dp"
+                android:layout_width="300sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp">
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/subject_text"
@@ -92,8 +92,8 @@
                 android:id="@+id/timingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:text="Timing: "
                 android:textSize="20sp" />
 
@@ -101,8 +101,8 @@
                 android:id="@+id/checkbox1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="09-10 AM"
                 android:textSize="18sp" />
@@ -111,8 +111,8 @@
                 android:id="@+id/checkbox2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="10-11 AM"
                 android:textSize="18sp" />
@@ -121,8 +121,8 @@
                 android:id="@+id/checkbox3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="11-12 PM"
                 android:textSize="18sp" />
@@ -131,8 +131,8 @@
                 android:id="@+id/checkbox4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="12-01 PM"
                 android:textSize="18sp" />
@@ -141,8 +141,8 @@
                 android:id="@+id/checkbox5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="01-02 PM"
                 android:textSize="18sp" />
@@ -151,8 +151,8 @@
                 android:id="@+id/checkbox6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="02-03 PM"
                 android:textSize="18sp" />
@@ -161,8 +161,8 @@
                 android:id="@+id/checkbox7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="03-04 PM"
                 android:textSize="18sp" />
@@ -171,8 +171,8 @@
                 android:id="@+id/checkbox8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="04-05 PM"
                 android:textSize="18sp" />
@@ -181,8 +181,8 @@
                 android:id="@+id/checkbox9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="05-06 PM"
                 android:textSize="18sp" />
@@ -191,8 +191,8 @@
                 android:id="@+id/checkbox10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="06-07 PM"
                 android:textSize="18sp" />
@@ -201,8 +201,8 @@
                 android:id="@+id/checkbox11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="07-08 PM"
                 android:textSize="18sp" />
@@ -211,8 +211,8 @@
                 android:id="@+id/checkbox12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="08-09 PM"
                 android:textSize="18sp" />
@@ -221,24 +221,24 @@
                 android:id="@+id/checkbox13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="30sp"
+                android:layout_marginTop="8sp"
                 android:checked="false"
                 android:text="09-10 PM"
                 android:textSize="18sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/add"
-                android:layout_width="300dp"
+                android:layout_width="300sp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/accept_button_bg"
                 android:text="Add"
                 android:textColor="#FFF"
                 android:textStyle="bold"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="15sp"
                 android:textAllCaps="false"
-                android:layout_marginBottom="35dp"
+                android:layout_marginBottom="35sp"
                 android:textSize="20sp"
                 />
         </LinearLayout>

@@ -12,7 +12,7 @@
 
     <include
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="300sp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         layout="@layout/connectivity_layout" />
 
@@ -49,8 +49,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/show_layout"
-            android:elevation="15dp"
-            android:paddingBottom="10dp"
+            android:elevation="15sp"
+            android:paddingBottom="10sp"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -60,9 +60,9 @@
                 tools:listitem="@layout/schedule_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="1sp"
                 android:background="#FAFAFA"
-                android:elevation="15dp"
+                android:elevation="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -74,30 +74,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="5dp"
-            android:elevation="20dp"
+            android:paddingBottom="5sp"
+            android:elevation="20sp"
             app:layout_constraintTop_toBottomOf="@+id/timetable"
-            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteX="16sp"
             android:baselineAligned="false">
 
             <RelativeLayout
                 android:id="@+id/myTeachers"
-                android:layout_width="180dp"
+                android:layout_width="180sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="19dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="19sp"
+                android:layout_marginTop="14sp"
                 android:layout_weight="1"
                 android:background="@drawable/layout_bg"
-                android:elevation="30dp"
+                android:elevation="30sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
                 <ImageView
                     android:id="@+id/my_students_icon"
-                    android:layout_width="140dp"
-                    android:layout_height="95dp"
+                    android:layout_width="140sp"
+                    android:layout_height="95sp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="10sp"
                     android:src="@drawable/students" />
 
                 <TextView
@@ -105,30 +105,30 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/my_students_icon"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="10sp"
                     android:text="My Teachers" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/feeStatus"
-                android:layout_width="180dp"
+                android:layout_width="180sp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginTop="14sp"
+                android:layout_marginEnd="20sp"
                 android:layout_weight="1"
                 android:background="@drawable/layout_bg"
-                android:elevation="25dp"
-                android:layout_marginStart="15dp"
+                android:elevation="25sp"
+                android:layout_marginStart="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
                 <ImageView
                     android:id="@+id/my_fee_status"
-                    android:layout_width="126dp"
-                    android:layout_height="95dp"
+                    android:layout_width="126sp"
+                    android:layout_height="95sp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="10sp"
                     android:src="@drawable/fees" />
 
                 <TextView
@@ -136,9 +136,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/my_fee_status"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="51dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="51sp"
+                    android:layout_marginBottom="10sp"
                     android:text="My Fee Status" />
             </RelativeLayout>
 
@@ -156,21 +156,21 @@
 
             <RelativeLayout
                 android:id="@+id/time_table"
-                android:layout_width="180dp"
+                android:layout_width="180sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="19dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="19sp"
+                android:layout_marginTop="14sp"
                 android:layout_weight="1"
                 android:background="@drawable/layout_bg"
-                android:elevation="30dp"
+                android:elevation="30sp"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <ImageView
                     android:id="@+id/my_batches"
-                    android:layout_width="126dp"
-                    android:layout_height="95dp"
+                    android:layout_width="126sp"
+                    android:layout_height="95sp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="10sp"
                     android:src="@drawable/batches" />
 
                 <TextView
@@ -178,31 +178,31 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/my_batches"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="51dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="51sp"
+                    android:layout_marginBottom="10sp"
                     android:text="My TimeTable" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/chat"
-                android:layout_width="180dp"
+                android:layout_width="180sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="20sp"
                 android:layout_weight="1"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="14sp"
                 android:background="@drawable/layout_bg"
-                android:elevation="25dp"
+                android:elevation="25sp"
                 app:layout_constraintStart_toStartOf="parent"
                 >
                 <ImageView
                     android:id="@+id/my_chat"
-                    android:layout_width="126dp"
-                    android:layout_height="95dp"
+                    android:layout_width="126sp"
+                    android:layout_height="95sp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="10sp"
                     android:src="@drawable/chat_icon" />
 
                 <TextView
@@ -210,9 +210,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/my_chat"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="51dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="51sp"
+                    android:layout_marginBottom="10sp"
                     android:text="My Chats" />
 
             </RelativeLayout>
@@ -221,9 +221,9 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add"
-            android:layout_width="61dp"
-            android:layout_height="58dp"
-            android:layout_marginBottom="28dp"
+            android:layout_width="61sp"
+            android:layout_height="58sp"
+            android:layout_marginBottom="28sp"
             android:src="@drawable/ic_add_teacher"
             app:tint="#FFF"
             android:clickable="true"

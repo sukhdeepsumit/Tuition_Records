@@ -26,46 +26,46 @@
 
         <RelativeLayout
             android:id="@+id/monday"
-            android:layout_width="180dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="180sp"
+            android:layout_height="100sp"
+            android:layout_marginStart="19sp"
+            android:layout_marginTop="24sp"
             android:layout_weight="1"
             android:background="@drawable/layout_bg"
-            android:elevation="30dp"
+            android:elevation="30sp"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="70sp"
+                android:layout_height="70sp"
                 android:src="@drawable/monday"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"/>
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"/>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/tuesday"
-            android:layout_width="180dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="180sp"
+            android:layout_height="100sp"
+            android:layout_marginStart="19sp"
+            android:layout_marginTop="24sp"
             android:layout_weight="1"
             android:background="@drawable/layout_bg"
-            android:elevation="30dp"
-            android:layout_marginEnd="19dp"
+            android:elevation="30sp"
+            android:layout_marginEnd="19sp"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="70sp"
+                android:layout_height="70sp"
                 android:src="@drawable/tuesday"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"/>
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"/>
 
         </RelativeLayout>
 
@@ -80,46 +80,46 @@
 
         <RelativeLayout
             android:id="@+id/wednesday"
-            android:layout_width="180dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="180sp"
+            android:layout_height="100sp"
+            android:layout_marginStart="19sp"
+            android:layout_marginTop="24sp"
             android:layout_weight="1"
             android:background="@drawable/layout_bg"
-            android:elevation="30dp"
+            android:elevation="30sp"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="70sp"
+                android:layout_height="70sp"
                 android:src="@drawable/wednesday"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"/>
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"/>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/thursday"
-            android:layout_width="180dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="180sp"
+            android:layout_height="100sp"
+            android:layout_marginStart="19sp"
+            android:layout_marginTop="24sp"
             android:layout_weight="1"
             android:background="@drawable/layout_bg"
-            android:elevation="30dp"
-            android:layout_marginEnd="19dp"
+            android:elevation="30sp"
+            android:layout_marginEnd="19sp"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="70sp"
+                android:layout_height="70sp"
                 android:src="@drawable/thursday"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"/>
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"/>
 
         </RelativeLayout>
 
@@ -134,46 +134,46 @@
 
         <RelativeLayout
             android:id="@+id/friday"
-            android:layout_width="180dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="180sp"
+            android:layout_height="100sp"
+            android:layout_marginStart="19sp"
+            android:layout_marginTop="24sp"
             android:layout_weight="1"
             android:background="@drawable/layout_bg"
-            android:elevation="30dp"
+            android:elevation="30sp"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="70sp"
+                android:layout_height="70sp"
                 android:src="@drawable/friday"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"/>
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"/>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/saturday"
-            android:layout_width="180dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="180sp"
+            android:layout_height="100sp"
+            android:layout_marginStart="19sp"
+            android:layout_marginTop="24sp"
             android:layout_weight="1"
             android:background="@drawable/layout_bg"
-            android:elevation="30dp"
-            android:layout_marginEnd="19dp"
+            android:elevation="30sp"
+            android:layout_marginEnd="19sp"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="70sp"
+                android:layout_height="70sp"
                 android:src="@drawable/saturday"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"/>
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"/>
 
         </RelativeLayout>
 
@@ -188,24 +188,24 @@
 
         <RelativeLayout
             android:id="@+id/sunday"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="0sp"
+            android:layout_height="100sp"
+            android:layout_marginStart="19sp"
+            android:layout_marginTop="24sp"
             android:layout_weight="1"
             android:background="@drawable/layout_bg"
-            android:elevation="30dp"
-            android:layout_marginEnd="19dp"
+            android:elevation="30sp"
+            android:layout_marginEnd="19sp"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="70dp"
+                android:layout_width="100sp"
+                android:layout_height="70sp"
                 android:src="@drawable/sunday"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"/>
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"/>
 
         </RelativeLayout>
 

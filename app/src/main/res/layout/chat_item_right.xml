@@ -2,19 +2,19 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
-    android:padding="8dp"
+    android:padding="8sp"
     android:id="@+id/messageLayout"
     android:layout_width="match_parent">
 
     <RelativeLayout
-        android:layout_width="300dp"
+        android:layout_width="300sp"
         android:layout_alignParentEnd="true"
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
             android:visibility="gone"
             android:src="@mipmap/ic_launcher" />
 
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_right"
             android:layout_alignParentEnd="true"
-            android:padding="8dp"
+            android:padding="8sp"
             android:textColor="#FFF"
             android:textSize="18sp"
             android:text="hello" />

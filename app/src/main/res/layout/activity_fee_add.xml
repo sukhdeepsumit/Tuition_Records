@@ -16,7 +16,7 @@
         app:titleTextColor="#FFF" />
     <include
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="300sp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         layout="@layout/connectivity_layout" />
 
@@ -24,10 +24,10 @@
         android:id="@+id/main_layout"
         android:background="@drawable/layout_bg"
         android:layout_width="match_parent"
-        android:layout_height="290dp"
+        android:layout_height="290sp"
         android:orientation="vertical"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16sp"
+        android:layout_marginEnd="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -37,15 +37,15 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="300dp"
+            android:layout_width="300sp"
             android:layout_gravity="left"
             android:layout_height="wrap_content"
 
-            android:layout_margin="10dp">
+            android:layout_margin="10sp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/amount_text"
-                android:layout_width="200dp"
+                android:layout_width="200sp"
                 android:layout_height="wrap_content"
                 android:hint="Enter the amount"
                 android:inputType="number"
@@ -60,14 +60,14 @@
             >
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="200dp"
+            android:layout_width="200sp"
             android:layout_gravity="left"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_margin="10sp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/date"
-                android:layout_width="200dp"
+                android:layout_width="200sp"
                 android:layout_height="wrap_content"
                 android:hint="Payment Date: "
                 android:textSize="15sp" />
@@ -85,13 +85,13 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addButton"
-            android:layout_width="200dp"
-            android:layout_height="62dp"
+            android:layout_width="200sp"
+            android:layout_height="62sp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="20sp"
             android:text="Add to records"
             android:textStyle="bold"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="3sp"
             android:background="@drawable/button_bg"
             android:shadowRadius="@android:integer/config_longAnimTime"
             android:textColor="#fff"

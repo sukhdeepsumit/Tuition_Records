@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="0sp"
             tools:listitem="@layout/send_request_card" />
 
     </RelativeLayout>
@@ -48,24 +48,24 @@
         <LinearLayout
             android:id="@+id/filter"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="50sp"
             android:layout_weight="1"
             android:background="@color/blue_sweet"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="50sp"
                 android:src="@drawable/filter" />
 
             <TextView
                 android:id="@+id/filterText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="2dp"
+                android:layout_marginTop="5sp"
+                android:layout_marginStart="2sp"
                 android:text="Filter"
                 android:textColor="#fff"
                 android:layout_gravity="center_vertical"
@@ -75,25 +75,25 @@
         <LinearLayout
             android:id="@+id/sort"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="1dp"
+            android:layout_height="50sp"
+            android:layout_marginStart="1sp"
             android:layout_weight="1"
             android:background="@color/blue_sweet"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
                 android:layout_gravity="center"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="50sp"
                 android:src="@drawable/ic_sort" />
 
             <TextView
                 android:id="@+id/back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="2dp"
+                android:layout_marginTop="5sp"
+                android:layout_marginStart="2sp"
                 android:text="Sort"
                 android:layout_gravity="center_vertical"
                 android:textColor="#fff"
