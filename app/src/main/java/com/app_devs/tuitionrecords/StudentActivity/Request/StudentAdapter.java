@@ -50,16 +50,14 @@ public class StudentAdapter extends FirebaseRecyclerAdapter<TeacherShowModel, St
         List<String> list = new LinkedList<>();
 
         CollectionUtils.addIgnoreNull(list, model.getName());
-        CollectionUtils.addIgnoreNull(list, model.getAbout());
         CollectionUtils.addIgnoreNull(list, model.getMyUri());
 
         Log.i("EMPTY_LIST", String.valueOf(list.isEmpty()));
 
         if (!list.isEmpty()) {
             holder.name.setText(list.get(0));
-            holder.about.setText(list.get(1));
 
-            if (list.get(2).equals("default")) {
+            if (list.get(1).equals("default")) {
                 Log.i("INSIDE_IT", "yes");
                 holder.profilePic.setImageResource(R.drawable.anonymous_user);
             }
