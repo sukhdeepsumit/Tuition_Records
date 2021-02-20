@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -73,14 +74,27 @@ public class FeeAdd extends AppCompatActivity implements DatePickerDialog.OnDate
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(TextUtils.isEmpty(amount.getText().toString()))
+                {
+                    amount.setError("Can't be empty");
+                    amount.requestFocus();
+                }
 
-                FeeHistoryModel feeHistoryModel=new FeeHistoryModel("Rs. "+amount.getText().toString(),dateInput.getText().toString());
-                reference.child(student_uid).push().setValue(feeHistoryModel);
-                Toast.makeText(FeeAdd.this, "Record added", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(FeeAdd.this,FeeHistory.class);
-                intent.putExtra("student_uid",student_uid);
-                startActivity(intent);
-                finish();
+                else if(TextUtils.isEmpty(dateInput.getText().toString()))
+                {
+                    dateInput.setError("Can't be empty");
+                    dateInput.requestFocus();
+                }
+                else {
+
+                    FeeHistoryModel feeHistoryModel = new FeeHistoryModel("Rs. " + amount.getText().toString(), dateInput.getText().toString());
+                    reference.child(student_uid).push().setValue(feeHistoryModel);
+                    Toast.makeText(FeeAdd.this, "Record added", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FeeAdd.this, FeeHistory.class);
+                    intent.putExtra("student_uid", student_uid);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 

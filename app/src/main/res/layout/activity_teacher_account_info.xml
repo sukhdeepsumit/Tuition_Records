@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    >
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="#FFF"
     tools:context=".TeacherActivity.TeacherAccountInfo">
 
@@ -29,9 +36,11 @@
 
     <LinearLayout
         android:id="@+id/main_layout"
-        android:layout_width="367sp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="142sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
         android:background="@drawable/layout_bg"
         android:elevation="25sp"
         android:orientation="vertical"
@@ -49,20 +58,25 @@
                 android:id="@+id/dp_upload"
                 android:layout_width="100sp"
                 android:layout_height="100sp"
-                android:layout_marginEnd="134sp"
+
+
                 android:src="@drawable/anonymous_user"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/photo_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="134sp"
-                android:layout_toEndOf="@+id/sp_upload"
+                android:layout_toEndOf="@+id/dp_upload"
                 android:src="@drawable/ic_camera"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.603"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -319,3 +333,4 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
+</ScrollView>
