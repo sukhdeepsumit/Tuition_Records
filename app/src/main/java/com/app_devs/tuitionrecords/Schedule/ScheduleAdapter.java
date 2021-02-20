@@ -47,6 +47,9 @@ public class ScheduleAdapter extends FirebaseRecyclerAdapter<ScheduleModel, Sche
 
         Date date = Calendar.getInstance().getTime();
         String time = String.valueOf(date);
+
+        Log.i("TIME_CURRENT_CHECK", time);
+
         int current = Integer.parseInt(time.substring(11,13));
 
         int first = Integer.parseInt(hour.substring(0,2));
@@ -60,6 +63,7 @@ public class ScheduleAdapter extends FirebaseRecyclerAdapter<ScheduleModel, Sche
                 last += 12;
             }
         }
+
         statusColor(holder, first, last, current);
     }
 
@@ -68,7 +72,7 @@ public class ScheduleAdapter extends FirebaseRecyclerAdapter<ScheduleModel, Sche
             holder.status.setText("Upcoming");
             holder.status.setTextColor(Color.parseColor("#6EC72D"));
         }
-        else if (last < current) {
+        else if (last <= current) {
             holder.status.setText("Completed");
             holder.status.setTextColor(Color.parseColor("#E6425E"));
         }
