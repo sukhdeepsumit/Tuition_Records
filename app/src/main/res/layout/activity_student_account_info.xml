@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
-
-<androidx.constraintlayout.widget.ConstraintLayout
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FFF"
+    android:orientation="vertical"
     tools:context=".StudentActivity.StudentAccountInfo">
 
     <androidx.appcompat.widget.Toolbar
@@ -28,6 +22,7 @@
         app:layout_constraintVertical_bias="0.0"
         app:title="My Profile!"
         app:titleTextColor="#fff" />
+
     <include
         android:layout_width="match_parent"
         android:layout_height="300sp"
@@ -35,15 +30,13 @@
         layout="@layout/connectivity_layout" />
 
     <ScrollView
-        android:layout_width="0sp"
-        android:layout_height="0sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginTop="30sp"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        android:layout_gravity="center_vertical">
 
         <LinearLayout
             android:id="@+id/main_layout"
@@ -301,6 +294,4 @@
         </LinearLayout>
     </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+</LinearLayout>
