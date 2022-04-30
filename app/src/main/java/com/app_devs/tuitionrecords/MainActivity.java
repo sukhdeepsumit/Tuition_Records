@@ -21,7 +21,7 @@ import com.app_devs.tuitionrecords.TeacherActivity.Authentication.LogInTeacherAc
 import com.app_devs.tuitionrecords.TeacherActivity.ShowTeacherActivity;
 
 
-// Commit check check check check mkc mkc again
+// Commit check check check check mkc mkc againn
 public class MainActivity extends AppCompatActivity {
 
     RelativeLayout teacher, student, checkInternet;
