@@ -22,14 +22,16 @@
             android:orientation="vertical"
             tools:context=".StudentActivity.Authentication.SignUpStudentActivity">
 
+            <include layout="@layout/toolbar" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_image"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/dpUpload"
                     android:layout_width="100sp"
                     android:layout_height="100sp"
@@ -40,10 +42,15 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-                <!--<ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:src="@drawable/camera"/>-->
+
+                <ImageView
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:src="@drawable/camera"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -236,18 +243,24 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/signUpButton"
                 android:layout_width="match_parent"
-                android:layout_height="62sp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="20sp"
                 android:layout_marginTop="20sp"
                 android:layout_marginEnd="20sp"
                 android:layout_marginBottom="3sp"
-                android:background="@drawable/button_bg"
+                app:cornerRadius="@dimen/_10sdp"
+                android:textAllCaps="false"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:fontFamily="@font/public_sans_regular"
+                android:background="@drawable/rounded_button"
                 android:shadowRadius="@android:integer/config_longAnimTime"
                 android:text="Sign Up"
                 android:textColor="#fff"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                android:focusable="true" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

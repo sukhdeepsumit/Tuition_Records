@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Practice/TuitionRecords/app/src/main/res/drawable/camera.xml" value="0.108" />
         <entry key="..\:/Android Practice/TuitionRecords/app/src/main/res/drawable/gradient_bg.xml" value="0.108" />
-        <entry key="..\:/Android Practice/TuitionRecords/app/src/main/res/layout/activity_sign_up_student.xml" value="0.33" />
+        <entry key="..\:/Android Practice/TuitionRecords/app/src/main/res/drawable/rounded_button.xml" value="0.108" />
+        <entry key="..\:/Android Practice/TuitionRecords/app/src/main/res/layout/activity_sign_up_student.xml" value="0.25" />
         <entry key="..\:/Android Practice/TuitionRecords/app/src/main/res/layout/activity_sign_up_teacher.xml" value="0.25" />
         <entry key="..\:/Android Practice/TuitionRecords/app/src/main/res/layout/activity_welcome_screen.xml" value="0.22" />
         <entry key="..\:/Android Practice/TuitionRecords/app/src/main/res/layout/toolbar.xml" value="0.18229166666666666" />
