@@ -52,8 +52,6 @@ public class StudentAdapter extends FirebaseRecyclerAdapter<TeacherShowModel, St
         CollectionUtils.addIgnoreNull(list, model.getName());
         CollectionUtils.addIgnoreNull(list, model.getMyUri());
 
-        Log.i("EMPTY_LIST", String.valueOf(list.isEmpty()));
-
         if (!list.isEmpty()) {
             holder.name.setText(list.get(0));
 

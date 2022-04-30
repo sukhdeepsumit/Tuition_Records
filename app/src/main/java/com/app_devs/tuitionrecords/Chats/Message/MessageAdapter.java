@@ -56,7 +56,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
         else {
             view = LayoutInflater.from(myContext).inflate(R.layout.chat_item_right, parent, false);
-
         }
 
         return new ViewHolder(view);

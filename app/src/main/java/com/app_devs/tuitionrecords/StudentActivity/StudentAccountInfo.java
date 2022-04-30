@@ -282,12 +282,9 @@ public class StudentAccountInfo extends AppCompatActivity {
 
             }
             else {
-                FirebaseDatabase.getInstance().getReference("Students_Profile").child(uid).child(check).setValue(result).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getApplicationContext(),"Record Updated",Toast.LENGTH_SHORT).show();
-                        //map.put(check,result);
-                    }
+                FirebaseDatabase.getInstance().getReference("Students_Profile").child(uid).child(check).setValue(result).addOnCompleteListener(task -> {
+                    Toast.makeText(getApplicationContext(),"Record Updated",Toast.LENGTH_SHORT).show();
+                    //map.put(check,result);
                 });
 
             }
